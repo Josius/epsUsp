@@ -31,9 +31,10 @@ class Map {
 				for(int j = 0; j < nCol; j++){
 
 					map[i][j] = line.charAt(j);
-
+//					System.out.print(map[i][j]);
 					if(free(i, j)) size++;
 				}
+//				System.out.println();
 			}
 
 			nItems = scanner.nextInt();

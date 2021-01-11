@@ -18,7 +18,7 @@ public class EP2 {
 		// path[3] = linha da 2.a coordenada que faz parte do caminho
 		// path[4] = coluna da 2.a coordenada que faz parte do caminho
 		// ... etc
-
+//nºs ímpares-linhas - nºs pares-colunas
 		int [] path;  
 		int path_index;
 
@@ -39,7 +39,8 @@ public class EP2 {
 			map.print(); 
 			System.out.println("---------------------------------------------------------------");
 		}
-		
+
+//CASO BASE - PROVAVELMENTE HÁ MAIS DE UM CASO BASE, COMO SE NÃO HOUVER SAIDA OU SE HOUVER SOMENTE PAREDES NO MAPA		
 		while(!map.finished(lin, col)){
 
 			if(lin - 1 >= 0 && map.free(lin - 1, col)){			// cima
