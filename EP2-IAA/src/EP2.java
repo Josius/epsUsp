@@ -40,7 +40,7 @@ public class EP2 {
 			System.out.println("---------------------------------------------------------------");
 		}
 
-//CASO BASE - PROVAVELMENTE HÁ MAIS DE UM CASO BASE, COMO SE NÃO HOUVER SAIDA OU SE HOUVER SOMENTE PAREDES NO MAPA		
+//CASO BASE - PROVAVELMENTE Ha MAIS DE UM CASO BASE, COMO SE NÃO HOUVER SAIDA OU SE HOUVER SOMENTE PAREDES NO MAPA		
 		while(!map.finished(lin, col)){
 
 			if(lin - 1 >= 0 && map.free(lin - 1, col)){			// cima
@@ -113,6 +113,7 @@ public class EP2 {
 
 		// Estamos ignorando os itens que são coletados no caminho. Isso precisa ser modificado para a versão final.
 		System.out.println("0 0 0");
+		map.print();
 	}
 
 	public static void main(String [] args) throws IOException {

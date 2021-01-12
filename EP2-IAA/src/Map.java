@@ -135,4 +135,10 @@ class Map {
 
 		return null;
 	}
+	
+	//metodos criados
+	public void step2(int lin, int col){
+
+		map[lin][col] = 'F';
+	}
 }

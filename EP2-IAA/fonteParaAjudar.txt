@@ -1,0 +1,5 @@
+https://www.geeksforgeeks.org/backtracking-algorithms/
+
+http://www.each.usp.br/digiampietri/ACH2002/notasdeaula/8-tentativaEErro.pdf
+
+https://www.codeflow.site/pt/article/java-solve-maze
