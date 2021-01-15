@@ -128,5 +128,19 @@ public class EP2 {
 		int criteria = Integer.parseInt(args[1]);
 		int [] path = findPath(map, criteria);
 		printSolution(map, path);
+
+// Com map1.txt
+		System.out.println("blocked: " + map.blocked(6, 0));// false
+		System.out.println("blocked: " + map.blocked(5, 0));// false
+		System.out.println("blocked: " + map.blocked(5, 1));// true
+		System.out.println("free: " + map.free(6, 0));// true
+		System.out.println("free: " + map.free(5, 0));// true
+		System.out.println("free: " + map.free(5, 1));// false
+		System.out.println("cellVisited: " + map.celulaVisitada(6, 0));// false
+		System.out.println("cellVisited: " + map.celulaVisitada(5, 0));// false
+		System.out.println("cellVisited: " + map.celulaVisitada(5, 1));// false
+		System.out.println("cellVisited: " + map.celulaVisitada(6, 1));// false
+		System.out.println("cellVisited: " + map.celulaVisitada(6, 2));// true
+		System.out.println("cellVisited: " + map.celulaVisitada(5, 2));// true
 	}
 }

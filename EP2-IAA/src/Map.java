@@ -7,8 +7,17 @@ class Map {
 
 	private char [][] map;
 	private Item [] items;
-	private int nLin, nCol, nItems, startLin, startCol, endLin, endCol, size;
-
+	private int nLin, nCol, nItems, startLin, startCol, endLin, endCol, size;// size = qtde de células para andar no labirinto (excluíndo paredes)
+	public int linha, coluna;
+	
+	public Map(int lin, int col){
+		
+		linha = lin;
+		coluna = col;
+	}
+	
+	
+	
 	public Map(String fileName){
 
 		try{
@@ -136,9 +145,36 @@ class Map {
 		return null;
 	}
 	
-	//metodos criados
+//metodos criados
 	public void step2(int lin, int col){
 
 		map[lin][col] = 'F';
 	}
+	
+// Verifica se já passamos por essa célula	
+	public boolean celulaVisitada(int lin, int col){
+		
+		return map[lin][col] == '*';
+	}
+	
+// Verifica linhas/colunas para não ultrapassar os limites da matriz, além de ver se a celula da matriz é válida
+	public boolean verificaCelula(int lin, int col){
+		
+		if (lin < 0 || lin > nLines() || col < 0 || col > nColumns() || blocked(lin, col) || celulaVisitada(lin, col)){
+			return true;
+		}else 
+			return false;
+	}
+	
+// Não funcionou como esperado	
+/*
+	public static int dirHoriz(int lin, int col, int i, int j){
+		
+		return lin + i;
+	}
+	public static int dirVert(int lin, int col, int i, int j){
+		
+		return col + j;
+	}
+*/
 }

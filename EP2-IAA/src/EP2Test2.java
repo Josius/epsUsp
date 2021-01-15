@@ -2,7 +2,9 @@ import java.io.*;
 import java.util.*;
 
 public class EP2Test2 {
-	public static int[][] sentido = { { 0, 1 }, 
+	
+// Matriz de sentidos para caminhar na matriz, usar na recursividade
+	public static int[][] sentidos = { { 0, 1 }, 
 									  { 1, 0 }, 
 									  { 0, -1 }, 
 									  { -1, 0 } };
@@ -22,73 +24,50 @@ public class EP2Test2 {
 		lin = map.getStartLin();
 		col = map.getStartCol();
 		
-		// efetivação de um passo
-		map.step(lin, col);		// marcamos no mapa que a posição está sendo ocupada.
-		path[path_index] = lin;		// adicionamos as coordenadas da posição (lin, col) no path 
+		caminho(map, lin, col, path, path_index);
+		
+		return path;
+	}
+
+// Para add e guardar a caminhada no labirinto - PROVAVELMENTE NÃO ESTÁ FUNCIONANDO CORRETAMENTE, POR ISSO NÃO ESTÁ PASSANDO OS DADOS PARA O MAPA
+	private static Map proxPasso(int lin, int col, int i, int j){
+		
+		return new Map(lin + i, col + j);
+	}
+
+// Para caminhar no labirinto	
+	public static boolean caminho(Map map, int lin, int col, int[] path, int path_index){
+		
+		if(map.verificaCelula(lin, col) == true){
+			return false;
+		}
+		
+		map.step(lin, col);
+		path[path_index] = lin;
 		path[path_index + 1] = col;
 		path_index += 2;
-
-		if(DEBUG){
-
+		
+		if(DEBUG){ 
 			map.print(); 
 			System.out.println("---------------------------------------------------------------");
 		}
-
-//CASO BASE - PROVAVELMENTE Ha MAIS DE UM CASO BASE, COMO SE NÃO HOUVER SAIDA OU SE HOUVER SOMENTE PAREDES NO MAPA		
-		/*while(!map.finished(lin, col)){
-
-			if(lin - 1 >= 0 && map.free(lin - 1, col)){			// cima
+		
+		if(map.finished(lin, col)){
+			return true;
+		}
+		
+		for(int[] sentido : sentidos){
+			Map passo = proxPasso(lin, col, sentido[0], sentido[1]);
+			if(caminho(map, lin, col, path, path_index)){
 				
-				//System.out.println("UP");	
-				lin = lin - 1;
+				return true;
 			}
-			else if(col + 1 < map.nColumns() && map.free(lin, col + 1)){	// direita
-
-				//System.out.println("RIGHT");	
-				col = col + 1;
-			}
-			else if(lin + 1 < map.nLines() && map.free(lin + 1, col)){	// baixo
-
-				//System.out.println("DOWN");	
-				lin = lin + 1;
-			}
-			else if(col - 1 >= 0 && map.free(lin, col - 1)){		// esquerda
-
-				//System.out.println("LEFT");	
-				col = col - 1;
-			}
-			else{
-				//System.out.println("BREAK!");	
-				break; // não existe passo a ser dado a partir da posição atual... 
-			}
-
-			map.step(lin, col);
-			path[path_index] = lin;
-			path[path_index + 1] = col;
-			path_index += 2;
-
-			if(DEBUG){ 
-				map.print(); 
-				System.out.println("---------------------------------------------------------------");
-			}
-		}*/
-		
+		}
 		path[0] = path_index;
-		return path;
+		return true;
 	}
 	
-	public static int[] caminho(Map map, int lin, int col, int[]path, int path_index){
 	
-		if(map.finished(lin, col){
-			return path;
-		}
-		for(int i = 0; i < map.nLines(); i++){
-			for(int j = 0; j < map.nColumns(); j++){
-				caminho(map, lin);
-			}
-		}
-		
-	}
 	
 	public static void printSolution(Map map, int [] path){
 

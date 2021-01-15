@@ -41,7 +41,7 @@ Por fim, movemos recursivamente em todas as direções se a saída não for enco
 		}
 
 		path.add(new Coordinate(row, col));
-		maze.setVisited(row, col, true);
+		maze.setVisited(row, col, true); // map.step()
 
 		if (maze.isExit(row, col)) {
 			return true;
