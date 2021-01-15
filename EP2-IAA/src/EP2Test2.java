@@ -2,7 +2,10 @@ import java.io.*;
 import java.util.*;
 
 public class EP2Test2 {
-	//public static int[][] DIRECTIONS = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
+	public static int[][] sentido = { { 0, 1 }, 
+									  { 1, 0 }, 
+									  { 0, -1 }, 
+									  { -1, 0 } };
 	
 	public static final boolean DEBUG = false;
 
@@ -32,7 +35,7 @@ public class EP2Test2 {
 		}
 
 //CASO BASE - PROVAVELMENTE Ha MAIS DE UM CASO BASE, COMO SE NÃO HOUVER SAIDA OU SE HOUVER SOMENTE PAREDES NO MAPA		
-		while(!map.finished(lin, col)){
+		/*while(!map.finished(lin, col)){
 
 			if(lin - 1 >= 0 && map.free(lin - 1, col)){			// cima
 				
@@ -68,12 +71,25 @@ public class EP2Test2 {
 				map.print(); 
 				System.out.println("---------------------------------------------------------------");
 			}
-		}
+		}*/
 		
 		path[0] = path_index;
 		return path;
 	}
-
+	
+	public static int[] caminho(Map map, int lin, int col, int[]path, int path_index){
+	
+		if(map.finished(lin, col){
+			return path;
+		}
+		for(int i = 0; i < map.nLines(); i++){
+			for(int j = 0; j < map.nColumns(); j++){
+				caminho(map, lin);
+			}
+		}
+		
+	}
+	
 	public static void printSolution(Map map, int [] path){
 
 		// A partir do mapa e do path contendo a solução, imprime a saída conforme especificações do EP.
