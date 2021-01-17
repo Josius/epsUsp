@@ -89,7 +89,7 @@ public class EP2Teste {
 		
 		//System.out.println(livre(matriz, lin, col));
 		livre(matriz, lin, col);
-		
+		//
 		
 		
 		map.step(lin, col);
