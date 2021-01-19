@@ -34,7 +34,7 @@ public class EP2Test2 {
 		
 		return new Map(lin + i, col + j);
 	}
-
+	
 // Para caminhar no labirinto	
 	public static boolean caminho(Map map, int lin, int col, int[] path, int path_index){
 		
@@ -113,7 +113,7 @@ public class EP2Test2 {
 		*/
 		/*
 		não funciona
-		for(int i = 0; i < DIRECTIONS.length; i++){
+																																																												for(int i = 0; i < DIRECTIONS.length; i++){
 			for(int j = 0; j < DIRECTIONS[i].length; j++){
 				int[] direction = DIRECTIONS[i][j];
 				System.out.print(direction);

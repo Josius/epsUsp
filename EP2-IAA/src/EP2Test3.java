@@ -38,55 +38,22 @@ public class EP2Test3 {
 			path[path_index + 1] = col;
 			path_index += 2;
 			
-			lin = lin + sentidos[0][0];
-			col = col + sentidos[0][1];
-		}else{
-			System.out.println("caminho impedido");
-		} 
+			if(map.finished(lin, col)){
+				System.out.println("fim");
+			}
 				
-		map.step(lin, col);
-		path[path_index] = lin;
-		path[path_index + 1] = col;
-		path_index += 2;
-		
-		lin = lin + sentidos[0][0];
-		col = col + sentidos[0][1];
-		
-		if(!map.verificaCelula(lin, col)){ 
+			for(int[] sentido : sentidos){
+				
+				caminho(map, lin+sentido[0], col+sentido[1], path, path_index);
+			}
+		}
 			
-			System.out.println("caminho NAO impedido");
-		}else{
-			System.out.println("caminho impedido");
-		} 
-		
-		map.step(lin, col);
-		path[path_index] = lin;
-		path[path_index + 1] = col;
-		path_index += 2;
-		
-		lin = lin + sentidos[3][0];
-		col = col + sentidos[0][0];
-		
-		if(!map.verificaCelula(lin, col)){ 
-			
-			System.out.println("caminho NAO impedido");
-		}else{
-			System.out.println("caminho impedido");
-		} 
-		
-		map.step(lin, col);
-		path[path_index] = lin;
-		path[path_index + 1] = col;
-		path_index += 2;
 		
 		if(DEBUG){ 
 			map.print(); 
 			System.out.println("---------------------------------------------------------------");
 		}
 		
-		if(map.finished(lin, col)){
-			System.out.println("fim");
-		}
 	}
 	
 	
@@ -125,40 +92,7 @@ public class EP2Test3 {
 	}
 
 	public static void main(String [] args) throws IOException {
-		/*
-		for(int i = 0; i < DIRECTIONS.length; i++){
-			for(int j = 0; j < DIRECTIONS[i].length; j++){
-				System.out.print(" i: " + i + " j: " + j + " dir: " + DIRECTIONS[i][j]);
-			}	
-			System.out.println();
-		}
-		*/
-		/*
-		não funciona
-		for(int i = 0; i < DIRECTIONS.length; i++){
-			for(int j = 0; j < DIRECTIONS[i].length; j++){
-				int[] direction = DIRECTIONS[i][j];
-				System.out.print(direction);
-			}	
-			System.out.println();
-		}
 		
-		
-		int[][] DIRECTIONS = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
-		
-		for (int[] direction : DIRECTIONS) {
-			System.out.print(direction);
-		}
-		
-		System.out.println(DIRECTIONS[0][0]);
-		System.out.println(DIRECTIONS[0][1]);
-		System.out.println(DIRECTIONS[1][0]);
-		System.out.println(DIRECTIONS[1][1]);
-		System.out.println(DIRECTIONS[2][0]);
-		System.out.println(DIRECTIONS[2][1]);
-		System.out.println(DIRECTIONS[3][0]);
-		System.out.println(DIRECTIONS[3][1]);
-		*/
 		Map map = new Map(args[0]);
 
 		if(DEBUG){ 
