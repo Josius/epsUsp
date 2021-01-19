@@ -31,9 +31,18 @@ public class EP2Test3 {
 // Para caminhar no labirinto	
 	public static void caminho(Map map, int lin, int col, int[] path, int path_index){
 		
-		if(map.verificaCelula(lin, col) == true){
+		if(!map.verificaCelula(lin, col)){ 
+			
+			map.step(lin, col);
+			path[path_index] = lin;
+			path[path_index + 1] = col;
+			path_index += 2;
+			
+			lin = lin + sentidos[0][0];
+			col = col + sentidos[0][1];
+		}else{
 			System.out.println("caminho impedido");
-		}
+		} 
 				
 		map.step(lin, col);
 		path[path_index] = lin;
@@ -43,9 +52,12 @@ public class EP2Test3 {
 		lin = lin + sentidos[0][0];
 		col = col + sentidos[0][1];
 		
-		if(map.verificaCelula(lin, col) == true){
+		if(!map.verificaCelula(lin, col)){ 
+			
+			System.out.println("caminho NAO impedido");
+		}else{
 			System.out.println("caminho impedido");
-		}	
+		} 
 		
 		map.step(lin, col);
 		path[path_index] = lin;
@@ -55,9 +67,12 @@ public class EP2Test3 {
 		lin = lin + sentidos[3][0];
 		col = col + sentidos[0][0];
 		
-		if(map.verificaCelula(lin, col) == true){
+		if(!map.verificaCelula(lin, col)){ 
+			
+			System.out.println("caminho NAO impedido");
+		}else{
 			System.out.println("caminho impedido");
-		}	
+		} 
 		
 		map.step(lin, col);
 		path[path_index] = lin;

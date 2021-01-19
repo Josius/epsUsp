@@ -29,7 +29,7 @@ public class EP2Test2 {
 		return path;
 	}
 
-// Para add e guardar a caminhada no labirinto - PROVAVELMENTE NÃO ESTÁ FUNCIONANDO CORRETAMENTE, POR ISSO NÃO ESTÁ PASSANDO OS DADOS PARA O MAPA
+// Para add e guardar a caminhada no labirinto - PROVAVELMENTE NAO ESTA FUNCIONANDO CORRETAMENTE, POR ISSO NAO ESTA PASSANDO OS DADOS PARA O MAPA
 	private static Map proxPasso(int lin, int col, int i, int j){
 		
 		return new Map(lin + i, col + j);
