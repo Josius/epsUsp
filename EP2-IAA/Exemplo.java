@@ -3,15 +3,6 @@ public class Exemplo{
 Primeiro, precisamos definir as quatro direções. Podemos definir isso em termos de coordenadas. Essas coordenadas, quando adicionadas a qualquer coordenada, retornarão uma das coordenadas vizinhas:
 */
 	private static int[][] DIRECTIONS = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
-
-/*
-Também precisamos de um método utilitário que adicione duas coordenadas:
-*/
-
-	private Coordinate getNextCoordinate(int row, int col, int i, int j){
-		
-		return new Coordinate(row + i, col + j);
-	}
 	
 /*
 Agora podemos definir a assinatura do método solve.* A lógica aqui é simples *- se houver um caminho da entrada para a saída, retorne o caminho, caso contrário, retorne uma lista vazia:
@@ -24,6 +15,15 @@ Agora podemos definir a assinatura do método solve.* A lógica aqui é simples 
 			return path;
 		}
 		return Collections.emptyList();
+	}
+
+/*
+Também precisamos de um método utilitário que adicione duas coordenadas:
+*/
+
+	private Coordinate getNextCoordinate(int row, int col, int i, int j){
+		
+		return new Coordinate(row + i, col + j);
 	}
 
 /*

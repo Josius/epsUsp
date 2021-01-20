@@ -79,12 +79,12 @@ class Map {
 			System.out.println(items[i]);
 		}
 	}
-
+// Retorna true se estiver bloqueado
 	public boolean blocked(int lin, int col){
 
 		return !free(lin, col);
 	}
-
+// Retorna true se estiver livre
 	public boolean free(int lin, int col){
 
 		return map[lin][col] == FREE; 
@@ -143,21 +143,22 @@ class Map {
 		map[lin][col] = 'F';
 	}
 	
-// Verifica se já passamos por essa célula	
+// Verifica se já passamos por essa célula e retorna true 
 	public boolean celulaVisitada(int lin, int col){
 		
 		return map[lin][col] == '*';
 	}
 	
 // Verifica linhas/colunas para não ultrapassar os limites da matriz, além de ver se a celula da matriz é válida
-	public boolean verificaCelula(int lin, int col){
+// Ficou complicado o entendimento do código
+/*	public boolean verificaCelula(int lin, int col){
 		
 			if (lin < 0 || lin > nLines() || col < 0 || col > nColumns() || blocked(lin, col) || celulaVisitada(lin, col)){
 			return true;
 		}else 
 			return false;
 	}
-	
+*/	
 // Não funcionou como esperado	
 /*
 	public static int dirHoriz(int lin, int col, int i, int j){

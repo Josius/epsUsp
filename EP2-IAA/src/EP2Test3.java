@@ -23,37 +23,67 @@ public class EP2Test3 {
 
 		lin = map.getStartLin();
 		col = map.getStartCol();
-		caminho(map, lin, col, path, path_index);
+		if(caminho(map, lin, col, path, path_index)){
+			return path;
+		}
 		
 		return path;
 	}
 
-// Para caminhar no labirinto	
-	public static void caminho(Map map, int lin, int col, int[] path, int path_index){
+	private static int[] armazenaSentido(int lin, int col, int i, int j){
 		
-		if(!map.verificaCelula(lin, col)){ 
-			
-			map.step(lin, col);
-			path[path_index] = lin;
-			path[path_index + 1] = col;
-			path_index += 2;
-			
-			if(map.finished(lin, col)){
-				System.out.println("fim");
-			}
-				
-			for(int[] sentido : sentidos){
-				
-				caminho(map, lin+sentido[0], col+sentido[1], path, path_index);
-			}
+		int[] coordenadas = {lin+i, col+j};
+		return coordenadas;
+	}
+
+// Para caminhar no labirinto	
+	public static boolean caminho(Map map, int lin, int col, int[] path, int path_index){
+		
+// o if abaixo, se ele resultar em true, ele continua no bloco if, se for false, ele sai. É como a questão: 'é vdd que o 'if(!map.verificaCelula(lin, col))' retorna false? Resposta: Sim, é vdd. Então retorne true.
+//		if(!map.verificaCelula(lin, col)){ 
+		if(map.blocked(lin, col) || map.celulaVisitada(lin, col)){
+			//System.out.println("Sem chance");
+			return false;
 		}
 			
+		map.step(lin, col);
+		path[path_index] = lin;
+		path[path_index + 1] = col;
+		path_index += 2;
 		
+		if(map.finished(lin, col)){
+			return true;
+		}
+		/*
+		for(int[] sentido : sentidos){
+			int[] novoCaminho = armazenaSentido(lin, col, sentido[0], sentido[1]);
+			System.out.println();
+			caminho(map, lin, col, path, path_index);
+			return true;
+		}
+		*/
+		
+		for(int i = 0; i < sentidos.length; i++){
+			int[] sentido = {sentidos[i][0], sentidos[i][1]};
+			int[] novoCaminho = armazenaSentido(lin, col, sentido[0], sentido[1]);
+			caminho(map, lin, col, path, path_index);
+			return true;
+		}
+		/*
+		for(int i = 0; i < sentidos.length; i++){
+			for(int j = 0; j < sentidos[0].length; j++){
+				int[] sentido = {sentidos[i][i], sentidos[i][j]};
+				int[] novoCaminho = armazenaSentido(lin, col, sentido[0], sentido[1]);
+				System.out.println();
+				caminho(map, lin, col, path, path_index);
+				return true;
+			}
+		}*/
 		if(DEBUG){ 
 			map.print(); 
 			System.out.println("---------------------------------------------------------------");
 		}
-		
+		return false;
 	}
 	
 	
@@ -89,6 +119,7 @@ public class EP2Test3 {
 		// Estamos ignorando os itens que são coletados no caminho. Isso precisa ser modificado para a versão final.
 		System.out.println("0 0 0");
 		map.print();
+		System.out.println("printSolution");
 	}
 
 	public static void main(String [] args) throws IOException {
@@ -102,6 +133,17 @@ public class EP2Test3 {
 
 		int criteria = Integer.parseInt(args[1]);
 		int [] path = findPath(map, criteria);
-		printSolution(map, path);
+		printSolution(map, path);		
+		
+		//impressão da matriz dos sentidos
+		/*
+		for(int i = 0; i < sentidos.length; i++){
+			System.out.print(sentidos[i][0] + " " + sentidos[i][1] + " ");
+			System.out.println();
+		}
+		*/
+	
+		
+		
 	}
 }
