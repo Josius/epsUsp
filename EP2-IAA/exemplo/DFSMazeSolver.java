@@ -9,11 +9,7 @@ public class DFSMazeSolver {
 
     public List<Coordinate> solve(Maze maze) {
         List<Coordinate> path = new ArrayList<>();
-        if (explore(maze, maze.getEntry()
-            .getX(),
-            maze.getEntry()
-                .getY(),
-            path)) {
+        if (explore(maze, maze.getEntry().getX(), maze.getEntry().getY(), path)) {
             return path;
         }
         return Collections.emptyList();

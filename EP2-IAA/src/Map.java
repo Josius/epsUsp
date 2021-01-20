@@ -151,14 +151,14 @@ class Map {
 	
 // Verifica linhas/colunas para não ultrapassar os limites da matriz, além de ver se a celula da matriz é válida
 // Ficou complicado o entendimento do código
-/*	public boolean verificaCelula(int lin, int col){
+	public boolean verificaCelula(int lin, int col){
 		
-			if (lin < 0 || lin > nLines() || col < 0 || col > nColumns() || blocked(lin, col) || celulaVisitada(lin, col)){
-			return true;
-		}else 
+		if (lin < 0 || lin > nLines() || col < 0 || col > nColumns() ){
 			return false;
+		}else 
+			return true;
 	}
-*/	
+	
 // Não funcionou como esperado	
 /*
 	public static int dirHoriz(int lin, int col, int i, int j){

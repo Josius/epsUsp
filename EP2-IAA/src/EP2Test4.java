@@ -5,9 +5,9 @@ public class EP2Test4 {
 	
 // Matriz de sentidos para caminhar na matriz, usar na recursividade
 	public static int[][] sentidos = { { 0, 1 }, 
-									  { 1, 0 }, 
+									  { -1, 0 }, 
 									  { 0, -1 }, 
-									  { -1, 0 } };
+									  { 1, 0 } };
 	
 	public static final boolean DEBUG = false;
 
@@ -23,16 +23,17 @@ public class EP2Test4 {
 
 		lin = map.getStartLin();
 		col = map.getStartCol();
+		
 		if(caminho(map, lin, col, path, path_index)){
 			return path;
 		}
 		
 		return path;
 	}
-
-	private static Posicao armazenaSentido(int lin, int col, int i, int j){
 		
-		return coordenadas;
+	private static Posicao proxPosicao(int lin, int col, int i, int j){
+		
+		return new Posicao(lin+i, col+j);
 	}
 
 // Para caminhar no labirinto	
@@ -40,11 +41,14 @@ public class EP2Test4 {
 		
 // o if abaixo, se ele resultar em true, ele continua no bloco if, se for false, ele sai. É como a questão: 'é vdd que o 'if(!map.verificaCelula(lin, col))' retorna false? Resposta: Sim, é vdd. Então retorne true.
 //		if(!map.verificaCelula(lin, col)){ 
-		if(map.blocked(lin, col) || map.celulaVisitada(lin, col)){
+		if(map.blocked(lin, col) || map.celulaVisitada(lin, col) || !map.verificaCelula(lin, col)){
 			//System.out.println("Sem chance");
 			return false;
 		}
-			
+		Posicao pos = new Posicao(lin, col);
+		//pos.setX(lin);	
+		//pos.setY(col);	
+		
 		map.step(lin, col);
 		path[path_index] = lin;
 		path[path_index + 1] = col;
@@ -63,21 +67,12 @@ public class EP2Test4 {
 		*/
 		
 		for(int i = 0; i < sentidos.length; i++){
-			int[] sentido = {sentidos[i][0], sentidos[i][1]};
-			int[] novoCaminho = armazenaSentido(lin, col, sentido[0], sentido[1]);
-			caminho(map, lin, col, path, path_index);
-			return true;
-		}
-		/*
-		for(int i = 0; i < sentidos.length; i++){
-			for(int j = 0; j < sentidos[0].length; j++){
-				int[] sentido = {sentidos[i][i], sentidos[i][j]};
-				int[] novoCaminho = armazenaSentido(lin, col, sentido[0], sentido[1]);
-				System.out.println();
-				caminho(map, lin, col, path, path_index);
+			Posicao sentido = proxPosicao(lin, col, sentidos[i][0], sentidos[i][1]);
+			if(caminho(map, sentido.getX(), sentido.getY(), path, path_index)){
 				return true;
 			}
-		}*/
+		}
+		
 		if(DEBUG){ 
 			map.print(); 
 			System.out.println("---------------------------------------------------------------");
