@@ -137,37 +137,21 @@ class Map {
 		return null;
 	}
 	
-//metodos criados
-	public void step2(int lin, int col){
+//METODOS CRIADOS
 
-		map[lin][col] = 'F';
-	}
-	
-// Verifica se já passamos por essa célula e retorna true 
+// Verifica se ja passamos por essa celula e retorna true. Poderia ter usado o metodo free(), mas acho que ia ficar confuso o entendimento do cod., por isso optei criar este metodo.
 	public boolean celulaVisitada(int lin, int col){
 		
 		return map[lin][col] == '*';
 	}
 	
-// Verifica linhas/colunas para não ultrapassar os limites da matriz, além de ver se a celula da matriz é válida
-// Ficou complicado o entendimento do código
+// Verifica linhas/colunas para não ultrapassar os limites da matriz. Eh a mesma verificacao de if-else if que se encontra no while do arquivo EP2.java, soh que ao inves de verificar se os dados estao em um certo intervalo, preferi verificar se os dados estao ultrapassando o intervalo
+
 	public boolean verificaCelula(int lin, int col){
 		
-		if (lin < 0 || lin > nLines() || col < 0 || col > nColumns() ){
-			return false;
-		}else 
+		if((lin < 0) || (col + 1 > nColumns()) || (lin + 1 > nLines() ) || (col < 0 )){
 			return true;
+		}
+		return false;
 	}
-	
-// Não funcionou como esperado	
-/*
-	public static int dirHoriz(int lin, int col, int i, int j){
-		
-		return lin + i;
-	}
-	public static int dirVert(int lin, int col, int i, int j){
-		
-		return col + j;
-	}
-*/
 }

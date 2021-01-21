@@ -1,19 +1,19 @@
 import java.io.*;
 import java.util.*;
 
-public class EP2Test3 {
+public class EP2Test5 {
 	
 // Matriz de sentidos para caminhar na matriz, usar na recursividade
-	public static int[][] sentidos = { { 0, 1 }, 
-									  { 1, 0 }, 
-									  { 0, -1 }, 
-									  { -1, 0 } };
+	public static int[][] sentidos = {{-1,0}, 
+									  {0,-1}, 
+									  {1, 0}, 
+									  {0, 1}};
 	
 	public static final boolean DEBUG = false;
 
 	public static int [] findPath(Map map, int criteria){
 
-		int lin, col; // coordenadas (lin, col) da posição atual
+		int lin, col; 
 		
 		int [] path;  
 		int path_index;
@@ -23,29 +23,31 @@ public class EP2Test3 {
 
 		lin = map.getStartLin();
 		col = map.getStartCol();
-		if(caminho(map, lin, col, path, path_index)){
+		
+		Posicao pos = new Posicao(lin, col);
+		
+		if(caminho(map, pos.getX(), pos.getY(), path, path_index)){
+			System.out.println("deu certo!!! EBA!!!");
 			return path;
 		}
 		
 		return path;
 	}
-
-	private static int[] armazenaSentido(int lin, int col, int i, int j){
 		
-		int[] coordenadas = {lin+i, col+j};
-		return coordenadas;
+	private static Posicao proxPosicao(int lin, int col, int i, int j){
+		
+		return new Posicao(lin+i, col+j);
 	}
 
 // Para caminhar no labirinto	
 	public static boolean caminho(Map map, int lin, int col, int[] path, int path_index){
 		
-// o if abaixo, se ele resultar em true, ele continua no bloco if, se for false, ele sai. É como a questão: 'é vdd que o 'if(!map.verificaCelula(lin, col))' retorna false? Resposta: Sim, é vdd. Então retorne true.
-//		if(!map.verificaCelula(lin, col)){ 
-		if(map.blocked(lin, col) || map.celulaVisitada(lin, col)){
+		if(map.verificaCelula(lin, col) || map.blocked(lin, col) || map.celulaVisitada(lin, col)){
 			//System.out.println("Sem chance");
 			return false;
 		}
-			
+		
+		
 		map.step(lin, col);
 		path[path_index] = lin;
 		path[path_index + 1] = col;
@@ -54,31 +56,16 @@ public class EP2Test3 {
 		if(map.finished(lin, col)){
 			return true;
 		}
-		/*
-		for(int[] sentido : sentidos){
-			int[] novoCaminho = armazenaSentido(lin, col, sentido[0], sentido[1]);
-			System.out.println();
-			caminho(map, lin, col, path, path_index);
-			return true;
-		}
-		*/
 		
 		for(int i = 0; i < sentidos.length; i++){
-			int[] sentido = {sentidos[i][0], sentidos[i][1]};
-			int[] novoCaminho = armazenaSentido(lin, col, sentido[0], sentido[1]);
-			caminho(map, lin, col, path, path_index);
-			return true;
-		}
-		/*
-		for(int i = 0; i < sentidos.length; i++){
-			for(int j = 0; j < sentidos[0].length; j++){
-				int[] sentido = {sentidos[i][i], sentidos[i][j]};
-				int[] novoCaminho = armazenaSentido(lin, col, sentido[0], sentido[1]);
-				System.out.println();
-				caminho(map, lin, col, path, path_index);
+			//map.print();
+			//System.out.println("i:" + i);
+			Posicao sentido = proxPosicao(lin, col, sentidos[i][0], sentidos[i][1]);
+			if(caminho(map, sentido.getX(), sentido.getY(), path, path_index)){
 				return true;
 			}
-		}*/
+		}
+		
 		if(DEBUG){ 
 			map.print(); 
 			System.out.println("---------------------------------------------------------------");
