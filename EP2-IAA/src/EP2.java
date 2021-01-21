@@ -130,6 +130,7 @@ public class EP2 {
 		printSolution(map, path);
 
 // Com map1.txt
+/*
 		System.out.println("blocked: " + map.blocked(6, 0));// false
 		System.out.println("blocked: " + map.blocked(5, 0));// false
 		System.out.println("blocked: " + map.blocked(5, 1));// true
@@ -142,5 +143,6 @@ public class EP2 {
 		System.out.println("cellVisited: " + map.celulaVisitada(6, 1));// false
 		System.out.println("cellVisited: " + map.celulaVisitada(6, 2));// true
 		System.out.println("cellVisited: " + map.celulaVisitada(5, 2));// true
+		*/
 	}
 }

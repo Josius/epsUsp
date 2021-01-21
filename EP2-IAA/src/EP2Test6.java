@@ -23,11 +23,13 @@ public class EP2Test6 {
 
 		lin = map.getStartLin();
 		col = map.getStartCol();
-		
+				
 		if(caminho(map, lin, col, path, path_index)){
 			System.out.println("deu certo!!! EBA!!!");
+			
 			return path;
 		}
+		
 		
 		return path;
 	}
@@ -54,6 +56,7 @@ public class EP2Test6 {
 		path[path_index] = lin;
 		path[path_index + 1] = col;
 		path_index += 2;
+		path[0] = path_index;
 		
 		if(map.finished(lin, col)){
 			return true;
@@ -65,6 +68,7 @@ public class EP2Test6 {
 			int direcaoHorizontal = proxDirecaoH(lin, sentidos[i][0]);
 			int direcaoVertical = proxDirecaoV(col, sentidos[i][1]);
 			if(caminho(map, direcaoHorizontal, direcaoVertical, path, path_index)){
+				
 				return true;
 			}
 		}
@@ -73,7 +77,7 @@ public class EP2Test6 {
 			map.print(); 
 			System.out.println("---------------------------------------------------------------");
 		}
-		path[0] = path_index;
+		
 		return false;
 	}
 	
@@ -108,9 +112,9 @@ public class EP2Test6 {
 		}
 
 		// Estamos ignorando os itens que são coletados no caminho. Isso precisa ser modificado para a versão final.
-		System.out.println("0 0 0");
+//		System.out.println("0 0 0");
+		System.out.println(totalItems + " " + totalValue + " " + totalWeight);
 		map.print();
-		System.out.println("printSolution");
 	}
 
 	public static void main(String [] args) throws IOException {
