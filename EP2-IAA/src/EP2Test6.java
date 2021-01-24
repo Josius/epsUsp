@@ -23,12 +23,16 @@ public class EP2Test6 {
 
 		lin = map.getStartLin();
 		col = map.getStartCol();
-				
-		if(caminho(map, lin, col, path, path_index)){
-			System.out.println("deu certo!!! EBA!!!");
+		
+		if(criteria == 1){
+			if(caminho(map, lin, col, path, path_index)){
 			
-			return path;
+				System.out.println("deu certo!!! EBA!!!");
+				return path;
+			}
 		}
+				
+		
 		
 		
 		return path;
@@ -114,6 +118,19 @@ public class EP2Test6 {
 		// Estamos ignorando os itens que são coletados no caminho. Isso precisa ser modificado para a versão final.
 //		System.out.println("0 0 0");
 		System.out.println(totalItems + " " + totalValue + " " + totalWeight);
+		
+		for(int i = 1; i < path_size; i+=2){
+
+			int lin = path[i];
+			int col = path[i + 1];
+			Item item = map.getItem(lin, col);
+
+						
+			if(item != null){
+
+				System.out.println(item.getLin() + " " + item.getCol());
+			}
+		}
 		map.print();
 	}
 

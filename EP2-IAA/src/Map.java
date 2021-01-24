@@ -154,4 +154,9 @@ class Map {
 		}
 		return false;
 	}
+	
+	public int getNItems(){
+		
+		return nItems;
+	}
 }
