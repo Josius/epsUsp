@@ -32,22 +32,8 @@ public class EP2Test7 {
 				}
 				break;
 			case 2:
-					boolean[][] explorado =  new boolean[map.nLines()][map.nColumns()];
-					for(int i = 0; i < explorado.length; i++){
-						for(int j = 0, j < explorado[i].length; j++){
-							
-							explorado[i][j] = false;
-						}
-					}
-					for(int i = lin; i < explorado.length; i++){
-						for(int j = col, j < explorado[i]; j++){
-						if(explorado[i][j] == false){
-							caminho2(map, lin, col, path, path_index);
-						}
-					}
 				
-					
-					System.out.println("Caminho mais longo");
+				System.out.println("Caminho mais longo");
 				break;
 			case 3:
 				System.out.println("Caminho mais valioso");
@@ -109,7 +95,6 @@ public class EP2Test7 {
 		
 		return false;
 	}
-	
 	
 	public static void printSolution(Map map, int [] path){
 
