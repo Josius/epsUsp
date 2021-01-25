@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class EP2Test6 {
+public class EP2Test7 {
 	
 // Matriz de sentidos para caminhar na matriz, usar na recursividade
 	public static int[][] sentidos = {{-1,0}, 
@@ -32,8 +32,22 @@ public class EP2Test6 {
 				}
 				break;
 			case 2:
+					boolean[][] explorado =  new boolean[map.nLines()][map.nColumns()];
+					for(int i = 0; i < explorado.length; i++){
+						for(int j = 0, j < explorado[i].length; j++){
+							
+							explorado[i][j] = false;
+						}
+					}
+					for(int i = lin; i < explorado.length; i++){
+						for(int j = col, j < explorado[i]; j++){
+						if(explorado[i][j] == false){
+							caminho2(map, lin, col, path, path_index);
+						}
+					}
 				
-				System.out.println("Caminho mais longo");
+					
+					System.out.println("Caminho mais longo");
 				break;
 			case 3:
 				System.out.println("Caminho mais valioso");
@@ -95,9 +109,6 @@ public class EP2Test6 {
 		
 		return false;
 	}
-	
-	
-	
 	
 	
 	public static void printSolution(Map map, int [] path){
@@ -173,7 +184,8 @@ public class EP2Test6 {
 		int criteria = Integer.parseInt(args[1]);
 		int [] path = findPath(map, criteria);
 		printSolution(map, path);		
-		
+																																																																																																																																																																										
+
 		//impressão da matriz dos sentidos
 		/*
 		for(int i = 0; i < sentidos.length; i++){
