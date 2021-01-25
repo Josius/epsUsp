@@ -24,12 +24,22 @@ public class EP2Test6 {
 		lin = map.getStartLin();
 		col = map.getStartCol();
 		
-		if(criteria == 1){
-			if(caminho(map, lin, col, path, path_index)){
-			
-				System.out.println("deu certo!!! EBA!!!");
-				return path;
-			}
+		switch(criteria){
+			case 1:
+				if(caminho(map, lin, col, path, path_index)){
+				
+					return path;
+				}
+				break;
+			case 2:
+				System.out.println("Caminho mais longo");
+				break;
+			case 3:
+				System.out.println("Caminho mais valioso");
+				break;
+			case 4:
+				System.out.println("Caminho mais rapido");
+				break;
 		}
 				
 		
@@ -96,23 +106,37 @@ public class EP2Test6 {
 		int totalWeight = 0;
 
 		int path_size = path[0];
-
-		System.out.println((path_size - 1)/2 + " " + 0.0);
-
+		double tempo = 0.0;
+		
+		
 		for(int i = 1; i < path_size; i += 2){
-
 			int lin = path[i];
 			int col = path[i + 1];
 			Item item = map.getItem(lin, col);
-
-			System.out.println(lin + " " + col);
-
+			
+			if(i>1){
+				
+				tempo += Math.pow((1.0 + totalWeight/10.0), 2);	
+			}
 			if(item != null){
 
 				totalItems++;
 				totalValue += item.getValue();
 				totalWeight += item.getWeight();
 			}
+			
+		}
+
+//Alterei o println abaixo para printf, para que a saída do tempo percorrido tenha somente duas casas decimais
+//		System.out.println((path_size - 1)/2 + " " + tempo);
+		System.out.printf("%d %.2f %n", (path_size - 1)/2, tempo);
+
+		for(int i = 1; i < path_size; i += 2){
+
+			int lin = path[i];
+			int col = path[i + 1];
+
+			System.out.println(lin + " " + col);
 		}
 
 		// Estamos ignorando os itens que são coletados no caminho. Isso precisa ser modificado para a versão final.
