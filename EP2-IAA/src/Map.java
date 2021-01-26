@@ -159,4 +159,8 @@ class Map {
 		
 		return nItems;
 	}
+	public char getCharMap(int lin, int col){
+		
+		return map[lin][col];
+	}
 }

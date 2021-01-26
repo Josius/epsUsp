@@ -168,8 +168,11 @@ public class EP2Test7 {
 
 		int criteria = Integer.parseInt(args[1]);
 		int [] path = findPath(map, criteria);
-		printSolution(map, path);		
-																																																																																																																																																																										
+		printSolution(map, path);	
+
+		System.out.println(map.getSize());
+		System.out.println(map.getCharMap(6,2));
+		System.out.println(map.getCharMap(5,1));
 
 		//impressão da matriz dos sentidos
 		/*

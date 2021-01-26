@@ -24,6 +24,7 @@ public class EP2Test7 {
 		lin = map.getStartLin();
 		col = map.getStartCol();
 		
+		
 		switch(criteria){
 			case 1:
 				Posicao pos = new Posicao(lin, col);
@@ -32,14 +33,15 @@ public class EP2Test7 {
 					return path;
 				}
 				break;
-			case 2:
-				
+			case 2:				
 				System.out.println("Caminho mais longo");
 				break;
 			case 3:
 				System.out.println("Caminho mais valioso");
 				break;
 			case 4:
+				boolean[][] mapaExplorado = new boolean[lin][col];
+				caminho4(map, lin, col, path, path_index, mapaExplorado);
 				System.out.println("Caminho mais rapido");
 				break;
 		}
@@ -90,6 +92,151 @@ public class EP2Test7 {
 		
 		return false;
 	}
+	
+	/*public static boolean caminho2(Map map, int lin, int col, int[] path, int path_index){
+		LinkedList<Posicao> nextToVisit = new LinkedList<>();
+		Posicao inicio = new Posicao(lin, col);
+		nextToVisit.add(inicio);
+		
+		
+		
+		while (!nextToVisit.isEmpty()) {
+            Posicao atual = nextToVisit.remove();
+			
+			path[path_index] = atual.getX();
+			path[path_index + 1] = atual.getY();
+			path_index += 2;
+			path[0] = path_index;
+			
+			if((map.verificaCelula(atual.getX(), atual.getY())) || (map.celulaVisitada(atual.getX(), atual.getY()))){ 
+				//System.out.println(map.verificaCelula(atual.getX(), atual.getY()));
+				//System.out.println(map.celulaVisitada(atual.getX(), atual.getY()));
+				return true;
+			}
+			if(map.blocked(atual.getX(), atual.getY())){
+				//map.step(atual.getX(), atual.getY());
+				return true;
+			}
+			if(map.finished(atual.getX(), atual.getY())){
+//				return backtrackPath(atual);
+				return true;
+			}
+
+            for(int i = 0; i < sentidos.length; i++){
+				map.print();
+				System.out.println("i:" + i);
+				Posicao sentido = new Posicao(atual.getX() + sentidos[i][0], atual.getY() + sentidos[i][1], atual);
+				nextToVisit.add(sentido);
+				map.step(atual.getX(), atual.getY());
+			}
+			
+        }		
+		
+		if(DEBUG){ 
+			map.print(); 
+			System.out.println("---------------------------------------------------------------");
+		}
+		
+		return true;
+	}
+	
+	private static List<Posicao> backtrackPath(Posicao atual) {
+        List<Posicao> path2 = new ArrayList<>();
+        Posicao iter = atual;
+
+        while (iter != null) {
+            path2.add(iter);
+            iter = iter.getParent();
+        }
+
+        return path2;
+    }*/
+	
+	private static void caminho4(map, lin, col, path, path_index, mapaExplorado) {
+        for(int i=0; i<mapaExplorado.length; i++){
+			for(int j=0; j<mapaExplorado[i]; j++){
+				mapaExplorado[i][j] = false;
+			}
+		}
+		if(mapaExplorado[lin][col] = false){
+			explorar(map, lin, col, path, path_index, mapaExplorado);
+		}
+		
+		//Acho que o cod abaixo nao funciona, verificar depois
+		/*
+		for(int i=lin; i<mapaExplorado.length; i++){
+			for(int j=col; j<mapaExplorado[i]; j++){
+				if(mapaExplorado[i][j] = false){
+					explorar(map, lin, col, path, path_index, mapaExplorado);
+				}
+			}
+		}*/
+    }
+	
+	public static boolean explorar(Map map, int lin, int col, int[] path, int path_index, boolean[][] mapaExplorado){
+		
+		map.step(lin, col);
+		path[path_index] = lin;
+		path[path_index + 1] = col;
+		path_index += 2;
+		path[0] = path_index;
+		
+		char celula;
+		int iniFila = 3; 
+		int fimFila = iniFila + 1; 
+		int[] fila = new int[path.length];
+		fila[iniFila] = lin;
+		fila[fimFila + 1] = col;
+		//iniFila += 2;
+		mapaExplorado[lin][col] = true;
+		
+		while(iniFila != fimFila){
+			iniFila = (iniFila + 1) % map.getSize();
+			celula = map.getCharMap(lin, col);
+		}
+		
+		
+		while (!nextToVisit.isEmpty()) {
+            Posicao atual = nextToVisit.remove();
+			
+			path[path_index] = atual.getX();
+			path[path_index + 1] = atual.getY();
+			path_index += 2;
+			path[0] = path_index;
+			
+			if((map.verificaCelula(atual.getX(), atual.getY())) || (map.celulaVisitada(atual.getX(), atual.getY()))){ 
+				//System.out.println(map.verificaCelula(atual.getX(), atual.getY()));
+				//System.out.println(map.celulaVisitada(atual.getX(), atual.getY()));
+				return true;
+			}
+			if(map.blocked(atual.getX(), atual.getY())){
+				//map.step(atual.getX(), atual.getY());
+				return true;
+			}
+			if(map.finished(atual.getX(), atual.getY())){
+//				return backtrackPath(atual);
+				return true;
+			}
+
+            for(int i = 0; i < sentidos.length; i++){
+				map.print();
+				System.out.println("i:" + i);
+				Posicao sentido = new Posicao(atual.getX() + sentidos[i][0], atual.getY() + sentidos[i][1], atual);
+				nextToVisit.add(sentido);
+				map.step(atual.getX(), atual.getY());
+			}
+			
+        }		
+		
+		if(DEBUG){ 
+			map.print(); 
+			System.out.println("---------------------------------------------------------------");
+		}
+		
+		return true;
+	}
+	
+	
 	
 	public static void printSolution(Map map, int [] path){
 
