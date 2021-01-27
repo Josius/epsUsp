@@ -1,6 +1,5 @@
 public class Posicao{
 	
-//	NAO ESQUECER DE DEIXAR PRIVATE
 	private int x, y;
 	private Posicao anterior;
 	
@@ -8,14 +7,8 @@ public class Posicao{
 		
 		this.x = x;
 		this.y = y;
-		this.anterior = null;
 	}
-	public Posicao(int x, int y, Posicao anterior){
-		
-		this.x = x;
-		this.y = y;
-		this.anterior = anterior;
-	}
+	
 	public Posicao(){
 		
 		
@@ -34,10 +27,6 @@ public class Posicao{
 	public int getY(){
 		
 		return this.y;
-	}
-	public Posicao getAnterior(){
-		
-		return this.anterior;
 	}
 	
 }

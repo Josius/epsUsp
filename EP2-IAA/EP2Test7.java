@@ -24,24 +24,21 @@ public class EP2Test7 {
 		lin = map.getStartLin();
 		col = map.getStartCol();
 		
-		
 		switch(criteria){
 			case 1:
-				Posicao pos = new Posicao(lin, col);
-				if(caminho1(map, pos.getX(), pos.getY(), path, path_index)){
+				if(caminho1(map, lin, col, path, path_index)){
 				
 					return path;
 				}
 				break;
-			case 2:				
+			case 2:
+				
 				System.out.println("Caminho mais longo");
 				break;
 			case 3:
 				System.out.println("Caminho mais valioso");
 				break;
 			case 4:
-//	NOTA: NÃO FUNCIONA COM UM MAPA SEM SAIDA
-				caminho4(map, lin, col, path, path_index);
 				System.out.println("Caminho mais rapido");
 				break;
 		}
@@ -52,9 +49,13 @@ public class EP2Test7 {
 		return path;
 	}
 		
-	private static Posicao proxPosicao(int lin, int col, int i, int j){
+	private static int proxDirecaoH(int lin, int x){
 		
-		return new Posicao(lin+i, col+j);
+		return lin+x;
+	}
+	private static int proxDirecaoV(int col, int y){
+		
+		return col+y;
 	}
 
 // Para caminhar no labirinto	
@@ -79,8 +80,10 @@ public class EP2Test7 {
 		for(int i = 0; i < sentidos.length; i++){
 			//map.print();
 			//System.out.println("i:" + i);
-			Posicao sentido = proxPosicao(lin, col, sentidos[i][0], sentidos[i][1]);
-			if(caminho1(map, sentido.getX(), sentido.getY(), path, path_index)){
+			int direcaoHorizontal = proxDirecaoH(lin, sentidos[i][0]);
+			int direcaoVertical = proxDirecaoV(col, sentidos[i][1]);
+			if(caminho1(map, direcaoHorizontal, direcaoVertical, path, path_index)){
+				
 				return true;
 			}
 		}
@@ -139,14 +142,11 @@ public class EP2Test7 {
 			
 			
             for(int i = 0; i < sentidos.length; i++){
-				System.out.println(i);
+				
 				Posicao sentido = new Posicao(atual.getX() + sentidos[i][0], atual.getY() + sentidos[i][1], atual);
 				fila.add(sentido);
-				map.step(atual.getX(), atual.getY());
-				map.print();
 			}
-//			map.step(atual.getX(), atual.getY());
-//			map.print();
+			
         }		
 		if(DEBUG){ 
 			map.print(); 
@@ -155,8 +155,6 @@ public class EP2Test7 {
 		
 		return Collections.emptyList();
 	}
-	
-	
 	
 	
 	public static void printSolution(Map map, int [] path){
@@ -231,8 +229,11 @@ public class EP2Test7 {
 
 		int criteria = Integer.parseInt(args[1]);
 		int [] path = findPath(map, criteria);
-		printSolution(map, path);		
-																																																																																																																																																																										
+		printSolution(map, path);	
+
+		System.out.println(map.getSize());
+		System.out.println(map.getCharMap(6,2));
+		System.out.println(map.getCharMap(5,1));
 
 		//impressão da matriz dos sentidos
 		/*
@@ -246,4 +247,3 @@ public class EP2Test7 {
 		
 	}
 }
-

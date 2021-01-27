@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class EP2Test7 {
+public class EP2Test8 {
 	
 // Matriz de sentidos para caminhar na matriz, usar na recursividade
 	public static int[][] sentidos = {{-1,0}, 
@@ -95,6 +95,138 @@ public class EP2Test7 {
 		
 		return false;
 	}
+	
+	private static List<No> rota(Map map, No atual, int[] path, int path_index) {
+		
+        No transitivo = atual;
+		LinkedList<No> temp = new LinkedList<No>();
+//	Como a entrada do caminho eh inversa, do final para o comeco, armazenamos em um arraylist para depois retirar na ordem correta	
+		while (transitivo != null) {
+			temp.add(transitivo);
+            transitivo = transitivo.getPosAnterior();
+        }
+//	Colocando as posicoes corretas no path		
+		while (temp.size() != 0) {
+			transitivo = temp.removeLast();
+			path[path_index] = transitivo.getPosAtualX();
+			path[path_index + 1] = transitivo.getPosAtualY();	
+			path_index += 2;
+			path[0] = path_index;
+			map.step(transitivo.getPosAtualX(), transitivo.getPosAtualY());
+        }
+		
+        return Collections.emptyList();
+    }
+    
+  
+	
+	public static List<No> caminho4(Map map, int lin, int col, int[] path, int path_index){
+		
+		LinkedList<No> fila = new LinkedList<No>();
+		No inicio = new No(new Posicao(lin, col));
+		fila.add(inicio);
+		
+		while (fila.size() != 0) {
+            
+			No atual = fila.remove(0);            			
+
+			if(map.finished(atual.getPosAtualX(), atual.getPosAtualY())){
+				
+				return rota(map, atual, path, path_index);
+			}
+			
+			if((map.verificaCelula(atual.getPosAtualX(), atual.getPosAtualY())) || (map.celulaVisitada(atual.getPosAtualX(), atual.getPosAtualY())) || map.blocked(atual.getPosAtualX(), atual.getPosAtualY())){ 
+				
+				continue;
+			}
+			
+			
+            for(int i = 0; i < sentidos.length; i++){
+//				System.out.println(i);
+				No sentido = new No(new Posicao(atual.getPosAtualX() + sentidos[i][0], atual.getPosAtualY() + sentidos[i][1]), atual);
+//				No sentido = new No(new Posicao(atual.sumPosAtualX(sentidos[i][0]), atual.sumPosAtualY(sentidos[i][1])), atual);
+				fila.add(sentido);
+//				map.step(atual.getPosAtualX(), atual.getPosAtualY());
+//				map.print();
+			}
+//			map.step(atual.getX(), atual.getY());
+//			map.print();
+        }		
+		if(DEBUG){ 
+			map.print(); 
+			System.out.println("---------------------------------------------------------------");
+		}
+		
+		return Collections.emptyList();
+	}
+	
+//				ORIGINAL
+/*
+	private static List<Posicao> rota(Map map, Posicao atual, int[] path, int path_index) {
+		
+        Posicao transitivo = atual;
+		LinkedList<Posicao> temp = new LinkedList<Posicao>();
+	
+		while (transitivo != null) {
+			temp.add(transitivo);
+            transitivo = transitivo.getAnterior();
+        }
+		
+		while (temp.size() != 0) {
+			transitivo = temp.removeLast();
+			path[path_index] = transitivo.getX();
+			path[path_index + 1] = transitivo.getY();	
+			path_index += 2;
+			path[0] = path_index;
+			map.step(transitivo.getX(), transitivo.getY());
+        }
+		
+        return Collections.emptyList();
+    }
+    
+  
+	
+	public static List<Posicao> caminho4(Map map, int lin, int col, int[] path, int path_index){
+		
+		LinkedList<Posicao> fila = new LinkedList<Posicao>();
+		Posicao inicio = new Posicao(lin, col);
+		fila.add(inicio);
+		
+		while (fila.size() != 0) {
+            
+			Posicao atual = fila.remove(0);            			
+
+			if(map.finished(atual.getX(), atual.getY())){
+				
+				return rota(map, atual, path, path_index);
+			}
+			
+			if((map.verificaCelula(atual.getX(), atual.getY())) || (map.celulaVisitada(atual.getX(), atual.getY())) || map.blocked(atual.getX(), atual.getY())){ 
+				
+				continue;
+			}
+			
+			
+            for(int i = 0; i < sentidos.length; i++){
+//				System.out.println(i);
+				Posicao sentido = new Posicao(atual.getX() + sentidos[i][0], atual.getY() + sentidos[i][1], atual);
+				fila.add(sentido);
+//				map.step(atual.getX(), atual.getY());
+//				map.print();
+			}
+//			map.step(atual.getX(), atual.getY());
+//			map.print();
+        }		
+		if(DEBUG){ 
+			map.print(); 
+			System.out.println("---------------------------------------------------------------");
+		}
+		
+		return Collections.emptyList();
+	}
+	
+	
+	*/
 	
 	public static void printSolution(Map map, int [] path){
 
