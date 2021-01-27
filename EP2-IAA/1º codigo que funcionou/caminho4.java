@@ -1,50 +1,46 @@
 public static boolean caminho4(Map map, int lin, int col, int[] path, int path_index){
 		
-		boolean[][] mapaExplorado = new boolean[lin][col];
-		for(int i=0; i<mapaExplorado.length; i++){
-			for(int j=0; j<mapaExplorado[i]; j++){
-				mapaExplorado[i][j] = false;
-			}
-		}
-		int[] fila = new int[path.length]; //LinkedList<Posicao> nextToVisit = new LinkedList<>();
-		int iniX = 0; 
-		int iniY = iniX + 1; 
-		fila[iniX] = lin; //Posicao inicio = new Posicao(lin, col);
-		fila[iniy] = col; //Posicao inicio = new Posicao(lin, col);
-				
-		mapaExplorado[lin][col] = true; //nextToVisit.add(inicio);
+		boolean[][] mapaExplorado = new boolean[map.nLines()][map.nColumns()];
+		mapaExplorado[lin][col] = true;
 		
-		while(fila[0] != 0){
-			//Posicao atual = nextToVisit.remove();
-			int linX = fila[iniX];
-			int colY = fila[iniY];
-			fila[iniX] = 0;
-			fila[iniY] = 0;
-			iniX += 2;
-			//Posicao atual = nextToVisit.remove();
+		Queue<Posicao> fila = new LinkedList<Posicao>();
+		Posicao inicio = new Posicao(lin, col);
+		
+		fila.add(inicio);
+		
+		while(!fila.isEmpty){
 			
-			if(map.verificaCelula(linX, colY) || map.celulaVisitada(linX, colY)){ 
-				
-				continue;
+			Posicao atual = fila.peek;
+			Posicao prox = new Posicao(atual.getX(), atual.getY());
+			
+			if(map.finished(prox.getX(), prox.getY())){
+				return true;
+//				backtrackPath(map, linX, colY, path, path_index);//precisa alterar
 			}
-			if(map.blocked(linX, colY)){
-				
-				continue;
-			}
-			if(map.finished(linX, colY)){
-//				
-				backtrackPath(map, linX, colY, path, path_index);
-			}
+			else fila.remove();
 			
 			for(int i = 0; i < sentidos.length; i++){
 //				map.print();
 //				System.out.println("i:" + i);
-				int direcaoHorizontal = linX + sentidos[i][0];
-				int direcaoVertical = colY + sentidos[i][1];
-				fila[iniX] = direcaoHorizontal;
-				fila[iniY] = direcaoVertical;
+				int linha = prox.getX() + sentidos[i][0];
+				int coluna = prox.getY() + sentidos[i][1];
 				
-				//map.step(atual.getX(), atual.getY());
+				if(map.verificaCelula(linha, coluna) && map.celulaVisitada(linha, coluna) && map.blocked(linha, coluna) && !mapaExplorado[linha][coluna]){ 
+					//map.step(atual.getX(), atual.getY());
+					mapaExplorado[linha][coluna] = true;
+					Posicao adjacente = new Posicao(linha, coluna);
+					fila.add(adjacente);
+				}
+			
+			
+			}
+
+			
+			for(int i = 0; i < mapaExplorado.length; i++){
+				for(int j = 0; j < mapaExplorado[0].length; j++){
+					System.out.print(mapaExplorado[i][j] + " ");
+				}
+				System.out.println();
 			}
 			
         }		
@@ -57,16 +53,23 @@ public static boolean caminho4(Map map, int lin, int col, int[] path, int path_i
 		return true;
 	}
 	
-	private static void backtrackPath(Map map, int lin, int col, int[] path, int path_index) {
+	private static void caminhoCurto(Map map, Posicao atual, int[] path, int path_index) {
 		
-        int linTemp = lin;
-		int colTemp = col;
+        Posicao iter = atual;
 		
 		int i = 0;
-	
-		path[path_index] = linTemp;
-		path[path_index + 1] = colTemp;	
-		path_index += 2;
-		path[0] = path_index;
-		map.step(linTemp(), colTemp());      
+        while (iter != null) {
+			System.out.println(i);
+			i++;
+            path[path_index] = iter.getX();
+			path[path_index + 1] = iter.getY();	
+			path_index += 2;
+			path[0] = path_index;
+			map.step(atual.getX(), atual.getY());
+			System.out.println(i);	
+            iter = iter.getParent();
+			System.out.println(i);
+        }
+
+        return Collections.emptyList();
     }

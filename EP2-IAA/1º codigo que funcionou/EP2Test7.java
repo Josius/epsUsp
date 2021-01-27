@@ -94,7 +94,7 @@ public class EP2Test7 {
 		
 		return false;
 	}
-	/*
+	
 	private static List<Posicao> backtrackPath(Map map, Posicao atual, int[] path, int path_index) {
 		
         Posicao iter = atual;
@@ -115,7 +115,59 @@ public class EP2Test7 {
 
         return Collections.emptyList();
     }
-	
+    
+    public static boolean caminho4(Map map, int lin, int col, int[] path, int path_index){
+		
+		boolean[][] mapaExplorado = new boolean[map.nLines()][map.nColumns()];
+		mapaExplorado[lin][col] = true;
+		
+		Queue<Posicao> fila = new LinkedList<Posicao>();
+		Posicao inicio = new Posicao(lin, col);
+		
+		fila.add(inicio);
+		
+		while(!fila.isEmpty()){
+			
+			Posicao atual = fila.peek();
+			Posicao prox = new Posicao(atual.getX(), atual.getY());
+			
+			if(map.finished(prox.getX(), prox.getY())){
+				return true;
+//				backtrackPath(map, linX, colY, path, path_index);//precisa alterar
+			}
+			else fila.remove();
+			
+			for(int i = 0; i < sentidos.length; i++){
+//				map.print();
+//				System.out.println("i:" + i);
+				int linha = prox.getX() + sentidos[i][0];
+				int coluna = prox.getY() + sentidos[i][1];
+				
+				if((map.verificaCelula(linha, coluna)==false) && (map.blocked(linha, coluna)==false) && !mapaExplorado[linha][coluna]){ 
+					map.step(linha, coluna);
+					System.out.println(atual);
+					mapaExplorado[linha][coluna] = true;
+					Posicao adjacente = new Posicao(linha, coluna);
+					fila.add(adjacente);
+					System.out.println(atual);
+				}
+			}
+			for(int i = 0; i < mapaExplorado.length; i++){
+				for(int j = 0; j < mapaExplorado[0].length; j++){
+					System.out.print(mapaExplorado[i][j] + " ");
+				}
+				System.out.println();
+			}
+        }		
+		
+		if(DEBUG){ 
+			map.print(); 
+			System.out.println("---------------------------------------------------------------");
+		}
+		
+		return true;
+	}
+	/*
 	public static List<Posicao> caminho4(Map map, int lin, int col, int[] path, int path_index){
 		
 		LinkedList<Posicao> nextToVisit = new LinkedList<>();
@@ -160,9 +212,9 @@ public class EP2Test7 {
 		
 		return Collections.emptyList();
 	}
-	
-	
 	*/
+	
+	
 	/*
 	private static void caminho4(map, lin, col, path, path_index, mapaExplorado) {
         for(int i=0; i<mapaExplorado.length; i++){
@@ -184,12 +236,13 @@ public class EP2Test7 {
 			}
 		}
     }
-	*/
+    */
+	/*
 	public static boolean caminho4(Map map, int lin, int col, int[] path, int path_index){
 		
 		boolean[][] mapaExplorado = new boolean[lin][col];
 		for(int i=0; i<mapaExplorado.length; i++){
-			for(int j=0; j<mapaExplorado[i]; j++){
+			for(int j=0; j<mapaExplorado[i].length; j++){
 				mapaExplorado[i][j] = false;
 			}
 		}
@@ -197,7 +250,7 @@ public class EP2Test7 {
 		int iniX = 0; 
 		int iniY = iniX + 1; 
 		fila[iniX] = lin; //Posicao inicio = new Posicao(lin, col);
-		fila[iniy] = col; //Posicao inicio = new Posicao(lin, col);
+		fila[iniY] = col; //Posicao inicio = new Posicao(lin, col);
 				
 		mapaExplorado[lin][col] = true; //nextToVisit.add(inicio);
 		
@@ -255,9 +308,9 @@ public class EP2Test7 {
 		path[path_index + 1] = colTemp;	
 		path_index += 2;
 		path[0] = path_index;
-		map.step(linTemp(), colTemp());      
+		map.step(linTemp, colTemp);      
     }	
-	
+	*/
 	
 	
 	public static void printSolution(Map map, int [] path){
