@@ -5,3 +5,15 @@ http://www.each.usp.br/digiampietri/ACH2002/notasdeaula/8-tentativaEErro.pdf
 https://www.codeflow.site/pt/article/java-solve-maze
 
 https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/
+
+DIJKSTRA
+
+https://www.youtube.com/watch?v=ovkITlgyJ2s&list=PLxI8Can9yAHf8k8LrUePyj0y3lLpigGcl&index=28
+
+https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-greedy-algo-7/
+
+https://www.geeksforgeeks.org/printing-paths-dijkstras-shortest-path-algorithm/
+
+https://www.baeldung.com/java-dijkstra
+
+https://www.programiz.com/dsa/dijkstra-algorithm

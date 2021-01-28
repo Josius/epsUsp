@@ -26,10 +26,7 @@ public class EP2Test8 {
 		
 		switch(criteria){
 			case 1:
-				if(caminho1(map, lin, col, path, path_index)){
-				
-					return path;
-				}
+				caminho1(map, lin, col, path, path_index);				
 				break;
 			case 2:
 				
@@ -39,8 +36,10 @@ public class EP2Test8 {
 				System.out.println("Caminho mais valioso");
 				break;
 			case 4:
-				caminho4(map, lin, col, path, path_index);
-				System.out.println("Caminho mais rapido");
+				if(caminho4(map, lin, col, path, path_index)){
+				
+					return path;
+				}
 				break;
 		}
 				
@@ -48,45 +47,6 @@ public class EP2Test8 {
 		
 		
 		return path;
-	}
-		
-// Para caminhar no labirinto	
-	public static boolean caminho1(Map map, int lin, int col, int[] path, int path_index){
-		
-		if(map.verificaCelula(lin, col) || map.blocked(lin, col) || map.celulaVisitada(lin, col)){
-			//System.out.println("Sem chance");
-			return false;
-		}
-		
-		
-		map.step(lin, col);
-		path[path_index] = lin;
-		path[path_index + 1] = col;
-		path_index += 2;
-		path[0] = path_index;
-		
-		if(map.finished(lin, col)){
-			return true;
-		}
-		
-		for(int i = 0; i < sentidos.length; i++){
-			//map.print();
-			//System.out.println("i:" + i);
-			
-			int direcaoHorizontal = lin + sentidos[i][0];
-			int direcaoVertical = col + sentidos[i][1];
-			if(caminho1(map, direcaoHorizontal, direcaoVertical, path, path_index)){
-				
-				return true;
-			}
-		}
-		
-		if(DEBUG){ 
-			map.print(); 
-			System.out.println("---------------------------------------------------------------");
-		}
-		
-		return false;
 	}
 	
 	private static List<No> rota(Map map, No atual, int[] path, int path_index) {
@@ -113,9 +73,7 @@ public class EP2Test8 {
 //        return Collections.emptyList();
     }
     
-  
-	
-	public static List<No> caminho4(Map map, int lin, int col, int[] path, int path_index){
+	public static List<No> caminho1(Map map, int lin, int col, int[] path, int path_index){
 		
 		LinkedList<No> fila = new LinkedList<No>();
 		No inicio = new No(new Posicao(lin, col));
@@ -155,6 +113,47 @@ public class EP2Test8 {
 //		return Collections.emptyList();
 		return fila;
 	}
+	
+// Para caminhar no labirinto	
+	public static boolean caminho4(Map map, int lin, int col, int[] path, int path_index){
+		
+		if(map.verificaCelula(lin, col) || map.blocked(lin, col) || map.celulaVisitada(lin, col)){
+			//System.out.println("Sem chance");
+			return false;
+		}
+		
+		
+		map.step(lin, col);
+		path[path_index] = lin;
+		path[path_index + 1] = col;
+		path_index += 2;
+		path[0] = path_index;
+		
+		if(map.finished(lin, col)){
+			return true;
+		}
+		
+		for(int i = 0; i < sentidos.length; i++){
+			//map.print();
+			//System.out.println("i:" + i);
+			
+			int direcaoHorizontal = lin + sentidos[i][0];
+			int direcaoVertical = col + sentidos[i][1];
+			if(caminho4(map, direcaoHorizontal, direcaoVertical, path, path_index)){
+				
+				return true;
+			}
+		}
+		
+		if(DEBUG){ 
+			map.print(); 
+			System.out.println("---------------------------------------------------------------");
+		}
+		
+		return false;
+	}
+	
+	
 	
 	public static void printSolution(Map map, int [] path){
 
