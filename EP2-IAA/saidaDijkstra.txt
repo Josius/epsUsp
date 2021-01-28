@@ -1,0 +1,428 @@
+2º for i: 0
+i for findMinDistance 0
+visitedVertex[0] false
+distance[0] 0
+minDistance antes do if 2147483647
+minDistanceVertex antes do if -1
+minDistance dentro do if 2147483647
+minDistanceVertex dentro do if -1
+minDistance apos atribuicao 0
+minDistanceVertex apos atribuicao 0
+i for findMinDistance 1
+visitedVertex[1] false
+distance[1] 2147483647
+minDistance antes do if 0
+minDistanceVertex antes do if 0
+i for findMinDistance 2
+visitedVertex[2] false
+distance[2] 2147483647
+minDistance antes do if 0
+minDistanceVertex antes do if 0
+i for findMinDistance 3
+visitedVertex[3] false
+distance[3] 2147483647
+minDistance antes do if 0
+minDistanceVertex antes do if 0
+i for findMinDistance 4
+visitedVertex[4] false
+distance[4] 2147483647
+minDistance antes do if 0
+minDistanceVertex antes do if 0
+i for findMinDistance 5
+visitedVertex[5] false
+distance[5] 2147483647
+minDistance antes do if 0
+minDistanceVertex antes do if 0
+i for findMinDistance 6
+visitedVertex[6] false
+distance[6] 2147483647
+minDistance antes do if 0
+minDistanceVertex antes do if 0
+u do 2º for: 0
+3º for u: 0 v: 0
+visitedVertex[0] true
+3º for u: 0 v: 1
+visitedVertex[1] false
+3º for u: 0 v: 2
+visitedVertex[2] false
+distance[0] 0
+graph[0][2] 1
+distance[2] 2147483647
+apos atribuicao distance[2] 1
+3º for u: 0 v: 3
+visitedVertex[3] false
+distance[0] 0
+graph[0][3] 2
+distance[3] 2147483647
+apos atribuicao distance[3] 2
+3º for u: 0 v: 4
+visitedVertex[4] false
+3º for u: 0 v: 5
+visitedVertex[5] false
+3º for u: 0 v: 6
+visitedVertex[6] false
+2º for i: 1
+i for findMinDistance 0
+visitedVertex[0] true
+distance[0] 0
+minDistance antes do if 2147483647
+minDistanceVertex antes do if -1
+i for findMinDistance 1
+visitedVertex[1] false
+distance[1] 2147483647
+minDistance antes do if 2147483647
+minDistanceVertex antes do if -1
+i for findMinDistance 2
+visitedVertex[2] false
+distance[2] 1
+minDistance antes do if 2147483647
+minDistanceVertex antes do if -1
+minDistance dentro do if 2147483647
+minDistanceVertex dentro do if -1
+minDistance apos atribuicao 1
+minDistanceVertex apos atribuicao 2
+i for findMinDistance 3
+visitedVertex[3] false
+distance[3] 2
+minDistance antes do if 1
+minDistanceVertex antes do if 2
+i for findMinDistance 4
+visitedVertex[4] false
+distance[4] 2147483647
+minDistance antes do if 1
+minDistanceVertex antes do if 2
+i for findMinDistance 5
+visitedVertex[5] false
+distance[5] 2147483647
+minDistance antes do if 1
+minDistanceVertex antes do if 2
+i for findMinDistance 6
+visitedVertex[6] false
+distance[6] 2147483647
+minDistance antes do if 1
+minDistanceVertex antes do if 2
+u do 2º for: 2
+3º for u: 2 v: 0
+visitedVertex[0] true
+3º for u: 2 v: 1
+visitedVertex[1] false
+distance[2] 1
+graph[2][1] 2
+distance[1] 2147483647
+apos atribuicao distance[1] 3
+3º for u: 2 v: 2
+visitedVertex[2] true
+3º for u: 2 v: 3
+visitedVertex[3] false
+3º for u: 2 v: 4
+visitedVertex[4] false
+distance[2] 1
+graph[2][4] 3
+distance[4] 2147483647
+apos atribuicao distance[4] 4
+3º for u: 2 v: 5
+visitedVertex[5] false
+3º for u: 2 v: 6
+visitedVertex[6] false
+2º for i: 2
+i for findMinDistance 0
+visitedVertex[0] true
+distance[0] 0
+minDistance antes do if 2147483647
+minDistanceVertex antes do if -1
+i for findMinDistance 1
+visitedVertex[1] false
+distance[1] 3
+minDistance antes do if 2147483647
+minDistanceVertex antes do if -1
+minDistance dentro do if 2147483647
+minDistanceVertex dentro do if -1
+minDistance apos atribuicao 3
+minDistanceVertex apos atribuicao 1
+i for findMinDistance 2
+visitedVertex[2] true
+distance[2] 1
+minDistance antes do if 3
+minDistanceVertex antes do if 1
+i for findMinDistance 3
+visitedVertex[3] false
+distance[3] 2
+minDistance antes do if 3
+minDistanceVertex antes do if 1
+minDistance dentro do if 3
+minDistanceVertex dentro do if 1
+minDistance apos atribuicao 2
+minDistanceVertex apos atribuicao 3
+i for findMinDistance 4
+visitedVertex[4] false
+distance[4] 4
+minDistance antes do if 2
+minDistanceVertex antes do if 3
+i for findMinDistance 5
+visitedVertex[5] false
+distance[5] 2147483647
+minDistance antes do if 2
+minDistanceVertex antes do if 3
+i for findMinDistance 6
+visitedVertex[6] false
+distance[6] 2147483647
+minDistance antes do if 2
+minDistanceVertex antes do if 3
+u do 2º for: 3
+3º for u: 3 v: 0
+visitedVertex[0] true
+3º for u: 3 v: 1
+visitedVertex[1] false
+3º for u: 3 v: 2
+visitedVertex[2] true
+3º for u: 3 v: 3
+visitedVertex[3] true
+3º for u: 3 v: 4
+visitedVertex[4] false
+3º for u: 3 v: 5
+visitedVertex[5] false
+3º for u: 3 v: 6
+visitedVertex[6] false
+distance[3] 2
+graph[3][6] 1
+distance[6] 2147483647
+apos atribuicao distance[6] 3
+2º for i: 3
+i for findMinDistance 0
+visitedVertex[0] true
+distance[0] 0
+minDistance antes do if 2147483647
+minDistanceVertex antes do if -1
+i for findMinDistance 1
+visitedVertex[1] false
+distance[1] 3
+minDistance antes do if 2147483647
+minDistanceVertex antes do if -1
+minDistance dentro do if 2147483647
+minDistanceVertex dentro do if -1
+minDistance apos atribuicao 3
+minDistanceVertex apos atribuicao 1
+i for findMinDistance 2
+visitedVertex[2] true
+distance[2] 1
+minDistance antes do if 3
+minDistanceVertex antes do if 1
+i for findMinDistance 3
+visitedVertex[3] true
+distance[3] 2
+minDistance antes do if 3
+minDistanceVertex antes do if 1
+i for findMinDistance 4
+visitedVertex[4] false
+distance[4] 4
+minDistance antes do if 3
+minDistanceVertex antes do if 1
+i for findMinDistance 5
+visitedVertex[5] false
+distance[5] 2147483647
+minDistance antes do if 3
+minDistanceVertex antes do if 1
+i for findMinDistance 6
+visitedVertex[6] false
+distance[6] 3
+minDistance antes do if 3
+minDistanceVertex antes do if 1
+u do 2º for: 1
+3º for u: 1 v: 0
+visitedVertex[0] true
+3º for u: 1 v: 1
+visitedVertex[1] true
+3º for u: 1 v: 2
+visitedVertex[2] true
+3º for u: 1 v: 3
+visitedVertex[3] true
+3º for u: 1 v: 4
+visitedVertex[4] false
+3º for u: 1 v: 5
+visitedVertex[5] false
+distance[1] 3
+graph[1][5] 3
+distance[5] 2147483647
+apos atribuicao distance[5] 6
+3º for u: 1 v: 6
+visitedVertex[6] false
+2º for i: 4
+i for findMinDistance 0
+visitedVertex[0] true
+distance[0] 0
+minDistance antes do if 2147483647
+minDistanceVertex antes do if -1
+i for findMinDistance 1
+visitedVertex[1] true
+distance[1] 3
+minDistance antes do if 2147483647
+minDistanceVertex antes do if -1
+i for findMinDistance 2
+visitedVertex[2] true
+distance[2] 1
+minDistance antes do if 2147483647
+minDistanceVertex antes do if -1
+i for findMinDistance 3
+visitedVertex[3] true
+distance[3] 2
+minDistance antes do if 2147483647
+minDistanceVertex antes do if -1
+i for findMinDistance 4
+visitedVertex[4] false
+distance[4] 4
+minDistance antes do if 2147483647
+minDistanceVertex antes do if -1
+minDistance dentro do if 2147483647
+minDistanceVertex dentro do if -1
+minDistance apos atribuicao 4
+minDistanceVertex apos atribuicao 4
+i for findMinDistance 5
+visitedVertex[5] false
+distance[5] 6
+minDistance antes do if 4
+minDistanceVertex antes do if 4
+i for findMinDistance 6
+visitedVertex[6] false
+distance[6] 3
+minDistance antes do if 4
+minDistanceVertex antes do if 4
+minDistance dentro do if 4
+minDistanceVertex dentro do if 4
+minDistance apos atribuicao 3
+minDistanceVertex apos atribuicao 6
+u do 2º for: 6
+3º for u: 6 v: 0
+visitedVertex[0] true
+3º for u: 6 v: 1
+visitedVertex[1] true
+3º for u: 6 v: 2
+visitedVertex[2] true
+3º for u: 6 v: 3
+visitedVertex[3] true
+3º for u: 6 v: 4
+visitedVertex[4] false
+3º for u: 6 v: 5
+visitedVertex[5] false
+distance[6] 3
+graph[6][5] 1
+distance[5] 6
+apos atribuicao distance[5] 4
+3º for u: 6 v: 6
+visitedVertex[6] true
+2º for i: 5
+i for findMinDistance 0
+visitedVertex[0] true
+distance[0] 0
+minDistance antes do if 2147483647
+minDistanceVertex antes do if -1
+i for findMinDistance 1
+visitedVertex[1] true
+distance[1] 3
+minDistance antes do if 2147483647
+minDistanceVertex antes do if -1
+i for findMinDistance 2
+visitedVertex[2] true
+distance[2] 1
+minDistance antes do if 2147483647
+minDistanceVertex antes do if -1
+i for findMinDistance 3
+visitedVertex[3] true
+distance[3] 2
+minDistance antes do if 2147483647
+minDistanceVertex antes do if -1
+i for findMinDistance 4
+visitedVertex[4] false
+distance[4] 4
+minDistance antes do if 2147483647
+minDistanceVertex antes do if -1
+minDistance dentro do if 2147483647
+minDistanceVertex dentro do if -1
+minDistance apos atribuicao 4
+minDistanceVertex apos atribuicao 4
+i for findMinDistance 5
+visitedVertex[5] false
+distance[5] 4
+minDistance antes do if 4
+minDistanceVertex antes do if 4
+i for findMinDistance 6
+visitedVertex[6] true
+distance[6] 3
+minDistance antes do if 4
+minDistanceVertex antes do if 4
+u do 2º for: 4
+3º for u: 4 v: 0
+visitedVertex[0] true
+3º for u: 4 v: 1
+visitedVertex[1] true
+3º for u: 4 v: 2
+visitedVertex[2] true
+3º for u: 4 v: 3
+visitedVertex[3] true
+3º for u: 4 v: 4
+visitedVertex[4] true
+3º for u: 4 v: 5
+visitedVertex[5] false
+3º for u: 4 v: 6
+visitedVertex[6] true
+2º for i: 6
+i for findMinDistance 0
+visitedVertex[0] true
+distance[0] 0
+minDistance antes do if 2147483647
+minDistanceVertex antes do if -1
+i for findMinDistance 1
+visitedVertex[1] true
+distance[1] 3
+minDistance antes do if 2147483647
+minDistanceVertex antes do if -1
+i for findMinDistance 2
+visitedVertex[2] true
+distance[2] 1
+minDistance antes do if 2147483647
+minDistanceVertex antes do if -1
+i for findMinDistance 3
+visitedVertex[3] true
+distance[3] 2
+minDistance antes do if 2147483647
+minDistanceVertex antes do if -1
+i for findMinDistance 4
+visitedVertex[4] true
+distance[4] 4
+minDistance antes do if 2147483647
+minDistanceVertex antes do if -1
+i for findMinDistance 5
+visitedVertex[5] false
+distance[5] 4
+minDistance antes do if 2147483647
+minDistanceVertex antes do if -1
+minDistance dentro do if 2147483647
+minDistanceVertex dentro do if -1
+minDistance apos atribuicao 4
+minDistanceVertex apos atribuicao 5
+i for findMinDistance 6
+visitedVertex[6] true
+distance[6] 3
+minDistance antes do if 4
+minDistanceVertex antes do if 5
+u do 2º for: 5
+3º for u: 5 v: 0
+visitedVertex[0] true
+3º for u: 5 v: 1
+visitedVertex[1] true
+3º for u: 5 v: 2
+visitedVertex[2] true
+3º for u: 5 v: 3
+visitedVertex[3] true
+3º for u: 5 v: 4
+visitedVertex[4] true
+3º for u: 5 v: 5
+visitedVertex[5] true
+3º for u: 5 v: 6
+visitedVertex[6] true
+Distance from 0 to 0 is 0
+Distance from 0 to 1 is 3
+Distance from 0 to 2 is 1
+Distance from 0 to 3 is 2
+Distance from 0 to 4 is 4
+Distance from 0 to 5 is 4
+Distance from 0 to 6 is 3

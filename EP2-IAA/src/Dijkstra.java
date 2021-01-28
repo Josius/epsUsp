@@ -42,10 +42,11 @@ public class Dijkstra {
       for (int v = 0; v < count; v++) {
 		System.out.println("3º for u: "+ u +" v: " + v);
 //        if (!visitedVertex[v] && graph[u][v] != 0 && (distance[u] + graph[u][v] < distance[v])) {
-        if (visitedVertex[v]==false && graph[u][v] != 0 && (distance[u] + graph[u][v] < distance[v])) { //'graph[u][v] != 0' quer dizer que ha ligacao entre o vertice[u] e o vertice[v] e ha um peso nessa ligacao
+        System.out.println("visitedVertex["+v+"] "+visitedVertex[v]);
+		if (visitedVertex[v]==false && graph[u][v] != 0 && (distance[u] + graph[u][v] < distance[v])) { //'graph[u][v] != 0' quer dizer que ha ligacao entre o vertice[u] e o vertice[v] e ha um peso nessa ligacao
           System.out.println("distance["+u+"] "+distance[u]);
+		  System.out.println("graph["+u+"]["+v+"] " + graph[u][v]);
 		  System.out.println("distance["+v+"] "+distance[v]);
-          System.out.println("graph["+u+"]["+v+"] " + graph[u][v]);
 		  distance[v] = distance[u] + graph[u][v];
 		  System.out.println("apos atribuicao distance["+v+"] "+distance[v]);
         }
