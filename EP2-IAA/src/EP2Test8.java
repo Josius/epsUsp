@@ -39,6 +39,7 @@ public class EP2Test8 {
 				System.out.println("Caminho mais valioso");
 				break;
 			case 4:
+				caminho4(map, lin, col, path, path_index);
 				System.out.println("Caminho mais rapido");
 				break;
 		}
@@ -49,15 +50,6 @@ public class EP2Test8 {
 		return path;
 	}
 		
-	private static int proxDirecaoH(int lin, int x){
-		
-		return lin+x;
-	}
-	private static int proxDirecaoV(int col, int y){
-		
-		return col+y;
-	}
-
 // Para caminhar no labirinto	
 	public static boolean caminho1(Map map, int lin, int col, int[] path, int path_index){
 		
@@ -80,8 +72,9 @@ public class EP2Test8 {
 		for(int i = 0; i < sentidos.length; i++){
 			//map.print();
 			//System.out.println("i:" + i);
-			int direcaoHorizontal = proxDirecaoH(lin, sentidos[i][0]);
-			int direcaoVertical = proxDirecaoV(col, sentidos[i][1]);
+			
+			int direcaoHorizontal = lin + sentidos[i][0];
+			int direcaoVertical = col + sentidos[i][1];
 			if(caminho1(map, direcaoHorizontal, direcaoVertical, path, path_index)){
 				
 				return true;
@@ -104,10 +97,11 @@ public class EP2Test8 {
 		while (transitivo != null) {
 			temp.add(transitivo);
             transitivo = transitivo.getPosAnterior();
+//            System.out.println(transitivo.getPosAtual().getX());
         }
 //	Colocando as posicoes corretas no path		
 		while (temp.size() != 0) {
-			transitivo = temp.removeLast();
+			transitivo = temp.removeLast();			
 			path[path_index] = transitivo.getPosAtualX();
 			path[path_index + 1] = transitivo.getPosAtualY();	
 			path_index += 2;
@@ -115,7 +109,8 @@ public class EP2Test8 {
 			map.step(transitivo.getPosAtualX(), transitivo.getPosAtualY());
         }
 		
-        return Collections.emptyList();
+		return temp;
+//        return Collections.emptyList();
     }
     
   
@@ -125,26 +120,26 @@ public class EP2Test8 {
 		LinkedList<No> fila = new LinkedList<No>();
 		No inicio = new No(new Posicao(lin, col));
 		fila.add(inicio);
-		
+
 		while (fila.size() != 0) {
             
 			No atual = fila.remove(0);            			
 
 			if(map.finished(atual.getPosAtualX(), atual.getPosAtualY())){
-				
+
 				return rota(map, atual, path, path_index);
 			}
 			
 			if((map.verificaCelula(atual.getPosAtualX(), atual.getPosAtualY())) || (map.celulaVisitada(atual.getPosAtualX(), atual.getPosAtualY())) || map.blocked(atual.getPosAtualX(), atual.getPosAtualY())){ 
-				
+
 				continue;
 			}
 			
 			
             for(int i = 0; i < sentidos.length; i++){
-//				System.out.println(i);
+
 				No sentido = new No(new Posicao(atual.getPosAtualX() + sentidos[i][0], atual.getPosAtualY() + sentidos[i][1]), atual);
-//				No sentido = new No(new Posicao(atual.sumPosAtualX(sentidos[i][0]), atual.sumPosAtualY(sentidos[i][1])), atual);
+
 				fila.add(sentido);
 //				map.step(atual.getPosAtualX(), atual.getPosAtualY());
 //				map.print();
@@ -157,76 +152,9 @@ public class EP2Test8 {
 			System.out.println("---------------------------------------------------------------");
 		}
 		
-		return Collections.emptyList();
+//		return Collections.emptyList();
+		return fila;
 	}
-	
-//				ORIGINAL
-/*
-	private static List<Posicao> rota(Map map, Posicao atual, int[] path, int path_index) {
-		
-        Posicao transitivo = atual;
-		LinkedList<Posicao> temp = new LinkedList<Posicao>();
-	
-		while (transitivo != null) {
-			temp.add(transitivo);
-            transitivo = transitivo.getAnterior();
-        }
-		
-		while (temp.size() != 0) {
-			transitivo = temp.removeLast();
-			path[path_index] = transitivo.getX();
-			path[path_index + 1] = transitivo.getY();	
-			path_index += 2;
-			path[0] = path_index;
-			map.step(transitivo.getX(), transitivo.getY());
-        }
-		
-        return Collections.emptyList();
-    }
-    
-  
-	
-	public static List<Posicao> caminho4(Map map, int lin, int col, int[] path, int path_index){
-		
-		LinkedList<Posicao> fila = new LinkedList<Posicao>();
-		Posicao inicio = new Posicao(lin, col);
-		fila.add(inicio);
-		
-		while (fila.size() != 0) {
-            
-			Posicao atual = fila.remove(0);            			
-
-			if(map.finished(atual.getX(), atual.getY())){
-				
-				return rota(map, atual, path, path_index);
-			}
-			
-			if((map.verificaCelula(atual.getX(), atual.getY())) || (map.celulaVisitada(atual.getX(), atual.getY())) || map.blocked(atual.getX(), atual.getY())){ 
-				
-				continue;
-			}
-			
-			
-            for(int i = 0; i < sentidos.length; i++){
-//				System.out.println(i);
-				Posicao sentido = new Posicao(atual.getX() + sentidos[i][0], atual.getY() + sentidos[i][1], atual);
-				fila.add(sentido);
-//				map.step(atual.getX(), atual.getY());
-//				map.print();
-			}
-//			map.step(atual.getX(), atual.getY());
-//			map.print();
-        }		
-		if(DEBUG){ 
-			map.print(); 
-			System.out.println("---------------------------------------------------------------");
-		}
-		
-		return Collections.emptyList();
-	}
-	
-	
-	*/
 	
 	public static void printSolution(Map map, int [] path){
 
@@ -301,13 +229,13 @@ public class EP2Test8 {
 		int criteria = Integer.parseInt(args[1]);
 		int [] path = findPath(map, criteria);
 		printSolution(map, path);	
-
+/*
 		System.out.println(map.getSize());
 		System.out.println(map.getCharMap(6,2));
 		System.out.println(map.getCharMap(5,1));
 
 		//impressão da matriz dos sentidos
-		/*
+		
 		for(int i = 0; i < sentidos.length; i++){
 			System.out.print(sentidos[i][0] + " " + sentidos[i][1] + " ");
 			System.out.println();

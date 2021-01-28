@@ -18,30 +18,15 @@ public class No{
 	public No getPosAnterior(){
 		return this.posAnterior;
 	}
-	
+
+//	Acessando 'lin' e 'col' do objeto do tipo Posicao
 	public int getPosAtualX(){
 		
-		return getPosAtual().getX();
+		return this.posAtual.getX();
 	}
 	public int getPosAtualY(){
 		
-		return getPosAtual().getY();
-	}
-	/*
-	public int getPosAnteriorX(){
-		
-		return getPosAnterior().getX();
-	}
-	public int getPosAnteriorY(){
-		
-		return getPosAnterior().getY();
-	}
-	*/
-	public int sumPosAtualX(int i){
-		return getPosAtualX() + i;
-	}
-	public int sumPosAtualY(int j){
-		return getPosAtualX() + j;
+		return this.posAtual.getY();
 	}
 	
 	
