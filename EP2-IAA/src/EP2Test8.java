@@ -224,10 +224,26 @@ public class EP2Test8 {
 			map.print(); 
 			System.out.println("---------------------------------------------------------------");
 		}
+		
+		int[][] mapInt = new int[map.nLines()][map.nColumns()];
+		for(int i=0; i< map.nLines(); i++){
+			for(int j=0; j < map.nColumns(); j++){
+				if(map.free(i,j)) mapInt[i][j] = 1;
+				else mapInt[i][j] = 0;
+//				System.out.print(map.free(i, j) + " ");
+			}
+		}
+		
+		for(int i=0; i< map.nLines(); i++){
+			for(int j=0; j < map.nColumns(); j++){
 
-		int criteria = Integer.parseInt(args[1]);
-		int [] path = findPath(map, criteria);
-		printSolution(map, path);	
+				System.out.print(mapInt[i][j] + " ");
+			}
+			System.out.println();
+		}
+//		int criteria = Integer.parseInt(args[1]);
+//		int [] path = findPath(map, criteria);
+//		printSolution(map, path);	
 /*
 		System.out.println(map.getSize());
 		System.out.println(map.getCharMap(6,2));
