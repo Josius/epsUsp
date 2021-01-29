@@ -32,11 +32,13 @@ public class Dijkstra {
     // Distance of self loop is zero
     distance[source] = 0;
     for (int i = 0; i < count; i++) {
+	  System.out.println();
 	  System.out.println("2º for i: " + i);
       // Update the distance between neighbouring vertex and source vertex
       int u = findMinDistance(distance, visitedVertex);
 	  System.out.println("u do 2º for: " + u);
       visitedVertex[u] = true;
+	  System.out.println();
 
       // Update all the neighbouring vertex distances
       for (int v = 0; v < count; v++) {
@@ -52,6 +54,9 @@ public class Dijkstra {
         }
       }
     }
+	
+	System.out.println();
+	
     for (int i = 0; i < distance.length; i++) {
       System.out.println(String.format("Distance from %s to %s is %s", source, i, distance[i]));
     }
@@ -87,7 +92,13 @@ public class Dijkstra {
   }
 
   public static void main(String[] args) {
-    /*int graph[][] = new int[][] { 
+    int graph[][] = new int[][] { 
+	{ 0, 0, 1},
+	{ 0, 0, 1}, 
+	{ 0, 0, 1}, 
+	{ 1, 1, 0},};
+	/*
+	int graph[][] = new int[][] { 
 	{ 0, 0, 1, 2, 0, 0, 0 },
 	{ 0, 0, 2, 0, 0, 3, 0 }, 
 	{ 1, 2, 0, 1, 3, 0, 0 },
@@ -95,7 +106,7 @@ public class Dijkstra {
 	{ 0, 0, 3, 0, 0, 2, 0 }, 
 	{ 0, 3, 0, 0, 2, 0, 1 }, 
 	{ 0, 0, 0, 1, 0, 1, 0 } };
-	*/
+	
 	int graph[][] = new int[][] { 
 	{1, 1, 1, 1, 1}, 
 	{1, 0, 1, 0, 1},
@@ -104,7 +115,7 @@ public class Dijkstra {
 	{1, 0, 1, 0, 1}, 
 	{1, 0, 1, 0, 1}, 
 	{1, 1, 1, 1, 1}}; 
-	
+	*/
     Dijkstra T = new Dijkstra();
     T.dijkstra(graph, 0);
   }

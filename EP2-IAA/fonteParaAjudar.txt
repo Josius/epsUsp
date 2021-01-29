@@ -14,6 +14,9 @@ https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-greedy-algo-7/
 
 https://www.geeksforgeeks.org/printing-paths-dijkstras-shortest-path-algorithm/
 
+https://www.geeksforgeeks.org/shortest-path-in-a-directed-graph-by-dijkstras-algorithm/
+
 https://www.baeldung.com/java-dijkstra
 
 https://www.programiz.com/dsa/dijkstra-algorithm
+
