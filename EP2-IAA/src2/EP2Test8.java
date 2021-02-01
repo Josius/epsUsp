@@ -4,7 +4,10 @@ import java.util.*;
 public class EP2Test8 {
 	
 // Matriz de sentidos para caminhar na matriz, usar na recursividade
-	public static int[][] sentidos = {{0, 1},{1, 0},{0,-1},{-1,0}};
+	public static int[][] sentidos = {{-1,0}, 
+									  {0,-1}, 
+									  {1, 0}, 
+									  {0, 1}};
 	
 	public static final boolean DEBUG = false;
 
@@ -21,21 +24,15 @@ public class EP2Test8 {
 		lin = map.getStartLin();
 		col = map.getStartCol();
 		
-		int linZero = 0;
-		int colZero = 0;
+//		LinkedList<No> arrayNo = new LinkedList<No>();
 		
-		List<No> nozes = new ArrayList<No>();
-		constroiCaminho(map, nozes);
-
-		for(int i = 0; i < nozes.size(); i++){
-			for(int j = 0; j < nozes.size(); j++){
-				System.out.println(nozes.get(i));
-			}
-		}
 		switch(criteria){
 			case 1:
-
+//				caminho1(map, lin, col, path, path_index, arrayNo);				
 				caminho1(map, lin, col, path, path_index);				
+				/*for(int i=0; i < arrayNo.size(); i++){
+					System.out.println(arrayNo.get(i));
+				}*/
 				break;
 			case 2:
 				
@@ -57,154 +54,6 @@ public class EP2Test8 {
 		
 		return path;
 	}
-
-	public static void constroiCaminho(Map map, List<No> nozes){
-		
-		int cont = 0;
-		
-		boolean[][] mapaBoolean = new boolean[map.nLines()][map.nColumns()];
-		
-				
-		for(int i = 0; i < map.nLines(); i++){
-			for(int j = 0; j < map.nColumns(); j++){
-//				System.out.println("i :" + i + " j: " + j);
-//				System.out.println("map.free :" + map.free(i, j));
-				if(map.free(i, j)){
-					No variavel = new No(cont);
-					nozes.add(variavel);
-					cont++;
-					mapaBoolean[i][j] = true;
-//					System.out.println(nozes);
-				}else mapaBoolean[i][j] = false;
-//				System.out.println("cont: " + cont);
-			}
-		}
-		
-		cont = 0;
-//									{{0, 1},{1, 0},{0,-1},{-1,0}};		
-		
-		for(int i = 0; i < map.nLines(); i++){
-			for(int j = 0; j < map.nColumns(); j++){
-//				System.out.println(i + " " + j);
-//				System.out.println("antes do if " + cont);
-				if(map.free(i, j)){
-					if(map.verificaCelula(i, j + 1) == false && map.blocked(i, j + 1)==false){	
-//						System.out.println("if " + cont);
-//						System.out.println("1 " + nozes.get(cont));
-						nozes.get(cont).adicionaAresta(cont+1, 1);
-//						System.out.println("2 " + nozes.get(cont));
-						cont++;
-					}
-					else cont++;
-				}
-//				System.out.println("else " + cont + "\n");
-			}
-		}
-		
-		cont = map.getSize()-1;
-		
-		for(int i = map.nLines()-1; i >= 0; i--){
-			for(int j = map.nColumns()-1; j >= 0; j--){
-//				System.out.println(i + " " + j);
-//				System.out.println("antes do if " + cont);
-				if(map.free(i, j)){
-					if(map.verificaCelula(i, j - 1) == false && map.blocked(i, j - 1)==false){	
-//						System.out.println("if " + cont);
-//						System.out.println("1 " + nozes.get(cont));
-						nozes.get(cont).adicionaAresta(cont-1, 1);
-//						System.out.println("2 " + nozes.get(cont));
-						cont--;
-					}
-					else cont--;
-				}
-//				System.out.println("else " + cont + "\n");
-			}
-		}
-		
-		cont = 0;
-		
-		int numVert = 0;
-		//mapaBoolean[0][3] = false;
-		for(int i = 0; i < mapaBoolean[0].length; i++){
-			if(mapaBoolean[0][i] == true) numVert++;
-		}
-//		System.out.println(numVert);
-		
-		for(int i = 0; i < map.nLines(); i++){
-			for(int j = 0; j < map.nColumns(); j++){
-//				System.out.println(i + " " + j);
-//				System.out.println("cont antes do if " + cont);
-//				System.out.println("numVert antes do if " + numVert);
-//				System.out.println("numvert+cont antes do if " + (numVert+cont));
-				if(map.free(i, j)){
-					if(map.verificaCelula(i + 1, j) == false && map.blocked(i + 1, j)==false){	
-//						System.out.println("if " + cont);
-//						System.out.println("1 " + nozes.get(cont));
-//						System.out.println("numvert+cont dentro do if " + (numVert+cont));
-						nozes.get(cont).adicionaAresta(numVert+cont, 1);
-//						System.out.println("2 " + nozes.get(cont));
-						
-						cont++;
-					}
-					else{
-						cont++;
-						numVert--;
-//						System.out.println("numvert+cont else" + (numVert+cont));
-					}	
-				}else{
-					if(map.verificaCelula(i + 1, j) == false && map.blocked(i + 1, j)==false){	
-						numVert++;
-					}
-					
-				}
-//				System.out.println("numvert+cont ultimo " + (numVert+cont) + "\n");
-//				System.out.println("else " + cont + "\n");
-			}
-		}
-		
-		cont = map.getSize()-1;
-		
-		numVert = 0;
-		//mapaBoolean[0][3] = false;
-		for(int i = 0; i < mapaBoolean[0].length; i++){
-			if(mapaBoolean[0][i] == true) numVert++;
-		}
-//		System.out.println(numVert);
-		
-		for(int i = map.nLines()-1; i >= 0 ; i--){
-			for(int j = map.nColumns()-1; j >= 0 ; j--){
-//				System.out.println(i + " " + j);
-//				System.out.println("cont antes do if " + cont);
-//				System.out.println("numVert antes do if " + numVert);
-//				System.out.println("cont-numvert antes do if " + (cont-numVert));
-				if(map.free(i, j)){
-					if(map.verificaCelula(i - 1, j) == false && map.blocked(i - 1, j)==false){	
-//						System.out.println("if " + cont);
-//						System.out.println("1 " + nozes.get(cont));
-//						System.out.println("cont-numvert dentro do if " + (cont-numVert));
-						nozes.get(cont).adicionaAresta(cont-numVert, 1);
-//						System.out.println("2 " + nozes.get(cont));
-						
-						cont--;
-					}else{
-						cont--;
-						numVert--;
-//						System.out.println("cont-numvert else" + (cont-numVert));
-					}	
-				}else{
-					if(map.verificaCelula(i - 1, j) == false && map.blocked(i - 1, j)==false){	
-						numVert++;
-					}
-					
-				}
-//				System.out.println("cont-numvert ultimo " + (cont-numVert) + "\n");
-//				System.out.println("else " + cont + "\n");
-			}
-		}
-		
-	}
-		
-		
 	/*
 	private static List<No> rota2(Map map, No atual, int[] path, int path_index) {
 		
@@ -279,60 +128,64 @@ public class EP2Test8 {
 		No inicio = new No(new Posicao(lin, col));
 		fila.add(inicio);
 		
-//		System.out.println("fila antes do while (x: " + fila.get(0).getPosAtualX() + ", y: " + fila.get(0).getPosAtualY() + ")");
+		System.out.println("fila antes do while (x: " + fila.get(0).getPosAtualX() + ", y: " + fila.get(0).getPosAtualY() + ")");
 
 		
 		while (fila.size() != 0) {
                    
 			No atual = fila.remove(0);            			
-//			System.out.println("fila.size() - while : " + fila.size());
-//			System.out.println("\tatual dentro do while (x: " + atual.getPosAtualX() + ", y: " + atual.getPosAtualY()+")");
-/*			
+			System.out.println("fila.size() - while : " + fila.size());
+			System.out.println("\tatual dentro do while (x: " + atual.getPosAtualX() + ", y: " + atual.getPosAtualY()+")");
+			
 			for(int i = 0; i < fila.size(); i++){
 			
 				if(fila.size() > 0)
-					System.out.println("fila dentro do while (x: " + fila.get(i).getPosAtualX() + ", y: " + fila.get(i).getPosAtualY() + ")");				
+					System.out.println("fila dentro do while (x: " + fila.get(i).getPosAtualX() + ", y: " + fila.get(i).getPosAtualY() + ")");
+
+				
 			}
-*/			
+			
 			
 			
 			
 
 // Se nao houver o if abaixo, ele percorre todo o mapa
-			
+			/*
 			if(map.finished(atual.getPosAtualX(), atual.getPosAtualY())){
 				
-//				System.out.println("\t\t\tatual dentro do finished (x: " + atual.getPosAtualX() + ", y: " + atual.getPosAtualY() + ")");
+				System.out.println("\t\t\tatual dentro do finished (x: " + atual.getPosAtualX() + ", y: " + atual.getPosAtualY() + ")");
 				
 				return rota(map, atual, path, path_index);
 			}
-			
-//	USAR IF ABAIXO PARA CAMINHO MAIS CURTO COM MENOS ITERACOES DO FOR			
+			*/
 			if((map.celulaVisitada(atual.getPosAtualX(), atual.getPosAtualY())) || map.blocked(atual.getPosAtualX(), atual.getPosAtualY())){
 				continue;
-			}
+			} 
+			
 						
             for(int i = 0; i < sentidos.length; i++){
-//	USAR IF ABAIXO PARA CAMINHO MAIS CURTO COM MENOS ITERACOES DO FOR	
+// LIGAR A VERIFICACAO ABAIXO se for usar com o 'if(map.finished)', do contrario, deixar desligado
 				if((map.verificaCelula(atual.getPosAtualX() + sentidos[i][0], atual.getPosAtualY() + sentidos[i][1])) || (map.celulaVisitada(atual.getPosAtualX() + sentidos[i][0], atual.getPosAtualY() + sentidos[i][1])) || map.blocked(atual.getPosAtualX() + sentidos[i][0], atual.getPosAtualY() + sentidos[i][1])){
 					continue;
 				} 
-				
 				No sentido = new No(new Posicao(atual.getPosAtualX() + sentidos[i][0], atual.getPosAtualY() + sentidos[i][1]), atual);
 //				arrayNo.add(sentido);
 
 				fila.add(sentido);
-/*
+
 				System.out.println("i: " + i);
 				if(atual.getPosAnterior() != null){
 					System.out.println("\t\tsentido dentro do for (x: " + sentido.getPosAtualX() + ", y: " + sentido.getPosAtualY() + ") anterior " + atual.getPosAnteriorX() + " " + atual.getPosAnteriorY());
 				}else System.out.println("\t\tsentido dentro do for (x: " + sentido.getPosAtualX() + ", y: " + sentido.getPosAtualY() + ")");
 				map.step(atual.getPosAtualX(), atual.getPosAtualY());// marcando a celula para que nao passe novamente por ela e faca todo o processo
-*/								
+								
 //				map.print();
 			}
 			
-		
+			if(fila.size()==0){
+				//return rota2(map, atual);
+				System.out.println("Fim");
+			}
 //			map.step(atual.getX(), atual.getY());
 //			map.print();
 
@@ -477,8 +330,8 @@ public class EP2Test8 {
 */
 		int criteria = Integer.parseInt(args[1]);
 		int [] path = findPath(map, criteria);
-//		printSolution(map, path);
-//		System.out.println(map.verificaMapa());
+		printSolution(map, path);
+		System.out.println(map.verificaMapa());
 			
 /*
 		System.out.println(map.getSize());

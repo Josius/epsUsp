@@ -135,8 +135,8 @@ class GFG{
 
 	// Driver Code
 	public static void main(String[] args){
-		List<Node> v = new ArrayList<>();
-		int n = 4, s = 0, e = 5;
+		List<Node> v = new ArrayList<>(); // uma lista de nos
+		int n = 4, s = 0, e = 5;// n = qtde de nos, no caso seria map.size(); s = vertice inicial
 
 	// Loop to create the nodes
 		for(int i = 0; i < n; i++){

@@ -1,0 +1,61 @@
+fila antes do while (x: 6, y: 2)
+fila.size() - while : 0
+	atual dentro do while (x: 6, y: 2)
+i: 0
+		sentido dentro do for (x: 5, y: 2)
+i: 1
+		sentido dentro do for (x: 6, y: 1)
+i: 3
+		sentido dentro do for (x: 6, y: 3)
+fila.size() - while : 2
+	atual dentro do while (x: 5, y: 2)
+fila dentro do while (x: 6, y: 1)
+fila dentro do while (x: 6, y: 3)
+i: 0
+		sentido dentro do for (x: 4, y: 2) anterior 5 2
+fila.size() - while : 2
+	atual dentro do while (x: 6, y: 1)
+fila dentro do while (x: 6, y: 3)
+fila dentro do while (x: 4, y: 2)
+i: 1
+		sentido dentro do for (x: 6, y: 0) anterior 6 1
+fila.size() - while : 2
+	atual dentro do while (x: 6, y: 3)
+fila dentro do while (x: 4, y: 2)
+fila dentro do while (x: 6, y: 0)
+i: 3
+		sentido dentro do for (x: 6, y: 4) anterior 6 3
+fila.size() - while : 2
+	atual dentro do while (x: 4, y: 2)
+fila dentro do while (x: 6, y: 0)
+fila dentro do while (x: 6, y: 4)
+i: 0
+		sentido dentro do for (x: 3, y: 2) anterior 4 2
+fila.size() - while : 2
+	atual dentro do while (x: 6, y: 0)
+fila dentro do while (x: 6, y: 4)
+fila dentro do while (x: 3, y: 2)
+i: 0
+		sentido dentro do for (x: 5, y: 0) anterior 6 0
+fila.size() - while : 2
+	atual dentro do while (x: 6, y: 4)
+fila dentro do while (x: 3, y: 2)
+fila dentro do while (x: 5, y: 0)
+			atual dentro do finished (x: 6, y: 4)
+3 2,00 
+6 2
+6 3
+6 4
+0 0 0
+Map size (lines x columns): 7 x 5
+.....
+.X.XX
+.X.X.
+.....
+.X.X.
+.X.X.
+..***
+Number of items: 3
+Item: coordinates = (4, 0), value = 4 weight = 3
+Item: coordinates = (3, 2), value = 1 weight = 8
+Item: coordinates = (2, 0), value = 8 weight = 6
