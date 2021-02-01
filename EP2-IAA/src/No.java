@@ -53,7 +53,7 @@ public class No{
 	
 	public String toString(){
 		
-		String s = "";
+		String s = "numVertice " + numVertice + " ";
 		for(int i=0; i < aresta.size(); i++){
 			s += aresta.get(i) + " ";
 		}

@@ -21,17 +21,49 @@ public class EP2Test8 {
 		lin = map.getStartLin();
 		col = map.getStartCol();
 		
-		int linZero = 0;
-		int colZero = 0;
-		
-		List<No> nozes = new ArrayList<No>();
-		constroiCaminho(map, nozes);
+//	Lista de Adjacencia		
+/*		List<No> nozes = new ArrayList<No>();
+		constroiCaminhoListAdj(map, nozes);
 
 		for(int i = 0; i < nozes.size(); i++){
 			for(int j = 0; j < nozes.size(); j++){
 				System.out.println(nozes.get(i));
 			}
 		}
+*/
+
+//	Matriz de Adjacencia
+		int[][] matAdj = new int[map.getSize()][map.getSize()];
+		boolean[][] mapaBoolean = new boolean[map.nLines()][map.nColumns()];
+		
+		constroiCaminhoMatAdj(map, matAdj, mapaBoolean);
+
+//	Espelhando a matriz		
+		for(int i = 0; i < matAdj.length; i++){
+			for(int j = 0; j < matAdj[i].length; j++){
+				if(matAdj[i][j] == 1) matAdj[j][i] = 1;
+			}
+
+		}
+
+//	Printando a matriz		
+/*
+		for(int i = 0; i < matAdj.length; i++){
+			for(int j = 0; j < matAdj[i].length; j++){
+				System.out.print(matAdj[i][j] + ", ");
+			}
+			System.out.println();
+		}
+		for(int i = 0; i < mapaBoolean.length; i++){
+			for(int j = 0; j < mapaBoolean[i].length; j++){
+				System.out.print(mapaBoolean[i][j] + ", ");
+			}
+			System.out.println();
+		}
+*/		
+		
+		
+
 		switch(criteria){
 			case 1:
 
@@ -51,14 +83,182 @@ public class EP2Test8 {
 				}
 				break;
 		}
-				
-		
-		
-		
 		return path;
 	}
+	
+	public static void constroiCaminhoMatAdj(Map map, int[][] matAdj, boolean[][] mapaBoolean){
+		
+		int posVert = 0;
+		int numVert = 0;
+						
+		for(int i = 0; i < map.nLines(); i++){
+			for(int j = 0; j < map.nColumns(); j++){
+				if(map.free(i, j)){
+					mapaBoolean[i][j] = true;
 
-	public static void constroiCaminho(Map map, List<No> nozes){
+				}else mapaBoolean[i][j] = false;
+			}
+		}
+			
+		//mapaBoolean[0][3] = false;
+		for(int i = 0; i < mapaBoolean[0].length; i++){
+			if(mapaBoolean[0][i] == true) numVert++;
+		}
+
+//	Verificar se precisa inicializar a matAdj com todas as posicoes igual a zero ou se por padrao ela ja vem com zero		
+		for(int i = 0; i < matAdj.length; i++){
+			for(int j = 0; j < matAdj[i].length; j++){
+				matAdj[i][j] = 0;
+			}
+		}
+		
+		for(int i = 0; i < map.nLines(); i++){
+			for(int j = 0; j < map.nColumns(); j++){
+
+				if(map.free(i, j)){
+					if(map.verificaCelula(i, j + 1) == false && map.blocked(i, j + 1)==false){	
+
+						matAdj[posVert][posVert+1] = 1;
+						//nozes.get(cont).adicionaAresta(cont+1, 1);
+						posVert++;
+					}
+					else posVert++;
+				}
+
+			}
+		}
+		/*
+		posVert = map.getSize()-1;
+		
+		for(int i = map.nLines()-1; i >= 0; i--){
+			for(int j = map.nColumns()-1; j >= 0; j--){
+
+				if(map.free(i, j)){
+					if(map.verificaCelula(i, j - 1) == false && map.blocked(i, j - 1)==false){	
+						matAdj[posVert][posVert-1] = 1;
+						//nozes.get(cont).adicionaAresta(cont-1, 1);
+						posVert--;
+					}
+					else posVert--;
+				}
+			}
+		}
+		*/
+		posVert = 0;
+		
+		numVert = 0;
+
+		for(int i = 0; i < mapaBoolean[0].length; i++){
+			if(mapaBoolean[0][i] == true) numVert++;
+		}
+
+		
+		for(int i = 0; i < map.nLines(); i++){
+			for(int j = 0; j < map.nColumns(); j++){
+
+				if(map.free(i, j)){
+					if(map.verificaCelula(i + 1, j) == false && map.blocked(i + 1, j)==false){	
+						matAdj[posVert][numVert+posVert] = 1;
+						//nozes.get(cont).adicionaAresta(numVert+cont, 1);					
+						posVert++;
+					}
+					else{
+						posVert++;
+						numVert--;
+//						System.out.println("numvert+cont else" + (numVert+cont));
+					}	
+				}else{
+					if(map.verificaCelula(i + 1, j) == false && map.blocked(i + 1, j)==false){	
+						numVert++;
+					}
+					
+				}
+
+			}
+		}
+		/*
+		posVert = map.getSize()-1;
+		
+		numVert = 0;
+		
+		for(int i = 0; i < mapaBoolean[0].length; i++){
+			if(mapaBoolean[0][i] == true) numVert++;
+		}
+
+		
+		for(int i = map.nLines()-1; i >= 0 ; i--){
+			for(int j = map.nColumns()-1; j >= 0 ; j--){
+				if(map.free(i, j)){
+					if(map.verificaCelula(i - 1, j) == false && map.blocked(i - 1, j)==false){	
+						matAdj[posVert][posVert-numVert] = 1;
+						//nozes.get(cont).adicionaAresta(cont-numVert, 1);				
+						posVert--;
+					}else{
+						posVert--;
+						numVert--;
+					}	
+				}else{
+					if(map.verificaCelula(i - 1, j) == false && map.blocked(i - 1, j)==false){	
+						numVert++;
+					}
+				}
+			}
+		}
+		*/
+		
+/*		
+		for(int i = 0; i < map.nLines(); i++){
+			for(int j = 0; j < map.nColumns(); j++){
+//				System.out.println(i + " " + j);
+//				System.out.println("antes do if " + cont);
+				if(map.free(i, j)){
+					for(int k=0; k < sentidos.length; k++){
+						
+						if(map.verificaCelula(posVert + sentidos[k][0], posVert + sentidos[k][1]) == false && map.blocked(posVert + sentidos[k][0], posVert + sentidos[k][1]) == false){
+//VERIFICA SE EH PARA DIREITA							
+							if(posVert + sentidos[k][0]==0 && posVert + sentidos[k][1]==1){
+								matAdj[posVert][posVert+sentidos[k][1]] = 1;
+							}
+//VERIFICA SE EH PARA BAIXO							
+							if(posVert + sentidos[k][0]==1 && posVert + sentidos[k][1]==0){
+								matAdj[posVert][posVert+numVert] = 1;
+							}
+//VERIFICA SE EH PARA ESQUERDA							
+							if(posVert + sentidos[k][0]==0 && posVert + sentidos[k][1]==-1){
+								matAdj[posVert][posVert-1] = 1;
+							}
+//VERIFICA SE EH PARA CIMA							
+							if(posVert + sentidos[k][0]==-1 && posVert + sentidos[k][1]==0){
+								matAdj[posVert][posVert-numVert] = 1;
+							}
+						}else{
+//VERIFICA SE EH PARA BAIXO							
+							if(posVert + sentidos[k][0]==1 && posVert + sentidos[k][1]==0){
+								posVert++;
+								numVert--;
+							}
+//VERIFICA SE EH PARA CIMA							
+							if(posVert + sentidos[k][0]==-1 && posVert + sentidos[k][1]==0){
+								posVert--;
+								numVert--;
+							}
+						}
+				
+					}
+				
+				}else{
+//	Talvez de erro					
+					if((map.verificaCelula(i + 1, j) == false && map.blocked(i + 1, j)==false) || (map.verificaCelula(i - 1, j) == false && map.blocked(i - 1, j)==false)){	
+						numVert++;
+					}
+					
+				}
+				posVert++;
+			}
+		}*/
+	}
+	
+	public static void constroiCaminhoListAdj(Map map, List<No> nozes){
 		
 		int cont = 0;
 		
@@ -204,7 +404,9 @@ public class EP2Test8 {
 		
 	}
 		
-		
+	
+	
+	
 	/*
 	private static List<No> rota2(Map map, No atual, int[] path, int path_index) {
 		
