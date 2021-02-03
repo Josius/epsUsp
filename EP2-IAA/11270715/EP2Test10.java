@@ -1,3 +1,5 @@
+//Josimar Amaro de Sousa - 11270715
+
 import java.io.*;
 import java.util.*;
 
@@ -244,6 +246,3 @@ public class EP2Test10 {
 		printSolution(map, path);		
 	}
 }
-
-//OBS 1 DIJKSTRA: Aparentemente, usar dijkstra para caminho mais longo funcionou, porem em uma entrada 6 2 e saida 6 4, ele dá o menor caminho (6 2 - 6 3 - 6 4). O porque nao sei.
-//OBS 2 DIJKSTRA: O caminho percorrido no map1.txt esta diferente do que e apresentado no pdf. O tamanho do caminho encontrado eh a mesma, porem ele inicia o maior caminho pela direita, ao inves da esquerda, o que faz ele pegar somente um item ao inves de dois, alterando assim o tempo para percorrer

@@ -1,3 +1,5 @@
+//Josimar Amaro de Sousa - 11270715
+
 public class Posicao{
 	
 	private int x, y;

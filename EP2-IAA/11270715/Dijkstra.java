@@ -1,3 +1,5 @@
+//Josimar Amaro de Sousa - 11270715
+
 import java.util.*;
 
 public class Dijkstra{
@@ -172,24 +174,12 @@ public class Dijkstra{
 		int j = 0;
 		LinkedList <Integer> tempAnt = new LinkedList<Integer>();
 		tempAnt.add(i);
-		/*
-		System.out.println("vertInicial " + vertInicial);
-		System.out.println("vertFinal " + vertFinal);
-		System.out.println("i " + i);
-		System.out.println("tempAnt" + tempAnt);
-		*/
 		while (anteriores[i] != vertInicial){
 			
 			j++;
 			temp=anteriores[i];
 			tempAnt.add(temp);
 			i=temp;
-			/*
-			System.out.println("j " + j);
-			System.out.println("temp " + temp);
-			System.out.println("tempAnt " + tempAnt);
-			System.out.println("i " + i);
-			*/
 		}
 		tempAnt.add(vertInicial);
 		return tempAnt;
