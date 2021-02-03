@@ -41,6 +41,10 @@ public class EP2Test10 {
 				rota2(map, rotaMaior, path, path_index);
 				break;
 			case 3:
+				Dijkstra dijk = new Dijkstra(sizeMap, nLines, nColumns, lin, col, linFinal, colFinal, map, 0);
+//				dijk.verifica();
+				No rotaValio = dijk.getRota2();
+				rota2(map, rotaValio, path, path_index);
 				System.out.println("Caminho mais valioso");
 				break;
 			case 4:

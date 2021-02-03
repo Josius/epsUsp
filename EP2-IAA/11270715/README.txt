@@ -71,9 +71,6 @@ Com o construtor, todos esses dados são inicializados e preenchidos com as funçõ
 
 	determCam - pega a lista preenchida por maiorCaminho e converte em Nós para depois serem usados no preenchimento do mapa e as variáveis necessárias para a saída das informações (path, path_index, etc....).
 
-
-NOTA: Com exceção do código da função dijkstra, que praticamente é encontrada em qualquer lugar e a qual precisei fazer algumas alterações, todo o restante do código eu desenvolvi.
-
 BUG 1 DIJKSTRA: Aparentemente, usar dijkstra para caminho mais longo funcionou, porém, tomemos com exemplo o map1, sua entrada é 6-2 e  
 alteremos sua saida para 6-4. Neste caso ele dá o menor caminho (6-2 - 6-3 - 6-4). O porquê disso acontecer não sei.
 

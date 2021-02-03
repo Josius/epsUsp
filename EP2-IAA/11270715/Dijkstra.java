@@ -30,6 +30,28 @@ public class Dijkstra{
 		determCam(mapaVert, caminho);
 	}
 	
+	public Dijkstra(int size, int nLines, int nColumns, int lin, int col, int linFinal, int colFinal, Map map, int num){
+		
+		this.matAdj = new int[size][size];
+		this.mapaVert = new int[nLines][nColumns];
+		
+		constroiMapaVert(mapaVert); // todas as posicoes da matriz = -1
+		constroiCaminhoMatAdj(map, matAdj, mapaVert);	
+		espelhaMatrizAdj(matAdj);
+		addValorItem(map, matAdj, mapaVert);
+		
+		this.vertInicial = mapaVert[lin][col];
+		this.vertFinal = mapaVert[linFinal][colFinal];
+		this.anteriores = new int[matAdj.length];
+		
+		dijkstra(matAdj, vertInicial, anteriores);			
+		caminho = maiorCaminho(vertInicial, vertFinal, anteriores);
+		determCam(mapaVert, caminho);
+		
+	}
+	
+	
+		
 	public void verifica(){
 		System.out.println("mapaVert");
 		for(int i = 0; i < mapaVert.length; i++){
@@ -66,7 +88,7 @@ public class Dijkstra{
 	public static void espelhaMatrizAdj(int[][] matAdj){
 		for(int i = 0; i < matAdj.length; i++){
 			for(int j = 0; j < matAdj[i].length; j++){
-				if(matAdj[i][j] == 1) matAdj[j][i] = 1;
+				if(matAdj[i][j] != 0) matAdj[j][i] = matAdj[i][j];
 			}
 		}
 	}
@@ -129,6 +151,29 @@ public class Dijkstra{
 			}
 		}
 	}	
+	
+	public static void addValorItem(Map map, int[][] matAdj, int[][] mapaVert){
+		
+		for(int i = 0; i < map.nLines(); i++){
+			for(int j = 0; j < map.nColumns(); j++){
+				
+				Item item = map.getItem(i, j);
+				if(item != null){
+					int posVertItem = mapaVert[i][j];
+					/*
+					System.out.println(posVertItem);
+					System.out.println(item.getValue());
+					*/
+					for(int k = 0; k < matAdj.length; k++){
+						if(matAdj[k][posVertItem] != 0){
+							matAdj[k][posVertItem] = item.getValue();
+							matAdj[posVertItem][k] = item.getValue();
+						}
+					}
+				}
+			}
+		}
+	}
 	
 	public static void dijkstra(int[][] matAdj, int vertInicial, int[] anteriores){
 		
