@@ -160,7 +160,17 @@ class Map {
 		
 		this.map[lin][col] = FREE;
 	}
+	
+	public int getEndLin(){
 
+		return endLin;
+	}
+
+	public int getEndCol(){
+
+		return endCol;
+	}
+	
 	public boolean verificaMapa(){
 		
 		for(int i = 0; i < nLines(); i++){
@@ -172,9 +182,6 @@ class Map {
         return false;
 	}
 
-
-
-	
 	public int getNItems(){
 		
 		return nItems;

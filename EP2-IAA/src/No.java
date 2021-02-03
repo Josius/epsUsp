@@ -4,8 +4,6 @@ public class No{
 	
 	private Posicao posAtual;
 	private No posAnterior = null;
-	private int numVertice;
-	private List <Aresta> aresta;
 	
 	public No(Posicao posAtual){
 		this.posAtual = posAtual;	
@@ -15,16 +13,7 @@ public class No{
 		this.posAtual = posAtual;
 		this.posAnterior = posAnterior;
 	}
-	
-	public No(int numVertice){
-		this.numVertice = numVertice;
-		aresta = new ArrayList<Aresta>();
-	}
-	
-	public void adicionaAresta(int numVertice, int peso){
-		Aresta a = new Aresta(numVertice, peso);
-		aresta.add(a);
-	}
+
 	public Posicao getPosAtual(){
 		return this.posAtual;
 	}
@@ -43,22 +32,12 @@ public class No{
 	}
 	
 	public int getPosAnteriorX(){
-		
-		return this.getPosAtualX();
+	
+		return this.posAnterior.posAtual.getX();
 	}
 	public int getPosAnteriorY(){
 		
-		return this.getPosAtualY();
+		return this.posAnterior.posAtual.getY();
 	}
-	
-	public String toString(){
-		
-		String s = "numVertice " + numVertice + " ";
-		for(int i=0; i < aresta.size(); i++){
-			s += aresta.get(i) + " ";
-		}
-		
-		return s;
-	}
-	
+
 }

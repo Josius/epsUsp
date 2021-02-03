@@ -69,12 +69,21 @@ class GFG{
 		// marked as visited
 		Set<Integer> sett = new HashSet<>();
 		while (true){
-
+/*
+		v.get(0).add_child(1, 1);
+		v.get(0).add_child(2, 4);
+		v.get(1).add_child(2, 2);
+		v.get(1).add_child(3, 6);
+		v.get(2).add_child(3, 3);
+*/
 			// Mark current as visited
 			visited[current] = true;
 			for(int i = 0; i < g.get(current).children.size(); i++){
 				int v = g.get(current).children.get(i).first;
-
+System.out.println(g.get(current).children.get(i).first);
+System.out.println(g.get(current).children.get(i).second);
+System.out.println(visited[v]);
+System.out.println(v + "\n");
 				if (visited[v])
 					continue;
 
@@ -159,6 +168,7 @@ class GFG{
 	
 	// Loop to print the distance of
 	// every node from source vertex
+	/*
 		for(int i = 0; i < dist.length; i++){
 			if (dist[i] == infi){
 				System.out.printf("%d and %d are not " + "connected\n", i, s);
@@ -174,7 +184,7 @@ class GFG{
 		printPath(path, 0, 3);
 		printPath(path, 1, 3);
 		printPath(path, 2, 3);
-		printPath(path, 3, 3);
+		printPath(path, 3, 3);*/
 	}
 }
 
