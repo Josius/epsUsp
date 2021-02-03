@@ -7,7 +7,7 @@ class Map {
 
 	private char [][] map;
 	private Item [] items;
-	private int nLin, nCol, nItems, startLin, startCol, endLin, endCol, size;// size = qtde de células para andar no labirinto (excluíndo paredes)
+	private int nLin, nCol, nItems, startLin, startCol, endLin, endCol, size;
 	public int linha, coluna;	
 	
 	public Map(String fileName){
@@ -146,7 +146,6 @@ class Map {
 	}
 	
 // Verifica linhas/colunas para não ultrapassar os limites da matriz. Eh a mesma verificacao de if-else if que se encontra no while do arquivo EP2.java, soh que ao inves de verificar se os dados estao em um certo intervalo, preferi verificar se os dados estao ultrapassando o intervalo
-
 	public boolean verificaCelula(int lin, int col){
 		
 		if((lin < 0) || (col + 1 > nColumns()) || (lin + 1 > nLines() ) || (col < 0 )){
@@ -160,28 +159,19 @@ class Map {
 		
 		this.map[lin][col] = FREE;
 	}
-	
+
+//	Usada em Dijkstra
 	public int getEndLin(){
 
 		return endLin;
 	}
 
+//	Usada em Dijkstra
 	public int getEndCol(){
 
 		return endCol;
 	}
 	
-	public boolean verificaMapa(){
-		
-		for(int i = 0; i < nLines(); i++){
-        	for(int j = 0; j < nColumns(); j++){
-        		if(celulaVisitada(i,j))
-        			return true;
-        	}
-        }
-        return false;
-	}
-
 	public int getNItems(){
 		
 		return nItems;

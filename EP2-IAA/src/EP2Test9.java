@@ -10,7 +10,7 @@ public class EP2Test9 {
 
 	public static int [] findPath(Map map, int criteria){
 
-		int lin, col, linFinal, colFinal; 
+		int lin, col, linFinal, colFinal, sizeMap, nLines, nColumns; 
 		
 		int [] path;  
 		int path_index;
@@ -20,49 +20,36 @@ public class EP2Test9 {
 
 		lin = map.getStartLin();
 		col = map.getStartCol();
+//	Variaveis criadas
 		linFinal = map.getEndLin();
 		colFinal = map.getEndCol();
+		sizeMap = map.getSize();
+		nLines = map.nLines();
+		nColumns = map.nColumns();
 //	Matriz de Adjacencia
-		int[][] matAdj = new int[map.getSize()][map.getSize()];
+/*		int[][] matAdj = new int[map.getSize()][map.getSize()];
 		int[][] mapaVert = new int[map.nLines()][map.nColumns()];
 		
 		constroiMapaVert(mapaVert); // todas as posicoes da matriz = -1
 		constroiCaminhoMatAdj(map, matAdj, mapaVert);	
 		espelhaMatrizAdj(matAdj); // iguala os valores superiores da diagonal com os inferiores
-
-//	Printando a matriz		
-/*
-		for(int i = 0; i < matAdj.length; i++){
-			for(int j = 0; j < matAdj[i].length; j++){
-				System.out.print(matAdj[i][j] + " ");
-			}
-			System.out.println();
-		}
-		System.out.println();
-		for(int i = 0; i < mapaVert.length; i++){
-			for(int j = 0; j < mapaVert[i].length; j++){
-				System.out.print(mapaVert[i][j] + " ");
-			}
-			System.out.println();
-		}
-*/		
+*/
 		switch(criteria){
 			case 1:
 				caminho1(map, lin, col, path, path_index);				
 				break;
 			case 2:				
+/*			
 				int vertInicial = mapaVert[lin][col];
 				int vertFinal = mapaVert[linFinal][colFinal];
 				int[] anteriores = new int[matAdj.length];
 				
 				dijkstra(matAdj, vertInicial, anteriores);			
 				LinkedList<Integer> caminho = maiorCaminho(vertInicial, vertFinal, anteriores);
-				determCam(mapaVert, caminho, map, path, path_index);
-				/*
-				for(int i = 0; i < anteriores.length; i++){
-					System.out.println("pos: " + i +" ant: " + anteriores[i]);
-				}
-				*/
+				determCam(mapaVert, caminho, map, path, path_index);*/
+				Dijkstra dij = new Dijkstra(sizeMap, nLines, nColumns, lin, col, linFinal, colFinal, map);
+				No non = nono(dij);
+				rota2(map, non, path, path_index);
 				break;
 			case 3:
 				System.out.println("Caminho mais valioso");
@@ -75,7 +62,10 @@ public class EP2Test9 {
 		}
 		return path;
 	}
-	
+	public static No nono(Dijkstra dij){
+		return dij.getRota2();
+	}
+/*	
 	public static void constroiMapaVert(int[][] mapaVert){
 		for(int i = 0; i < mapaVert.length; i++){
 			for(int j = 0; j < mapaVert[i].length; j++){
@@ -110,13 +100,12 @@ public class EP2Test9 {
 			if(map.free(0, i))	numVert++;
 		}
 //	Verificar se precisa inicializar a matAdj com todas as posicoes igual a zero ou se por padrao ela ja vem com zero		
-/*
 		for(int i = 0; i < matAdj.length; i++){
 			for(int j = 0; j < matAdj[i].length; j++){
 				matAdj[i][j] = 0;
 			}
 		}
-*/		
+		
 		for(int i = 0; i < map.nLines(); i++){
 			for(int j = 0; j < map.nColumns(); j++){
 
@@ -174,11 +163,6 @@ public class EP2Test9 {
 				}
 			}
 		}
-		/*
-		for (int i = 0; i < dist.length; i++) {
-      		System.out.println(String.format("Distance from %s to %s is %s", vertInicial, i, dist[i]));
-    	}
-    	*/				
 	}
 	
 	public static int distMax(int[] dist, boolean[] vertVisitado){
@@ -229,7 +213,7 @@ public class EP2Test9 {
 		}
 		rota2(map, temp, path, path_index);
 	}
-	
+	*/
 	private static List<No> rota2(Map map, No atual, int[] path, int path_index) {
 
         No transitivo = atual;
@@ -381,7 +365,6 @@ public class EP2Test9 {
 		}
 
 //Alterei o println abaixo para printf, para que a saída do tempo percorrido tenha somente duas casas decimais
-//		System.out.println((path_size - 1)/2 + " " + tempo);
 		System.out.printf("%d %.2f %n", (path_size - 1)/2, tempo);
 
 		for(int i = 1; i < path_size; i += 2){
@@ -419,44 +402,10 @@ public class EP2Test9 {
 			map.print(); 
 			System.out.println("---------------------------------------------------------------");
 		}
-		/*
-		int[][] mapInt = new int[map.nLines()][map.nColumns()];
-		for(int i=0; i< map.nLines(); i++){
-			for(int j=0; j < map.nColumns(); j++){
-				if(map.free(i,j)) mapInt[i][j] = 1;
-				else mapInt[i][j] = 0;
-//				System.out.print(map.free(i, j) + " ");
-			}
-		}
-		
-		for(int i=0; i< map.nLines(); i++){
-			for(int j=0; j < map.nColumns(); j++){
 
-				System.out.print(mapInt[i][j] + " ");
-			}
-			System.out.println();
-		}
-*/
 		int criteria = Integer.parseInt(args[1]);
 		int [] path = findPath(map, criteria);
-		printSolution(map, path);
-//		System.out.println(map.verificaMapa());
-			
-/*
-		System.out.println(map.getSize());
-		System.out.println(map.getCharMap(6,2));
-		System.out.println(map.getCharMap(5,1));
-
-		//impressão da matriz dos sentidos
-		
-		for(int i = 0; i < sentidos.length; i++){
-			System.out.print(sentidos[i][0] + " " + sentidos[i][1] + " ");
-			System.out.println();
-		}
-		*/
-	
-		
-		
+		printSolution(map, path);		
 	}
 }
 
