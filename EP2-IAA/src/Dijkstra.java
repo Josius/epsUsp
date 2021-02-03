@@ -14,18 +14,44 @@ public class Dijkstra{
 		
 		this.matAdj = new int[size][size];
 		this.mapaVert = new int[nLines][nColumns];
-		this.vertInicial = mapaVert[lin][col];
-		this.vertFinal = mapaVert[linFinal][colFinal];
-		this.anteriores = new int[matAdj.length];
 		
 		constroiMapaVert(mapaVert); // todas as posicoes da matriz = -1
 		constroiCaminhoMatAdj(map, matAdj, mapaVert);	
 		espelhaMatrizAdj(matAdj);
+		
+		this.vertInicial = mapaVert[lin][col];
+		this.vertFinal = mapaVert[linFinal][colFinal];
+		this.anteriores = new int[matAdj.length];
+		
 		dijkstra(matAdj, vertInicial, anteriores);			
-		this.caminho = maiorCaminho(vertInicial, vertFinal, anteriores);
+		caminho = maiorCaminho(vertInicial, vertFinal, anteriores);
 		determCam(mapaVert, caminho);
 	}
 	
+	public void verifica(){
+		System.out.println("mapaVert");
+		for(int i = 0; i < mapaVert.length; i++){
+			for(int j = 0; j < mapaVert[i].length; j++){
+				System.out.print(mapaVert[i][j] +" ");
+			}
+			System.out.println();
+		}
+		System.out.println("matAdj");
+		for(int i = 0; i < matAdj.length; i++){
+			for(int j = 0; j < matAdj[i].length; j++){
+				System.out.print(matAdj[j][i] +" ");
+			}
+			System.out.println();
+		}
+		System.out.println("anteriores");
+		for(int i = 0; i < anteriores.length; i++){
+			System.out.print(anteriores[i] +" ");
+		}
+		System.out.println();
+		System.out.println("caminho " + caminho);
+		System.out.println();
+		System.out.println("verifica " + vertInicial + " " + vertFinal + " " + anteriores);
+	}
 	
 	public static void constroiMapaVert(int[][] mapaVert){
 		for(int i = 0; i < mapaVert.length; i++){
@@ -146,11 +172,24 @@ public class Dijkstra{
 		int j = 0;
 		LinkedList <Integer> tempAnt = new LinkedList<Integer>();
 		tempAnt.add(i);
+		/*
+		System.out.println("vertInicial " + vertInicial);
+		System.out.println("vertFinal " + vertFinal);
+		System.out.println("i " + i);
+		System.out.println("tempAnt" + tempAnt);
+		*/
 		while (anteriores[i] != vertInicial){
+			
 			j++;
 			temp=anteriores[i];
 			tempAnt.add(temp);
 			i=temp;
+			/*
+			System.out.println("j " + j);
+			System.out.println("temp " + temp);
+			System.out.println("tempAnt " + tempAnt);
+			System.out.println("i " + i);
+			*/
 		}
 		tempAnt.add(vertInicial);
 		return tempAnt;
@@ -158,6 +197,7 @@ public class Dijkstra{
 	
 	public static void determCam(int[][] mapaVert, LinkedList<Integer> caminho){
 		
+//		System.out.println("caminho " + caminho);
 		No temp = null;
 		No temp2 = temp;
 		while(caminho.size() != 0){
@@ -166,7 +206,7 @@ public class Dijkstra{
 			for(int x = 0; x < mapaVert.length; x++){
 				for(int y = 0; y < mapaVert[x].length; y++){
 					if(u == mapaVert[x][y]){					
-						temp = new No(new Posicao(x, y), temp2);;
+						temp = new No(new Posicao(x, y), temp2);
 					}
 				}
 			}
@@ -175,7 +215,7 @@ public class Dijkstra{
 		rota2 = temp;
 	}
 	
-	public No getRota2(){
+	public static No getRota2(){
 		
 		return rota2;
 	}

@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class EP2Test9 {
+public class EP2Test10 {
 	
 // Matriz de sentidos para caminhar no mapa, usar na recursividade
 	public static int[][] sentidos = {{0, 1},{1, 0},{0,-1},{-1,0}};
@@ -26,30 +26,17 @@ public class EP2Test9 {
 		sizeMap = map.getSize();
 		nLines = map.nLines();
 		nColumns = map.nColumns();
+
 //	Matriz de Adjacencia
-/*		int[][] matAdj = new int[map.getSize()][map.getSize()];
-		int[][] mapaVert = new int[map.nLines()][map.nColumns()];
-		
-		constroiMapaVert(mapaVert); // todas as posicoes da matriz = -1
-		constroiCaminhoMatAdj(map, matAdj, mapaVert);	
-		espelhaMatrizAdj(matAdj); // iguala os valores superiores da diagonal com os inferiores
-*/
+
 		switch(criteria){
 			case 1:
 				caminho1(map, lin, col, path, path_index);				
 				break;
-			case 2:				
-/*			
-				int vertInicial = mapaVert[lin][col];
-				int vertFinal = mapaVert[linFinal][colFinal];
-				int[] anteriores = new int[matAdj.length];
-				
-				dijkstra(matAdj, vertInicial, anteriores);			
-				LinkedList<Integer> caminho = maiorCaminho(vertInicial, vertFinal, anteriores);
-				determCam(mapaVert, caminho, map, path, path_index);*/
+			case 2:								
 				Dijkstra dij = new Dijkstra(sizeMap, nLines, nColumns, lin, col, linFinal, colFinal, map);
-				No non = nono(dij);
-				rota2(map, non, path, path_index);
+				No rotaMaior = dij.getRota2();
+				rota2(map, rotaMaior, path, path_index);
 				break;
 			case 3:
 				System.out.println("Caminho mais valioso");
@@ -62,158 +49,7 @@ public class EP2Test9 {
 		}
 		return path;
 	}
-	public static No nono(Dijkstra dij){
-		return dij.getRota2();
-	}
-/*	
-	public static void constroiMapaVert(int[][] mapaVert){
-		for(int i = 0; i < mapaVert.length; i++){
-			for(int j = 0; j < mapaVert[i].length; j++){
-				mapaVert[i][j] = -1;
-			}
-		}
-	}
 	
-	public static void espelhaMatrizAdj(int[][] matAdj){
-		for(int i = 0; i < matAdj.length; i++){
-			for(int j = 0; j < matAdj[i].length; j++){
-				if(matAdj[i][j] == 1) matAdj[j][i] = 1;
-			}
-		}
-	}
-	
-	public static void constroiCaminhoMatAdj(Map map, int[][] matAdj, int[][] mapaVert){
-		int posVert = 0;
-		int numVert = 0;
-		int vert = 0;
-						
-		for(int i = 0; i < map.nLines(); i++){
-			for(int j = 0; j < map.nColumns(); j++){
-				if(map.free(i, j)){
-					mapaVert[i][j] = vert;
-					vert++;
-				}
-			}
-		}
-		
-		for(int i = 0; i < map.nColumns(); i++){
-			if(map.free(0, i))	numVert++;
-		}
-//	Verificar se precisa inicializar a matAdj com todas as posicoes igual a zero ou se por padrao ela ja vem com zero		
-		for(int i = 0; i < matAdj.length; i++){
-			for(int j = 0; j < matAdj[i].length; j++){
-				matAdj[i][j] = 0;
-			}
-		}
-		
-		for(int i = 0; i < map.nLines(); i++){
-			for(int j = 0; j < map.nColumns(); j++){
-
-				if(map.free(i, j)){
-					if(map.verificaCelula(i, j + 1) == false && map.blocked(i, j + 1)==false){	
-						matAdj[posVert][posVert+1] = 1;
-						posVert++;
-					}
-					else posVert++;
-				}
-			}
-		}
-
-		posVert = 0;
-		for(int i = 0; i < map.nLines(); i++){
-			for(int j = 0; j < map.nColumns(); j++){
-
-				if(map.free(i, j)){
-					if(map.verificaCelula(i + 1, j) == false && map.blocked(i + 1, j)==false){	
-						matAdj[posVert][numVert+posVert] = 1;					
-						posVert++;
-					}
-					else{
-						posVert++;
-						numVert--;
-					}	
-				}else{
-					if(map.verificaCelula(i + 1, j) == false && map.blocked(i + 1, j)==false){	
-						numVert++;
-					}
-				}
-			}
-		}
-	}	
-	
-	public static void dijkstra(int[][] matAdj, int vertInicial, int[] anteriores){
-		
-		int[] dist = new int[matAdj.length];
-		boolean[] vertVisitado = new boolean[matAdj.length];
-		
-		for(int i = 0; i < dist.length; i++){
-			dist[i] = Integer.MIN_VALUE;
-			vertVisitado[i] = false;
-		}
-		
-		dist[vertInicial] = 0;
-		for(int i = 0; i < dist.length; i++){
-			int u = distMax(dist, vertVisitado);
-			vertVisitado[u] = true;
-//			System.out.println("u " + u);
-			for(int v = 0; v < dist.length; v++){
-				if((vertVisitado[v]==false && matAdj[u][v] != 0) && (dist[u] + matAdj[u][v] >= dist[v])){
-					dist[v] = dist[u] + matAdj[u][v];
-					anteriores[v] = u;
-				}
-			}
-		}
-	}
-	
-	public static int distMax(int[] dist, boolean[] vertVisitado){
-		int maxDist = Integer.MIN_VALUE;
-		int distVert = Integer.MAX_VALUE;
-		
-		for(int i = 0; i < dist.length; i++){
-			if(vertVisitado[i]==false && dist[i] >= maxDist){
-				maxDist = dist[i];
-				distVert = i;
-			}
-		}
-		return distVert;
-	}
-	
-	public static LinkedList<Integer> maiorCaminho(int vertInicial, int vertFinal, int[] anteriores){
-		
-		int i = vertFinal;
-		int temp;
-		int j = 0;
-		LinkedList <Integer> tempAnt = new LinkedList<Integer>();
-		tempAnt.add(i);
-		while (anteriores[i] != vertInicial){
-			j++;
-			temp=anteriores[i];
-			tempAnt.add(temp);
-			i=temp;
-		}
-		tempAnt.add(vertInicial);
-		return tempAnt;
-	}
-	
-	public static void determCam(int[][] mapaVert, LinkedList<Integer> caminho, Map map, int[] path, int path_index){
-		
-		No temp = null;
-		No temp2 = temp;
-		while(caminho.size() != 0){
-			
-			int u = caminho.remove();
-			for(int x = 0; x < mapaVert.length; x++){
-				for(int y = 0; y < mapaVert[x].length; y++){
-					if(u == mapaVert[x][y]){					
-						temp = new No(new Posicao(x, y), temp2);;
-					}
-				}
-			}
-			temp2 = temp;
-		}
-		rota2(map, temp, path, path_index);
-	}
-	*/
 	private static List<No> rota2(Map map, No atual, int[] path, int path_index) {
 
         No transitivo = atual;
@@ -409,4 +245,5 @@ public class EP2Test9 {
 	}
 }
 
-//OBS DIJKSTRA: Aparentemente, usar dijkstra para caminho mais longo funcionou, porem em uma entrada 6 2 e saida 6 4, ele dá o menor caminho (6 2 - 6 3 - 6 4). O porque nao sei.
+//OBS 1 DIJKSTRA: Aparentemente, usar dijkstra para caminho mais longo funcionou, porem em uma entrada 6 2 e saida 6 4, ele dá o menor caminho (6 2 - 6 3 - 6 4). O porque nao sei.
+//OBS 2 DIJKSTRA: O caminho percorrido no map1.txt esta diferente do que e apresentado no pdf. O tamanho do caminho encontrado eh a mesma, porem ele inicia o maior caminho pela direita, ao inves da esquerda, o que faz ele pegar somente um item ao inves de dois, alterando assim o tempo para percorrer
