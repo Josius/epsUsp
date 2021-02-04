@@ -6,7 +6,10 @@ import java.util.*;
 public class EP2Test10 {
 	
 // Matriz de sentidos para caminhar no mapa, usar na recursividade
-	public static int[][] sentidos = {{0, 1},{1, 0},{0,-1},{-1,0}};
+//	public static int[][] sentidos = {{0, 1},{1, 0},{0,-1},{-1,0}};
+	public static int[][] sentidos = {{1, 0},{0,-1},{-1,0},{0, 1}};
+//	public static int[][] sentidos = {{0, 1},{1, 0},{0,-1},{-1,0}};
+//	public static int[][] sentidos = {{0, 1},{1, 0},{0,-1},{-1,0}};
 	
 	public static final boolean DEBUG = false;
 
@@ -41,13 +44,16 @@ public class EP2Test10 {
 				rota2(map, rotaMaior, path, path_index);
 				break;
 			case 3:
-				Dijkstra dijk = new Dijkstra(sizeMap, nLines, nColumns, lin, col, linFinal, colFinal, map, 0);
+				/*
+				DijkstraMV dijk = new DijkstraMV(sizeMap, nLines, nColumns, lin, col, linFinal, colFinal, map);
 //				dijk.verifica();
 				No rotaValio = dijk.getRota2();
 				rota2(map, rotaValio, path, path_index);
 				System.out.println("Caminho mais valioso");
+				*/
 				break;
 			case 4:
+
 				if(caminho4(map, lin, col, path, path_index)){
 					return path;
 				}
@@ -148,6 +154,7 @@ public class EP2Test10 {
 	public static boolean caminho4(Map map, int lin, int col, int[] path, int path_index){
 		
 		if(map.verificaCelula(lin, col) || map.blocked(lin, col) || map.celulaVisitada(lin, col)){
+//			System.out.println("saiu da recursao");
 			return false;
 		}
 				
@@ -158,12 +165,18 @@ public class EP2Test10 {
 		path[0] = path_index;
 		
 		if(map.finished(lin, col)){
+			
 			return true;
 		}
-		
+//	public static int[][] sentidos = {{1, 0},{0,-1},{-1,0},{0, 1}};		
 		for(int i = 0; i < sentidos.length; i++){			
 			int direcaoHorizontal = lin + sentidos[i][0];
 			int direcaoVertical = col + sentidos[i][1];
+			/*
+//			System.out.println("i: " + i);
+//			System.out.println("dirHor " + direcaoHorizontal + " dirVer " + direcaoVertical);
+//			System.out.println("	senX " + sentidos[i][0] + " senY " + sentidos[i][1]);
+			*/
 			if(caminho4(map, direcaoHorizontal, direcaoVertical, path, path_index)){
 				return true;
 			}

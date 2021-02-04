@@ -1,0 +1,276 @@
+i: 0
+dirHor 7 dirVer 2
+	senX 1 senY 0
+saiu da recursao
+i: 1
+dirHor 6 dirVer 1
+	senX 0 senY -1
+        i: 0
+        dirHor 7 dirVer 1
+	        senX 1 senY 0
+        saiu da recursao
+        i: 1
+        dirHor 6 dirVer 0
+	        senX 0 senY -1
+                i: 0
+                dirHor 7 dirVer 0
+	                senX 1 senY 0
+                saiu da recursao
+                i: 1
+                dirHor 6 dirVer -1
+	                senX 0 senY -1
+                saiu da recursao
+                i: 2
+                dirHor 5 dirVer 0
+	                senX -1 senY 0
+                        i: 0
+                        dirHor 6 dirVer 0
+	                        senX 1 senY 0
+                        saiu da recursao
+                        i: 1
+                        dirHor 5 dirVer -1
+	                        senX 0 senY -1
+                        saiu da recursao
+                        i: 2
+                        dirHor 4 dirVer 0
+	                        senX -1 senY 0
+                                i: 0
+                                dirHor 5 dirVer 0
+	                                senX 1 senY 0
+                                saiu da recursao
+                                i: 1
+                                dirHor 4 dirVer -1
+	                                senX 0 senY -1
+                                saiu da recursao
+                                i: 2
+                                dirHor 3 dirVer 0
+	                                senX -1 senY 0
+                                        i: 0
+                                        dirHor 4 dirVer 0
+	                                        senX 1 senY 0
+                                        saiu da recursao
+                                        i: 1
+                                        dirHor 3 dirVer -1
+	                                        senX 0 senY -1
+                                        saiu da recursao
+                                        i: 2
+                                        dirHor 2 dirVer 0
+	                                        senX -1 senY 0
+                                                i: 0
+                                                dirHor 3 dirVer 0
+	                                                senX 1 senY 0
+                                                saiu da recursao
+                                                i: 1
+                                                dirHor 2 dirVer -1
+	                                                senX 0 senY -1
+                                                saiu da recursao
+                                                i: 2
+                                                dirHor 1 dirVer 0
+	                                                senX -1 senY 0
+                                                saiu da recursao
+                                                i: 3
+                                                dirHor 2 dirVer 1
+	                                                senX 0 senY 1
+                                                saiu da recursao
+                                        i: 3
+                                        dirHor 3 dirVer 1
+                                            senX 0 senY 1
+                                                i: 0
+                                                dirHor 4 dirVer 1
+                                                    senX 1 senY 0
+                                                saiu da recursao
+                                                i: 1
+                                                dirHor 3 dirVer 0
+                                                    senX 0 senY -1
+                                                saiu da recursao
+                                                i: 2
+                                                dirHor 2 dirVer 1
+                                                    senX -1 senY 0
+                                                saiu da recursao
+                                                i: 3
+                                                dirHor 3 dirVer 2
+                                                    senX 0 senY 1
+                                                        i: 0
+                                                        dirHor 4 dirVer 2
+                                                            senX 1 senY 0
+                                                                i: 0
+                                                                dirHor 5 dirVer 2
+                                                                    senX 1 senY 0
+                                                                        i: 0
+                                                                        dirHor 6 dirVer 2
+                                                                            senX 1 senY 0
+                                                                        saiu da recursao
+                                                                        i: 1
+                                                                        dirHor 5 dirVer 1
+                                                                            senX 0 senY -1
+                                                                        saiu da recursao
+                                                                        i: 2
+                                                                        dirHor 4 dirVer 2
+                                                                            senX -1 senY 0
+                                                                        saiu da recursao
+                                                                        i: 3
+                                                                        dirHor 5 dirVer 3
+                                                                            senX 0 senY 1
+                                                                        saiu da recursao
+                                                                i: 1
+                                                                dirHor 4 dirVer 1
+                                                                    senX 0 senY -1
+                                                                saiu da recursao
+                                                                i: 2
+                                                                dirHor 3 dirVer 2
+                                                                    senX -1 senY 0
+                                                                saiu da recursao
+                                                                i: 3
+                                                                dirHor 4 dirVer 3
+                                                                    senX 0 senY 1
+                                                                saiu da recursao
+                                                        i: 1
+                                                        dirHor 3 dirVer 1
+                                                            senX 0 senY -1
+                                                        saiu da recursao
+                                                        i: 2
+                                                        dirHor 2 dirVer 2
+                                                            senX -1 senY 0
+                                                                i: 0
+                                                                dirHor 3 dirVer 2
+                                                                    senX 1 senY 0
+                                                                saiu da recursao
+                                                                i: 1
+                                                                dirHor 2 dirVer 1
+                                                                    senX 0 senY -1
+                                                                saiu da recursao
+                                                                i: 2
+                                                                dirHor 1 dirVer 2
+                                                                    senX -1 senY 0
+                                                                saiu da recursao
+                                                                i: 3
+                                                                dirHor 2 dirVer 3
+                                                                    senX 0 senY 1
+                                                                saiu da recursao
+                                                        i: 3
+                                                        dirHor 3 dirVer 3
+                                                            senX 0 senY 1
+                                                                i: 0
+                                                                dirHor 4 dirVer 3
+                                                                    senX 1 senY 0
+                                                                saiu da recursao
+                                                                i: 1
+                                                                dirHor 3 dirVer 2
+                                                                    senX 0 senY -1
+                                                                saiu da recursao
+                                                                i: 2
+                                                                dirHor 2 dirVer 3
+                                                                    senX -1 senY 0
+                                                                saiu da recursao
+                                                                i: 3
+                                                                dirHor 3 dirVer 4
+                                                                    senX 0 senY 1
+                                                                        i: 0
+                                                                        dirHor 4 dirVer 4
+                                                                            senX 1 senY 0
+                                                                                i: 0
+                                                                                dirHor 5 dirVer 4
+                                                                                    senX 1 senY 0
+                                                                                        i: 0
+                                                                                        dirHor 6 dirVer 4
+                                                                                            senX 1 senY 0
+                                                                                                i: 0
+                                                                                                dirHor 7 dirVer 4
+                                                                                                    senX 1 senY 0
+                                                                                                saiu da recursao
+                                                                                                i: 1
+                                                                                                dirHor 6 dirVer 3
+                                                                                                    senX 0 senY -1
+                                                                                                        i: 0
+                                                                                                        dirHor 7 dirVer 3
+                                                                                                            senX 1 senY 0
+                                                                                                        saiu da recursao
+                                                                                                        i: 1
+                                                                                                        dirHor 6 dirVer 2
+                                                                                                            senX 0 senY -1
+                                                                                                        saiu da recursao
+                                                                                                        i: 2
+                                                                                                        dirHor 5 dirVer 3
+                                                                                                            senX -1 senY 0
+                                                                                                        saiu da recursao
+                                                                                                        i: 3
+                                                                                                        dirHor 6 dirVer 4
+                                                                                                            senX 0 senY 1
+                                                                                                        saiu da recursao
+                                                                                                i: 2
+                                                                                                dirHor 5 dirVer 4
+                                                                                                    senX -1 senY 0
+                                                                                                saiu da recursao
+                                                                                                i: 3
+                                                                                                dirHor 6 dirVer 5
+                                                                                                    senX 0 senY 1
+                                                                                                saiu da recursao
+                                                                                        i: 1
+                                                                                        dirHor 5 dirVer 3
+                                                                                            senX 0 senY -1
+                                                                                        saiu da recursao
+                                                                                        i: 2
+                                                                                        dirHor 4 dirVer 4
+                                                                                            senX -1 senY 0
+                                                                                        saiu da recursao
+                                                                                        i: 3
+                                                                                        dirHor 5 dirVer 5
+                                                                                            senX 0 senY 1
+                                                                                        saiu da recursao
+                                                                                i: 1
+                                                                                dirHor 4 dirVer 3
+                                                                                    senX 0 senY -1
+                                                                                saiu da recursao
+                                                                                i: 2
+                                                                                dirHor 3 dirVer 4
+                                                                                    senX -1 senY 0
+                                                                                saiu da recursao
+                                                                                i: 3
+                                                                                dirHor 4 dirVer 5
+                                                                                    senX 0 senY 1
+                                                                                saiu da recursao
+                                                                        i: 1
+                                                                        dirHor 3 dirVer 3
+                                                                            senX 0 senY -1
+                                                                        saiu da recursao
+                                                                        i: 2
+                                                                        dirHor 2 dirVer 4
+                                                                            senX -1 senY 0
+                                                                                i: 0
+                                                                                dirHor 3 dirVer 4
+                                                                                    senX 1 senY 0
+                                                                                saiu da recursao
+                                                                                i: 1
+                                                                                dirHor 2 dirVer 3
+                                                                                    senX 0 senY -1
+                                                                                saiu da recursao
+                                                                                i: 2
+                                                                                dirHor 1 dirVer 4
+                                                                                    senX -1 senY 0
+                                                                                        i: 0
+                                                                                        dirHor 2 dirVer 4
+                                                                                            senX 1 senY 0
+                                                                                        saiu da recursao
+                                                                                        i: 1
+                                                                                        dirHor 1 dirVer 3
+                                                                                            senX 0 senY -1
+                                                                                        saiu da recursao
+                                                                                        i: 2
+                                                                                        dirHor 0 dirVer 4
+                                                                                            senX -1 senY 0
+                                                                                                i: 0
+                                                                                                dirHor 1 dirVer 4
+                                                                                                    senX 1 senY 0
+                                                                                                saiu da recursao
+                                                                                                i: 1
+                                                                                                dirHor 0 dirVer 3
+                                                                                                    senX 0 senY -1
+                                                                                                        i: 0
+                                                                                                        dirHor 1 dirVer 3
+                                                                                                            senX 1 senY 0
+                                                                                                        saiu da recursao
+                                                                                                        i: 1
+                                                                                                        dirHor 0 dirVer 2
+                                                                                                            senX 0 senY -1
+                                                                                                            
+                                                                                                            ENCONTROU A SAÍDA
