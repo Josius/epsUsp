@@ -159,21 +159,22 @@ public class EP2Test10 {
 		LinkedList<No> noItem = new LinkedList<No>();
 		Item item = map.getItem(lin, col);
 		
-System.out.println("item out-while: " + item);
+//System.out.println("item out-while: " + item);
 		
 		if(item != null){
 			itemIni = new No(new Posicao(lin, col), null, item, item.getValue()); //	criar construtor sem o campo posAnterior e com campo item
-			contValor = item.getValue();
+			contValor += item.getValue();
 		}else itemIni = new No(new Posicao(lin, col));
-	
+/*	
 System.out.println("itemIni:");
 System.out.println("	lin: " + itemIni.getPosAtualX() + " - col: " + itemIni.getPosAtualY() + " - posAnt: " + itemIni.getPosAnterior() + " - item: " + itemIni.getItem() + " - valorItem: " + itemIni.valorItem);
-		
+*/		
 		noItem.add(itemIni);
+/*		
 System.out.println("noItem:");	
 System.out.println("	lin: " + noItem.get(0).getPosAtualX() + " - col: " + noItem.get(0).getPosAtualY() + " - posAnt: " + noItem.get(0).getPosAnterior() + " - item: " + noItem.get(0).getItem() + " - valorItem: " + noItem.get(0).valorItem);
 System.out.println("contValor: " + contValor);		
-
+*/
 //		while(!map.finished(lin, col)){
 		while(noItem.size() != 0){ //	talvez precuse retirar nos.size != 0
 
@@ -182,37 +183,47 @@ System.out.println("	lin: " + noItem.get(0).getPosAtualX() + " - col: " + noItem
 System.out.println("contValor: " + contValor);		
 
 			No atual = noItem.remove(0);
-/*			
+			
 System.out.println("atual em while:");
-System.out.println("	lin: " + atual.getPosAtualX() + " - col: " + atual.getPosAtualY() + " - posAntX: " + atual.getPosAnterior().getPosAtualX() + " - posAntY: " + atual.getPosAnterior().getPosAtualY() + " - item: " + atual.getItem());			
-*/			
+System.out.println("	lin: " + atual.getPosAtualX() + " - col: " + atual.getPosAtualY() + " - posAnt: " + atual.getPosAnterior() + " - item: " + atual.getItem() + " - valorItem: " + atual.valorItem);
+			
 			if(map.finished(atual.getPosAtualX(), atual.getPosAtualY())){
 //	Fazer uma nova verificacao sobre contValor (que e atualizado a cada item adquirido) e o valorFinal dos itens, se valorFinal >= contValor, finaliza, caso contrário, continua (retorn false)
 System.out.println("atual em map.finished():");
 System.out.println("	lin: " + atual.getPosAtualX() + " - col: " + atual.getPosAtualY() + " - posAntX: " + atual.getPosAnterior().getPosAtualX() + " - posAntY: " + atual.getPosAnterior().getPosAtualY() + " - item: " + atual.getItem() + " - valorItem: " + atual.valorItem + " - valorItem: " + atual.valorItem);
-				rota(map, atual, path, path_index);
-				return true;
+
+				if(atual.valorItem > contValor){
+					rota(map, atual, path, path_index);
+					return true;
+				}
+				else return false;
 //				return rota(map, atual, path, path_index);
 			}
 			
 			for(int i = 0; i < sentidos.length; i++){
 				if((map.verificaCelula(atual.getPosAtualX() + sentidos[i][0], atual.getPosAtualY() + sentidos[i][1])) || (map.celulaVisitada(atual.getPosAtualX() + sentidos[i][0], atual.getPosAtualY() + sentidos[i][1])) || map.blocked(atual.getPosAtualX() + sentidos[i][0], atual.getPosAtualY() + sentidos[i][1])){
-System.out.println("Nao valido");
+System.out.println("Nao valido - i: " + i);
 					continue;
 				}
 				int dirHorizon = atual.getPosAtualX() + sentidos[i][0];
 				int dirVert = atual.getPosAtualY() + sentidos[i][1];
 
+System.out.println("dirHorizon: " + dirHorizon + " dirVert: " + dirVert);
+
 				Item itemAtual = map.getItem(dirHorizon, dirVert);
+System.out.println("itemAtual " + itemAtual);
+//System.out.println("itemAtual.getValue " + itemAtual.getValue()); resulta em NullPointerException por causa que o valor de um item não inicializado não aponta para nenhum espaço de memória
+
+
 				No itemNovo;
 				
 				if(itemAtual != null){
 					itemNovo = new No(new Posicao(dirHorizon, dirVert), atual, itemAtual, itemAtual.getValue());
-
-				}else itemNovo = new No(new Posicao(dirHorizon, dirVert), atual, null, itemAtual.getValue());
+					contValor += itemAtual.getValue();
+				}else itemNovo = new No(new Posicao(dirHorizon, dirVert), atual, itemAtual, atual.valorItem);
 
 System.out.println("itemNovo no for: " + i);
-System.out.println("	lin: " + itemNovo.getPosAtualX() + " - col: " + itemNovo.getPosAtualY() + " - posAntX: " + itemNovo.getPosAnterior().getPosAtualX() + " - posAntY: " + itemNovo.getPosAnterior().getPosAtualY() + " - item: " + itemNovo.getItem() + " - valorItem: " + itemNovo.valorItem);
+System.out.println("		lin: " + itemNovo.getPosAtualX() + " - col: " + itemNovo.getPosAtualY() + " - posAntX: " + itemNovo.getPosAnterior().getPosAtualX() + " - posAntY: " + itemNovo.getPosAnterior().getPosAtualY() + " - item: " + itemNovo.getItem() + " - valorItem: " + itemNovo.valorItem);
 				
 				noItem.add(itemNovo);
 				

@@ -53,5 +53,19 @@ class Item {
 
 		return "Item: coordinates = (" + getLin() + ", " + getCol() + "), value = " + getValue() + " weight = " + getWeight();
 	}
+
+//	Metodos Criados
+	public int getValue2(){
+		
+		try{
+			return value;
+		}catch(NullPointerException e){
+			System.out.println("erro");
+		}finally{
+			return 0;
+		}
+		
+		
+	}
 }
 

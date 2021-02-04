@@ -28,7 +28,11 @@ public class No{
 		this.posAtual = posAtual;
 		this.posAnterior = posAnterior;
 		this.item = item;
-		this.valorItem += valorItem;
+		
+		if(posAnterior != null){
+			this.valorItem = getPosAnterior().valorItem + valorItem;
+		}else this.valorItem = valorItem;
+		
 	}
 	
 	public Posicao getPosAtual(){
@@ -60,5 +64,11 @@ public class No{
 		
 		return this.posAnterior.posAtual.getY();
 	}
-
+	/*
+	public String toString(){
+		
+		String s = " ";
+		s += "posAtualX " + getPosAtualX() + " posAtualX " +getPosAtualY() + " posAnteriorX " + getPosAnterior().getPosAtualX() + " posAnteriorY " + getPosAnterior().getPosAtualY() + " item " + item + " valorItem " + valorItem;
+		return s;
+	}*/
 }
