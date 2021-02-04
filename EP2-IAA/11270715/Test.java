@@ -3,10 +3,17 @@ import java.util.*;
 public class Test{
 	public static void main(String[] args){
 		
-		
-		System.out.println(Integer.MIN_VALUE > 0);
-		System.out.println(Integer.MIN_VALUE < 0);
-		System.out.println(Integer.MIN_VALUE);
+		Item i = new Item(10, 20, 30, 40);
+		No no2 = new No(new Posicao(2, 33), null, i);
+		int[] a = no2.getItem().getCoordinates();
+		System.out.println(no2.getItem().getLin());
+		System.out.println(no2.getItem().getCol());
+		System.out.println(no2.getItem().getCoordinates());
+		System.out.println(a[0] + " " + a[1]);
+		System.out.println(no2.getItem().getValue());
+		System.out.println(no2.getItem().getWeight());
+//		System.out.println(Integer.MIN_VALUE < 0);
+//		System.out.println(Integer.MIN_VALUE);
 		/*
 		No no1 = new No(new Posicao(1, 22));
 		No no2 = new No(new Posicao(2, 33), no1);

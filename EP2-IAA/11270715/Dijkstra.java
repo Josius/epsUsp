@@ -4,13 +4,13 @@ import java.util.*;
 
 public class Dijkstra{
 	
-	int[][] matAdj;
-	int[][] mapaVert;
-	int vertInicial;
-	int vertFinal;
-	int[] anteriores;
-	LinkedList<Integer> caminho;
-	static No rota2;
+	private int[][] matAdj;
+	private int[][] mapaVert;
+	private int vertInicial;
+	private int vertFinal;
+	private int[] anteriores;
+	private LinkedList<Integer> caminho;
+	private static No rota2;
 				
 	public Dijkstra(int size, int nLines, int nColumns, int lin, int col, int linFinal, int colFinal, Map map){
 		
@@ -49,9 +49,7 @@ public class Dijkstra{
 		determCam(mapaVert, caminho);
 		
 	}
-	
-	
-		
+			
 	public void verifica(){
 		System.out.println("mapaVert");
 		for(int i = 0; i < mapaVert.length; i++){
@@ -77,7 +75,7 @@ public class Dijkstra{
 		System.out.println("verifica " + vertInicial + " " + vertFinal + " " + anteriores);
 	}
 	
-	public static void constroiMapaVert(int[][] mapaVert){
+	private static void constroiMapaVert(int[][] mapaVert){
 		for(int i = 0; i < mapaVert.length; i++){
 			for(int j = 0; j < mapaVert[i].length; j++){
 				mapaVert[i][j] = -1;
@@ -85,7 +83,7 @@ public class Dijkstra{
 		}
 	}
 	
-	public static void espelhaMatrizAdj(int[][] matAdj){
+	private static void espelhaMatrizAdj(int[][] matAdj){
 		for(int i = 0; i < matAdj.length; i++){
 			for(int j = 0; j < matAdj[i].length; j++){
 				if(matAdj[i][j] != 0) matAdj[j][i] = matAdj[i][j];
@@ -93,7 +91,7 @@ public class Dijkstra{
 		}
 	}
 	
-	public static void constroiCaminhoMatAdj(Map map, int[][] matAdj, int[][] mapaVert){
+	private static void constroiCaminhoMatAdj(Map map, int[][] matAdj, int[][] mapaVert){
 		int posVert = 0;
 		int numVert = 0;
 		int vert = 0;
@@ -152,7 +150,7 @@ public class Dijkstra{
 		}
 	}	
 	
-	public static void addValorItem(Map map, int[][] matAdj, int[][] mapaVert){
+	private static void addValorItem(Map map, int[][] matAdj, int[][] mapaVert){
 		
 		for(int i = 0; i < map.nLines(); i++){
 			for(int j = 0; j < map.nColumns(); j++){
@@ -175,7 +173,7 @@ public class Dijkstra{
 		}
 	}
 	
-	public static void dijkstra(int[][] matAdj, int vertInicial, int[] anteriores){
+	private static void dijkstra(int[][] matAdj, int vertInicial, int[] anteriores){
 		
 		int[] dist = new int[matAdj.length];
 		boolean[] vertVisitado = new boolean[matAdj.length];
@@ -199,7 +197,7 @@ public class Dijkstra{
 		}
 	}
 	
-	public static int distMax(int[] dist, boolean[] vertVisitado){
+	private static int distMax(int[] dist, boolean[] vertVisitado){
 		int maxDist = Integer.MIN_VALUE;
 		int distVert = Integer.MAX_VALUE;
 		
@@ -212,7 +210,7 @@ public class Dijkstra{
 		return distVert;
 	}
 	
-	public static LinkedList<Integer> maiorCaminho(int vertInicial, int vertFinal, int[] anteriores){
+	private static LinkedList<Integer> maiorCaminho(int vertInicial, int vertFinal, int[] anteriores){
 		
 		int i = vertFinal;
 		int temp;
@@ -230,7 +228,7 @@ public class Dijkstra{
 		return tempAnt;
 	}
 	
-	public static void determCam(int[][] mapaVert, LinkedList<Integer> caminho){
+	private static void determCam(int[][] mapaVert, LinkedList<Integer> caminho){
 		
 //		System.out.println("caminho " + caminho);
 		No temp = null;

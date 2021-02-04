@@ -6,6 +6,7 @@ public class No{
 	
 	private Posicao posAtual;
 	private No posAnterior = null;
+	Item item = null;
 	
 	public No(Posicao posAtual){
 		this.posAtual = posAtual;	
@@ -15,13 +16,24 @@ public class No{
 		this.posAtual = posAtual;
 		this.posAnterior = posAnterior;
 	}
-
+	
+	public No(Posicao posAtual, No posAnterior, Item item){
+		this.posAtual = posAtual;
+		this.posAnterior = posAnterior;
+		this.item = item;
+	}
+	
+	
 	public Posicao getPosAtual(){
 		return this.posAtual;
 	}
 	public No getPosAnterior(){
 		return this.posAnterior;
 	}
+	public Item getItem(){
+		return this.item;
+	}
+	
 
 //	Acessando 'lin' e 'col' do objeto do tipo Posicao
 	public int getPosAtualX(){

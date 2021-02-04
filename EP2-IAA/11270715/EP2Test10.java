@@ -44,6 +44,8 @@ public class EP2Test10 {
 				rota2(map, rotaMaior, path, path_index);
 				break;
 			case 3:
+				
+				caminho3(map, lin, col);
 				/*
 				DijkstraMV dijk = new DijkstraMV(sizeMap, nLines, nColumns, lin, col, linFinal, colFinal, map);
 //				dijk.verifica();
@@ -148,6 +150,39 @@ public class EP2Test10 {
 			System.out.println("---------------------------------------------------------------");
 		}
 		return fila;
+	}
+	
+	public static boolean caminho3(Map map, int lin, int col){
+		
+		if(map.verificaCelula(lin, col) || map.celulaVisitada(lin, col) || map.blocked(lin, col)){
+			return false;
+		}
+		 
+		No itemIni;
+		LinkedList<No> nos = new LinkedList<No>();
+		
+		Item item = map.getItem(lin, col);
+		if(item != null){
+			itemIni = new No(new Posicao(lin, col), null, item);
+
+		}else itemIni = new No(new Posicao(lin, col), null, null);
+		
+		nos.add(itemIni);
+		
+		while(!map.finished(lin, col)){
+			
+			No atual = nos.remove(0);
+			
+			for(int i = 0; i < sentidos.length; i++){
+				if((map.verificaCelula(atual.getPosAtualX() + sentidos[i][0], atual.getPosAtualY() + sentidos[i][1])) || (map.celulaVisitada(atual.getPosAtualX() + sentidos[i][0], atual.getPosAtualY() + sentidos[i][1])) || map.blocked(atual.getPosAtualX() + sentidos[i][0], atual.getPosAtualY() + sentidos[i][1])){
+					continue;
+				}
+				int dirHorizon = atual.getPosAtualX() + sentidos[i][0];
+				int dirVert = atual.getPosAtualY() + sentidos[i][1];
+				caminho3(map, dirHorizon, dirVert);
+			}
+		}
+		return true;
 	}
 	
 // Para caminhar no labirinto	
