@@ -152,6 +152,7 @@ public class EP2Test10 {
 		return fila;
 	}
 	
+/	
 	public static boolean caminho3(Map map, int lin, int col, int[] path, int path_index){
 				
 		int contValor = -1;
@@ -165,32 +166,17 @@ public class EP2Test10 {
 			itemIni = new No(new Posicao(lin, col), null, item, item.getValue()); //	criar construtor sem o campo posAnterior e com campo item
 			contValor += item.getValue();
 		}else itemIni = new No(new Posicao(lin, col));
-/*	
-System.out.println("itemIni:");
-System.out.println("	lin: " + itemIni.getPosAtualX() + " - col: " + itemIni.getPosAtualY() + " - posAnt: " + itemIni.getPosAnterior() + " - item: " + itemIni.getItem() + " - valorItem: " + itemIni.valorItem);
-*/		
+					
 		noItem.add(itemIni);
-/*		
-System.out.println("noItem:");	
-System.out.println("	lin: " + noItem.get(0).getPosAtualX() + " - col: " + noItem.get(0).getPosAtualY() + " - posAnt: " + noItem.get(0).getPosAnterior() + " - item: " + noItem.get(0).getItem() + " - valorItem: " + noItem.get(0).valorItem);
-System.out.println("contValor: " + contValor);		
-*/
+		
+
 //		while(!map.finished(lin, col)){
 		while(noItem.size() != 0){ //	talvez precuse retirar nos.size != 0
 
-System.out.println("\nnoItem no while:");	
-System.out.println("	lin: " + noItem.get(0).getPosAtualX() + " - col: " + noItem.get(0).getPosAtualY() + " - posAnt: " + noItem.get(0).getPosAnterior() + " - item: " + noItem.get(0).getItem() + " - valorItem: " + noItem.get(0).valorItem);
-System.out.println("contValor: " + contValor);		
-
 			No atual = noItem.remove(0);
-			
-System.out.println("atual em while:");
-System.out.println("	lin: " + atual.getPosAtualX() + " - col: " + atual.getPosAtualY() + " - posAnt: " + atual.getPosAnterior() + " - item: " + atual.getItem() + " - valorItem: " + atual.valorItem);
-			
+						
 			if(map.finished(atual.getPosAtualX(), atual.getPosAtualY())){
 //	Fazer uma nova verificacao sobre contValor (que e atualizado a cada item adquirido) e o valorFinal dos itens, se valorFinal >= contValor, finaliza, caso contrário, continua (retorn false)
-System.out.println("atual em map.finished():");
-System.out.println("	lin: " + atual.getPosAtualX() + " - col: " + atual.getPosAtualY() + " - posAntX: " + atual.getPosAnterior().getPosAtualX() + " - posAntY: " + atual.getPosAnterior().getPosAtualY() + " - item: " + atual.getItem() + " - valorItem: " + atual.valorItem + " - valorItem: " + atual.valorItem);
 
 				if(atual.valorItem > contValor){
 					rota(map, atual, path, path_index);
@@ -221,9 +207,6 @@ System.out.println("itemAtual " + itemAtual);
 					itemNovo = new No(new Posicao(dirHorizon, dirVert), atual, itemAtual, itemAtual.getValue());
 					contValor += itemAtual.getValue();
 				}else itemNovo = new No(new Posicao(dirHorizon, dirVert), atual, itemAtual, atual.valorItem);
-
-System.out.println("itemNovo no for: " + i);
-System.out.println("		lin: " + itemNovo.getPosAtualX() + " - col: " + itemNovo.getPosAtualY() + " - posAntX: " + itemNovo.getPosAnterior().getPosAtualX() + " - posAntY: " + itemNovo.getPosAnterior().getPosAtualY() + " - item: " + itemNovo.getItem() + " - valorItem: " + itemNovo.valorItem);
 				
 				noItem.add(itemNovo);
 				
@@ -232,6 +215,7 @@ System.out.println("		lin: " + itemNovo.getPosAtualX() + " - col: " + itemNovo.g
 		return true;
 //		return noItem;
 	}
+*/
 	
 // Para caminhar no labirinto	
 	public static boolean caminho4(Map map, int lin, int col, int[] path, int path_index){

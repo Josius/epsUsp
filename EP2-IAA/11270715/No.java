@@ -6,8 +6,8 @@ public class No{
 	
 	private Posicao posAtual;
 	private No posAnterior = null;
-	Item item = null;
-	int valorItem = 0;
+	private Item item = null;
+	private int valorItem = 0;
 	
 	public No(Posicao posAtual){
 		this.posAtual = posAtual;	
@@ -44,7 +44,10 @@ public class No{
 	public Item getItem(){
 		return this.item;
 	}
-	
+	public int getValorItem(){
+		
+		return this.valorItem;
+	}
 
 //	Acessando 'lin' e 'col' do objeto do tipo Posicao
 	public int getPosAtualX(){
@@ -64,6 +67,7 @@ public class No{
 		
 		return this.posAnterior.posAtual.getY();
 	}
+	
 	/*
 	public String toString(){
 		
