@@ -45,7 +45,7 @@ public class EP2Test10 {
 				break;
 			case 3:
 				
-				caminho3(map, lin, col);
+				caminho3(map, lin, col, path, path_index);
 				/*
 				DijkstraMV dijk = new DijkstraMV(sizeMap, nLines, nColumns, lin, col, linFinal, colFinal, map);
 //				dijk.verifica();
@@ -152,26 +152,30 @@ public class EP2Test10 {
 		return fila;
 	}
 	
-	public static boolean caminho3(Map map, int lin, int col){
-		
-		if(map.verificaCelula(lin, col) || map.celulaVisitada(lin, col) || map.blocked(lin, col)){
-			return false;
-		}
-		 
+	public static List<No> caminho3(Map map, int lin, int col, int[] path, int path_index){
+				
+		int contItem = 0; 
 		No itemIni;
 		LinkedList<No> nos = new LinkedList<No>();
-		
 		Item item = map.getItem(lin, col);
+		
 		if(item != null){
-			itemIni = new No(new Posicao(lin, col), null, item);
+			itemIni = new No(new Posicao(lin, col), null, item); //	criar construtor sem o campo posAnterior e com campo item
+			contItem++;
 
 		}else itemIni = new No(new Posicao(lin, col), null, null);
 		
 		nos.add(itemIni);
 		
-		while(!map.finished(lin, col)){
+//		while(!map.finished(lin, col)){
+		while(contItem != map.getNItems() || nos.size() != 0){ //	talvez precuse retirar nos.size != 0
 			
 			No atual = nos.remove(0);
+			
+			if(contItem == map.getNItems() || map.finished(atual.getPosAtualX(), atual.getPosAtualY())){
+//				return true;
+				return rota(map, atual, path, path_index);
+			}
 			
 			for(int i = 0; i < sentidos.length; i++){
 				if((map.verificaCelula(atual.getPosAtualX() + sentidos[i][0], atual.getPosAtualY() + sentidos[i][1])) || (map.celulaVisitada(atual.getPosAtualX() + sentidos[i][0], atual.getPosAtualY() + sentidos[i][1])) || map.blocked(atual.getPosAtualX() + sentidos[i][0], atual.getPosAtualY() + sentidos[i][1])){
@@ -179,10 +183,20 @@ public class EP2Test10 {
 				}
 				int dirHorizon = atual.getPosAtualX() + sentidos[i][0];
 				int dirVert = atual.getPosAtualY() + sentidos[i][1];
-				caminho3(map, dirHorizon, dirVert);
+				Item itemAtual = map.getItem(dirHorizon, dirVert);
+				No itemNovo;
+				
+				if(itemAtual != null){
+					itemNovo = new No(new Posicao(dirHorizon, dirVert), atual, itemAtual);
+					contItem++;
+
+				}else itemNovo = new No(new Posicao(dirHorizon, dirVert), atual, null);;
+				
+				nos.add(itemNovo);
+				
 			}
 		}
-		return true;
+		return nos;
 	}
 	
 // Para caminhar no labirinto	
