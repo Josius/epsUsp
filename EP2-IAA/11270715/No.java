@@ -7,6 +7,7 @@ public class No{
 	private Posicao posAtual;
 	private No posAnterior = null;
 	Item item = null;
+	int valorItem = 0;
 	
 	public No(Posicao posAtual){
 		this.posAtual = posAtual;	
@@ -23,6 +24,12 @@ public class No{
 		this.item = item;
 	}
 	
+	public No(Posicao posAtual, No posAnterior, Item item, int valorItem){
+		this.posAtual = posAtual;
+		this.posAnterior = posAnterior;
+		this.item = item;
+		this.valorItem += valorItem;
+	}
 	
 	public Posicao getPosAtual(){
 		return this.posAtual;

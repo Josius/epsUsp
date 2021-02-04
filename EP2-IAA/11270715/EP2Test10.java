@@ -152,51 +152,74 @@ public class EP2Test10 {
 		return fila;
 	}
 	
-	public static List<No> caminho3(Map map, int lin, int col, int[] path, int path_index){
+	public static boolean caminho3(Map map, int lin, int col, int[] path, int path_index){
 				
-		int contItem = 0; 
+		int contValor = -1;
 		No itemIni;
-		LinkedList<No> nos = new LinkedList<No>();
+		LinkedList<No> noItem = new LinkedList<No>();
 		Item item = map.getItem(lin, col);
 		
+System.out.println("item out-while: " + item);
+		
 		if(item != null){
-			itemIni = new No(new Posicao(lin, col), null, item); //	criar construtor sem o campo posAnterior e com campo item
-			contItem++;
+			itemIni = new No(new Posicao(lin, col), null, item, item.getValue()); //	criar construtor sem o campo posAnterior e com campo item
+			contValor = item.getValue();
+		}else itemIni = new No(new Posicao(lin, col));
+	
+System.out.println("itemIni:");
+System.out.println("	lin: " + itemIni.getPosAtualX() + " - col: " + itemIni.getPosAtualY() + " - posAnt: " + itemIni.getPosAnterior() + " - item: " + itemIni.getItem() + " - valorItem: " + itemIni.valorItem);
+		
+		noItem.add(itemIni);
+System.out.println("noItem:");	
+System.out.println("	lin: " + noItem.get(0).getPosAtualX() + " - col: " + noItem.get(0).getPosAtualY() + " - posAnt: " + noItem.get(0).getPosAnterior() + " - item: " + noItem.get(0).getItem() + " - valorItem: " + noItem.get(0).valorItem);
+System.out.println("contValor: " + contValor);		
 
-		}else itemIni = new No(new Posicao(lin, col), null, null);
-		
-		nos.add(itemIni);
-		
 //		while(!map.finished(lin, col)){
-		while(contItem != map.getNItems() || nos.size() != 0){ //	talvez precuse retirar nos.size != 0
-			
-			No atual = nos.remove(0);
-			
-			if(contItem == map.getNItems() || map.finished(atual.getPosAtualX(), atual.getPosAtualY())){
-//				return true;
-				return rota(map, atual, path, path_index);
+		while(noItem.size() != 0){ //	talvez precuse retirar nos.size != 0
+
+System.out.println("\nnoItem no while:");	
+System.out.println("	lin: " + noItem.get(0).getPosAtualX() + " - col: " + noItem.get(0).getPosAtualY() + " - posAnt: " + noItem.get(0).getPosAnterior() + " - item: " + noItem.get(0).getItem() + " - valorItem: " + noItem.get(0).valorItem);
+System.out.println("contValor: " + contValor);		
+
+			No atual = noItem.remove(0);
+/*			
+System.out.println("atual em while:");
+System.out.println("	lin: " + atual.getPosAtualX() + " - col: " + atual.getPosAtualY() + " - posAntX: " + atual.getPosAnterior().getPosAtualX() + " - posAntY: " + atual.getPosAnterior().getPosAtualY() + " - item: " + atual.getItem());			
+*/			
+			if(map.finished(atual.getPosAtualX(), atual.getPosAtualY())){
+//	Fazer uma nova verificacao sobre contValor (que e atualizado a cada item adquirido) e o valorFinal dos itens, se valorFinal >= contValor, finaliza, caso contrário, continua (retorn false)
+System.out.println("atual em map.finished():");
+System.out.println("	lin: " + atual.getPosAtualX() + " - col: " + atual.getPosAtualY() + " - posAntX: " + atual.getPosAnterior().getPosAtualX() + " - posAntY: " + atual.getPosAnterior().getPosAtualY() + " - item: " + atual.getItem() + " - valorItem: " + atual.valorItem + " - valorItem: " + atual.valorItem);
+				rota(map, atual, path, path_index);
+				return true;
+//				return rota(map, atual, path, path_index);
 			}
 			
 			for(int i = 0; i < sentidos.length; i++){
 				if((map.verificaCelula(atual.getPosAtualX() + sentidos[i][0], atual.getPosAtualY() + sentidos[i][1])) || (map.celulaVisitada(atual.getPosAtualX() + sentidos[i][0], atual.getPosAtualY() + sentidos[i][1])) || map.blocked(atual.getPosAtualX() + sentidos[i][0], atual.getPosAtualY() + sentidos[i][1])){
+System.out.println("Nao valido");
 					continue;
 				}
 				int dirHorizon = atual.getPosAtualX() + sentidos[i][0];
 				int dirVert = atual.getPosAtualY() + sentidos[i][1];
+
 				Item itemAtual = map.getItem(dirHorizon, dirVert);
 				No itemNovo;
 				
 				if(itemAtual != null){
-					itemNovo = new No(new Posicao(dirHorizon, dirVert), atual, itemAtual);
-					contItem++;
+					itemNovo = new No(new Posicao(dirHorizon, dirVert), atual, itemAtual, itemAtual.getValue());
 
-				}else itemNovo = new No(new Posicao(dirHorizon, dirVert), atual, null);;
+				}else itemNovo = new No(new Posicao(dirHorizon, dirVert), atual, null, itemAtual.getValue());
+
+System.out.println("itemNovo no for: " + i);
+System.out.println("	lin: " + itemNovo.getPosAtualX() + " - col: " + itemNovo.getPosAtualY() + " - posAntX: " + itemNovo.getPosAnterior().getPosAtualX() + " - posAntY: " + itemNovo.getPosAnterior().getPosAtualY() + " - item: " + itemNovo.getItem() + " - valorItem: " + itemNovo.valorItem);
 				
-				nos.add(itemNovo);
+				noItem.add(itemNovo);
 				
 			}
 		}
-		return nos;
+		return true;
+//		return noItem;
 	}
 	
 // Para caminhar no labirinto	
