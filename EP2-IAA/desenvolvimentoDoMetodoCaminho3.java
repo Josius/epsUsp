@@ -4,7 +4,7 @@ public static boolean caminho3(Map map, int lin, int col, int[] path, int path_i
 		No[] noSaida = new No[4];// usado para guardar o ultimo vertice/no do caminho encontrado
 		int vlrTtlItens = 0;// usar para comparacao com o valor do ultimo vertic/no encontrado
 		Item verifItem;
-		int atualX, atualY; 
+		int atualX, atualY, dirHorizon, dirVert;
 		for(int i = 0; i < map.nLines(); i++){
 			for(int j = 0; j < map.nColumns(); j++){
 				verifItem = map.getItem(i, j);
@@ -49,14 +49,23 @@ public static boolean caminho3(Map map, int lin, int col, int[] path, int path_i
 			}
 						
             for(int i = 0; i < sentidos.length; i++){
+            	dirHorizon = sentidos[i][0];
+				dirVert = sentidos[i][1];
 //	USAR IF ABAIXO PARA CAMINHO MAIS CURTO COM MENOS ITERACOES DO FOR	
-				if(map.verificaCelula(atualX + sentidos[i][0], atualY + sentidos[i][1]) || map.celulaVisitada(atualX + sentidos[i][0], atualY + sentidos[i][1]) || map.blocked(atualX + sentidos[i][0], atualY + sentidos[i][1])){
+				if(map.verificaCelula(atualX + dirHorizon, atualY + dirVert) || map.celulaVisitada(atualX + dirHorizon, atualY + dirVert) || map.blocked(atualX + dirHorizon, atualY + dirVert)){
 					continue;
 				} 
 				
-				No sentido = new No(new Posicao(atualX + sentidos[i][0], atualY + sentidos[i][1]), atual);
-
-				filaItens.add(sentido);
+				Item atualItem = map.getItem(atualX + dirHorizon, atualY + dirVert);
+				
+				No prox;
+				
+				if(atualItem != null){
+					prox = new No(new Posicao(atualX + dirHorizon, atualY + dirVert), atual, atualItem, atualItem.getValue());
+					contValor += itemAtual.getValue();
+				}else prox = new No(new Posicao(atualX + dirHorizon, atualY + dirVert), atual, atualItem, atualItem.getValue());
+				
+				filaItens.add(prox);
 			}
         }		
 		if(DEBUG){ 
@@ -65,3 +74,22 @@ public static boolean caminho3(Map map, int lin, int col, int[] path, int path_i
 		}
 		return fila;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
