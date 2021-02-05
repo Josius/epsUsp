@@ -7,8 +7,8 @@ public class EP2Test10 {
 	
 // Matriz de sentidos para caminhar no mapa, usar na recursividade
 //	public static int[][] sentidos = {{0, 1},{1, 0},{0,-1},{-1,0}};
-	public static int[][] sentidos = {{1, 0},{0,-1},{-1,0},{0, 1}};
-//	public static int[][] sentidos = {{0, 1},{1, 0},{0,-1},{-1,0}};
+//	public static int[][] sentidos = {{1, 0},{0,-1},{-1,0},{0, 1}};
+	public static int[][] sentidos = {{-1, 0},{0, -1},{1, 0},{0, 1}};
 //	public static int[][] sentidos = {{0, 1},{1, 0},{0,-1},{-1,0}};
 	
 	public static final boolean DEBUG = false;
@@ -117,39 +117,45 @@ public class EP2Test10 {
     
 	public static List<No> caminho1(Map map, int lin, int col, int[] path, int path_index){
 		
-		LinkedList<No> fila = new LinkedList<No>();
-		No inicio = new No(new Posicao(lin, col));
-		fila.add(inicio);
+		int atualX, atualY, dirHoriz, dirVert;
+		LinkedList<No> filaNos = new LinkedList<No>();
+		No noIni = new No(new Posicao(lin, col));
+		filaNos.add(noIni);
 				
-		while (fila.size() != 0) {
+		while (filaNos.size() != 0) {
                    
-			No atual = fila.remove(0);            			
+			No atual = filaNos.remove(0);            			
+			atualX = atual.getPosAtualX();
+			atualY = atual.getPosAtualY();
 			
-			if(map.finished(atual.getPosAtualX(), atual.getPosAtualY())){
+			if(map.finished(atualX, atualY)){
 				return rota(map, atual, path, path_index);
 			}
 			
 //	USAR IF ABAIXO PARA CAMINHO MAIS CURTO COM MENOS ITERACOES DO FOR			
-			if((map.celulaVisitada(atual.getPosAtualX(), atual.getPosAtualY())) || map.blocked(atual.getPosAtualX(), atual.getPosAtualY())){
+			if(map.celulaVisitada(atualX, atualY) || map.blocked(atualX, atualY)){
 				continue;
 			}
 						
             for(int i = 0; i < sentidos.length; i++){
+				dirHoriz = atualX + sentidos[i][0];
+				dirVert = atualY + sentidos[i][1];
 //	USAR IF ABAIXO PARA CAMINHO MAIS CURTO COM MENOS ITERACOES DO FOR	
-				if((map.verificaCelula(atual.getPosAtualX() + sentidos[i][0], atual.getPosAtualY() + sentidos[i][1])) || (map.celulaVisitada(atual.getPosAtualX() + sentidos[i][0], atual.getPosAtualY() + sentidos[i][1])) || map.blocked(atual.getPosAtualX() + sentidos[i][0], atual.getPosAtualY() + sentidos[i][1])){
+				if(map.verificaCelula(dirHoriz, dirVert) || map.celulaVisitada(dirHoriz, dirVert) || map.blocked(dirHoriz, dirVert)){
 					continue;
 				} 
 				
-				No sentido = new No(new Posicao(atual.getPosAtualX() + sentidos[i][0], atual.getPosAtualY() + sentidos[i][1]), atual);
+				No sentido = new No(new Posicao(dirHoriz, dirVert), atual);
 
-				fila.add(sentido);
+				filaNos.add(sentido);
+				map.step(atualX, atualY);// marcando a celula para que nao passe novamente por ela e faca todo o processo
 			}
         }		
 		if(DEBUG){ 
 			map.print(); 
 			System.out.println("---------------------------------------------------------------");
 		}
-		return fila;
+		return filaNos;
 	}
 	
 	public static boolean caminho3(Map map, int lin, int col, int[] path, int path_index){
@@ -158,22 +164,25 @@ public class EP2Test10 {
 		No[] noSaida = new No[4];// usado para guardar o ultimo vertice/no do caminho encontrado
 		int vlrTtlItens = 0;// usar para comparacao com o valor do ultimo vertic/no encontrado
 		Item verifItem;
-		int atualX, atualY, dirHorizon, dirVert;
+		int atualX, atualY, dirHoriz, dirVert;
+		
+//	for funcionando		
 		for(int i = 0; i < map.nLines(); i++){
 			for(int j = 0; j < map.nColumns(); j++){
 				verifItem = map.getItem(i, j);
-				if(verifItem != null) vlrTtlItens += verifItem.getValue();	
+				if(verifItem != null) vlrTtlItens += verifItem.getValue();
+//System.out.println("verifItem no for " + verifItem);
 			}
 		}
-		
+System.out.println("vlrTtlItens " + vlrTtlItens);
 		LinkedList<No> filaItens = new LinkedList<No>();
 		No noIniItem;
 		verifItem = map.getItem(lin, col);
-		
+//System.out.println("verifItem apos for " + verifItem);		
 		if(verifItem != null){
 			noIniItem = new No(new Posicao(lin, col), null, verifItem, verifItem.getValue()); //	criar construtor sem o campo posAnterior e com campo item
 		}else noIniItem = new No(new Posicao(lin, col));
-
+//System.out.println("noIniItem " + noIniItem.getPosAtualX() + " " + noIniItem.getPosAtualY() + " " + noIniItem.getPosAnterior() + " " + noIniItem.getItem() + " " + noIniItem.getValorItem());
 		filaItens.add(noIniItem);
 				
 		while (filaItens.size() != 0) {
@@ -183,48 +192,91 @@ public class EP2Test10 {
 			atualY = atual.getPosAtualY();
 			
 			if(map.finished(atualX, atualY)){
-				
+				rota(map, atual, path, path_index);
+			}
+			
+			/*
+			if(map.finished(atualX, atualY)){
+System.out.println("	1-cont " + cont);
+System.out.println("atual " + atual.getPosAtualX() + " " + atual.getPosAtualY() + " " + atual.getPosAnteriorX() + " " + atual.getPosAnteriorY() + " " + atual.getItem() + " " + atual.getValorItem());
+	System.out.println("1-map.finished");
 				if(atual.getValorItem() != vlrTtlItens){
-					
+System.out.println("2-map.finished");					
 					if(cont<4){
+System.out.println("3-map.finished");
 						noSaida[cont] = atual;
+System.out.println("4-map.finished");
 						cont++;
-						return false;
-					}else return true; // NAO ESQUECER DE FAZER COMPARACAO DOS 4 VLRS DE atual.getValorItem NO FINAL DESTA FUNCAO, APOS SAIR DO WHILE
-				}else{
+System.out.println("	2-cont " + cont);						
+System.out.println("5-map.finished");
+						continue;
+//						return false;
+					}
+					else{
+System.out.println("6-map.finished");
+						return true; // NAO ESQUECER DE FAZER COMPARACAO DOS 4 VLRS DE atual.getValorItem NO FINAL DESTA FUNCAO, APOS SAIR DO WHILE
+					}	
+				}
+				else{
+System.out.println("7-map.finished");					
 					noSaida[cont] = atual;
+System.out.println("noSaida[0]"+noSaida[0]);
+System.out.println("noSaida[1]"+noSaida[1]);
+System.out.println("noSaida[2]"+noSaida[2]);
+System.out.println("noSaida[3]"+noSaida[3]);
+System.out.println("8-map.finished");
+
+//	NESTE ELSE EU PRECISO FAZER A VERIFICACAO DOS 4 VLRS E JOGAR NO METODO ABAIXO
+					rota(map, noSaida[cont], path, path_index);
+System.out.println("9-map.finished");					
+System.out.println("	3-cont " + cont);					
 					return true;
 				}	
 			}
-			
+			*/
 //	USAR IF ABAIXO PARA CAMINHO MAIS CURTO COM MENOS ITERACOES DO FOR			
 			if(map.celulaVisitada(atualX, atualY) || map.blocked(atualX, atualY)){
 				continue;
 			}
 						
             for(int i = 0; i < sentidos.length; i++){
-            	dirHorizon = sentidos[i][0];
-				dirVert = sentidos[i][1];
+            	dirHoriz = atualX + sentidos[i][0];
+				dirVert = atualY + sentidos[i][1];
 //	USAR IF ABAIXO PARA CAMINHO MAIS CURTO COM MENOS ITERACOES DO FOR	
-				if(map.verificaCelula(atualX + dirHorizon, atualY + dirVert) || map.celulaVisitada(atualX + dirHorizon, atualY + dirVert) || map.blocked(atualX + dirHorizon, atualY + dirVert)){
+System.out.println("i: " + i + " atual - " + " atualX " + atualX + " atualY " + atualY);
+				if(map.verificaCelula(dirHoriz, dirVert) || map.celulaVisitada(dirHoriz, dirVert) || map.blocked(dirHoriz, dirVert)){
 					continue;
-				} 
+				}
 				
-				Item atualItem = map.getItem(atualX + dirHorizon, atualY + dirVert);
+//	Com o cod abaixo, verificamos as posicoes posteriores a prox; talvez usar recursivamente e retornar algo para decidir o caminho				
+				verifItem = map.getItem(dirHoriz, dirVert);
+				if(verifItem == null){
+					
+					for(int j = 0; j < sentidos.length; j++){
+						int dirHoriz2 = dirHoriz + sentidos[j][0];
+						int dirVert2 = dirVert + sentidos[j][1];
+		//	USAR IF ABAIXO PARA CAMINHO MAIS CURTO COM MENOS ITERACOES DO FOR	
+//		System.out.println("		j: " + j + " jtual - " + " dirHoriz2 " + dirHoriz2 + " dirVert2 " + dirVert2);
+						if(map.verificaCelula(dirHoriz2, dirVert2) || map.celulaVisitada(dirHoriz2, dirVert2) || map.blocked(dirHoriz2, dirVert2)){
+							continue;
+						}
+						System.out.println("		j: " + j + " jtual - " + " dirHoriz2 " + dirHoriz2 + " dirVert2 " + dirVert2);
+					}
+				}
+				
+				
+System.out.println("i: " + i + " Na fila=atual - " + " atualX " + atualX + " atualY " + atualY);
+				Item atualItem = map.getItem(dirHoriz, dirVert);
 				
 				No prox;
 				
 				if(atualItem != null){
-					prox = new No(new Posicao(atualX + dirHorizon, atualY + dirVert), atual, atualItem, atualItem.getValue());
-				}else prox = new No(new Posicao(atualX + dirHorizon, atualY + dirVert), atual, atualItem, 0);
-				
+					prox = new No(new Posicao(dirHoriz, dirVert), atual, atualItem, atualItem.getValue());
+				}else prox = new No(new Posicao(dirHoriz, dirVert), atual, atualItem, 0);
+System.out.println("	i: " + i + " Entra na fila=prox - " + " proxX " + prox.getPosAtualX() + " proxY " + prox.getPosAtualY());				
 				filaItens.add(prox);
+				map.step(atualX, atualY);// marcando a celula para que nao passe novamente por ela e faca todo o processo
 			}
-			
-			System.out.println(noSaida[0]);
-		    System.out.println(noSaida[1]);
-		    System.out.println(noSaida[2]);
-		    System.out.println(noSaida[3]);
         }		
         
         
@@ -271,12 +323,12 @@ public class EP2Test10 {
 System.out.println("Nao valido - i: " + i);
 					continue;
 				}
-				int dirHorizon = atual.getPosAtualX() + sentidos[i][0];
+				int dirHoriz = atual.getPosAtualX() + sentidos[i][0];
 				int dirVert = atual.getPosAtualY() + sentidos[i][1];
 
-System.out.println("dirHorizon: " + dirHorizon + " dirVert: " + dirVert);
+System.out.println("dirHoriz: " + dirHoriz + " dirVert: " + dirVert);
 
-				Item itemAtual = map.getItem(dirHorizon, dirVert);
+				Item itemAtual = map.getItem(dirHoriz, dirVert);
 System.out.println("itemAtual " + itemAtual);
 //System.out.println("itemAtual.getValue " + itemAtual.getValue()); resulta em NullPointerException por causa que o valor de um item não inicializado não aponta para nenhum espaço de memória
 
@@ -284,9 +336,9 @@ System.out.println("itemAtual " + itemAtual);
 				No itemNovo;
 				
 				if(itemAtual != null){
-					itemNovo = new No(new Posicao(dirHorizon, dirVert), atual, itemAtual, itemAtual.getValue());
+					itemNovo = new No(new Posicao(dirHoriz, dirVert), atual, itemAtual, itemAtual.getValue());
 					contValor += itemAtual.getValue();
-				}else itemNovo = new No(new Posicao(dirHorizon, dirVert), atual, itemAtual, atual.valorItem);
+				}else itemNovo = new No(new Posicao(dirHoriz, dirVert), atual, itemAtual, atual.valorItem);
 				
 				noItem.add(itemNovo);
 				
@@ -407,6 +459,6 @@ System.out.println("itemAtual " + itemAtual);
 
 		int criteria = Integer.parseInt(args[1]);
 		int [] path = findPath(map, criteria);
-//		printSolution(map, path);		
+		printSolution(map, path);		
 	}
 }

@@ -529,8 +529,9 @@ public class EP2Test8 {
 				if(atual.getPosAnterior() != null){
 					System.out.println("\t\tsentido dentro do for (x: " + sentido.getPosAtualX() + ", y: " + sentido.getPosAtualY() + ") anterior " + atual.getPosAnteriorX() + " " + atual.getPosAnteriorY());
 				}else System.out.println("\t\tsentido dentro do for (x: " + sentido.getPosAtualX() + ", y: " + sentido.getPosAtualY() + ")");
+*/
 				map.step(atual.getPosAtualX(), atual.getPosAtualY());// marcando a celula para que nao passe novamente por ela e faca todo o processo
-*/								
+							
 //				map.print();
 			}
 			
