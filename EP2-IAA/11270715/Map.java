@@ -93,7 +93,7 @@ class Map {
 	}
 
 	public void step(int lin, int col){
-		System.out.println("printado " + lin +" "+col);
+//		System.out.println("printado " + lin +" "+col);
 		map[lin][col] = '*';
 	}
 

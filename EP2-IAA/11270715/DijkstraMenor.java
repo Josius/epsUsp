@@ -2,7 +2,7 @@
 
 import java.util.*;
 
-public class Dijkstra{
+public class DijkstraMenor{
 	
 	private int[][] matAdj;
 	private int[][] mapaVert;
@@ -12,7 +12,7 @@ public class Dijkstra{
 	private LinkedList<Integer> caminho;
 	private static No rota2;
 				
-	public Dijkstra(int size, int nLines, int nColumns, int lin, int col, int linFinal, int colFinal, Map map){
+	public DijkstraMenor(int size, int nLines, int nColumns, int lin, int col, int linFinal, int colFinal, Map map){
 		
 		this.matAdj = new int[size][size];
 		this.mapaVert = new int[nLines][nColumns];
@@ -28,26 +28,6 @@ public class Dijkstra{
 		dijkstra(matAdj, vertInicial, anteriores);			
 		caminho = maiorCaminho(vertInicial, vertFinal, anteriores);
 		determCam(mapaVert, caminho);
-	}
-	
-	public Dijkstra(int size, int nLines, int nColumns, int lin, int col, int linFinal, int colFinal, Map map, int num){
-		
-		this.matAdj = new int[size][size];
-		this.mapaVert = new int[nLines][nColumns];
-		
-		constroiMapaVert(mapaVert); // todas as posicoes da matriz = -1
-		constroiCaminhoMatAdj(map, matAdj, mapaVert);	
-		espelhaMatrizAdj(matAdj);
-		addValorItem(map, matAdj, mapaVert);
-		
-		this.vertInicial = mapaVert[lin][col];
-		this.vertFinal = mapaVert[linFinal][colFinal];
-		this.anteriores = new int[matAdj.length];
-		
-		dijkstra(matAdj, vertInicial, anteriores);			
-		caminho = maiorCaminho(vertInicial, vertFinal, anteriores);
-		determCam(mapaVert, caminho);
-		
 	}
 			
 	public void verifica(){
@@ -179,7 +159,7 @@ public class Dijkstra{
 		boolean[] vertVisitado = new boolean[matAdj.length];
 		
 		for(int i = 0; i < dist.length; i++){
-			dist[i] = Integer.MIN_VALUE;
+			dist[i] = Integer.MAX_VALUE;
 			vertVisitado[i] = false;
 		}
 		
@@ -189,7 +169,7 @@ public class Dijkstra{
 			vertVisitado[u] = true;
 //			System.out.println("u " + u);
 			for(int v = 0; v < dist.length; v++){
-				if((vertVisitado[v]==false && matAdj[u][v] != 0) && (dist[u] + matAdj[u][v] >= dist[v])){
+				if((vertVisitado[v]==false && matAdj[u][v] != 0) && (dist[u] + matAdj[u][v] < dist[v])){
 					dist[v] = dist[u] + matAdj[u][v];
 					anteriores[v] = u;
 				}
@@ -198,12 +178,12 @@ public class Dijkstra{
 	}
 	
 	private static int distMax(int[] dist, boolean[] vertVisitado){
-		int maxDist = Integer.MIN_VALUE;
-		int distVert = Integer.MAX_VALUE;
+		int minDist = Integer.MAX_VALUE;
+		int distVert = -1;
 		
 		for(int i = 0; i < dist.length; i++){
-			if(vertVisitado[i]==false && dist[i] >= maxDist){
-				maxDist = dist[i];
+			if(vertVisitado[i]==false && dist[i] < minDist){
+				minDist = dist[i];
 				distVert = i;
 			}
 		}
@@ -233,6 +213,11 @@ public class Dijkstra{
 //		System.out.println("caminho " + caminho);
 		No temp = null;
 		No temp2 = temp;
+/*
+		for(int i = 0; i < caminho.size(); i++){
+			System.out.println("i: " + i + " caminho " + caminho.get(i));
+		}
+*/		
 		while(caminho.size() != 0){
 			
 			int u = caminho.remove();
