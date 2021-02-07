@@ -93,7 +93,7 @@ class Map {
 	}
 
 	public void step(int lin, int col){
-
+		System.out.println("printado " + lin +" "+col);
 		map[lin][col] = '*';
 	}
 
@@ -173,6 +173,26 @@ class Map {
 
 		return endCol;
 	}
+	
+	public void limpaMap(){
+        
+    	for(int i = 0; i < nLines(); i++){
+	    	for(int j = 0; j < nColumns(); j++){
+	    		if(celulaVisitada(i,j) == true)
+	    			setMap(i, j);
+	    	}
+    	}
+    }
+	
+	public void completaMap(){
+        
+    	for(int i = 0; i < nLines(); i++){
+	    	for(int j = 0; j < nColumns(); j++){
+	    		if(free(i,j) == true)
+	    			step(i, j);
+	    	}
+    	}
+    }
 	
 	public int getNItems(){
 		

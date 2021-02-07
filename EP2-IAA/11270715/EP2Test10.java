@@ -55,10 +55,6 @@ public class EP2Test10 {
 				*/
 				break;
 			case 4:
-
-				if(caminho4(map, lin, col, path, path_index)){
-					return path;
-				}
 				break;
 		}
 		return path;
@@ -95,12 +91,7 @@ public class EP2Test10 {
         }
         
 // Limpando o mapa das posicoes marcadas pelo metodo caminho1     
-        for(int i = 0; i < map.nLines(); i++){
-        	for(int j = 0; j < map.nColumns(); j++){
-        		if(map.celulaVisitada(i,j) == true)
-        			map.setMap(i, j);
-        	}
-        }
+        map.limpaMap();
         
 //	Colocando as posicoes corretas no path		
 		while (temp.size() != 0) {
@@ -121,10 +112,11 @@ public class EP2Test10 {
 		LinkedList<No> filaNos = new LinkedList<No>();
 		No noIni = new No(new Posicao(lin, col));
 		filaNos.add(noIni);
-				
+		No atual, sentido;		
+		
 		while (filaNos.size() != 0) {
                    
-			No atual = filaNos.remove(0);            			
+			atual = filaNos.remove(0);            			
 			atualX = atual.getPosAtualX();
 			atualY = atual.getPosAtualY();
 			
@@ -145,7 +137,7 @@ public class EP2Test10 {
 					continue;
 				} 
 				
-				No sentido = new No(new Posicao(dirHoriz, dirVert), atual);
+				sentido = new No(new Posicao(dirHoriz, dirVert), atual);
 
 				filaNos.add(sentido);
 				map.step(atualX, atualY);// marcando a celula para que nao passe novamente por ela e faca todo o processo
@@ -159,41 +151,67 @@ public class EP2Test10 {
 	}
 	
 	public static boolean caminho3(Map map, int lin, int col, int[] path, int path_index){
+//	PRECISA COLOCAR UMA VERIFICAÇÃO AQUI PARA -> if(map.verificaCelula(dirHoriz, dirVert) || map.celulaVisitada(dirHoriz, dirVert) || map.blocked(dirHoriz, dirVert)) return false;		
 		
 		int cont = 0;
 		No[] noSaida = new No[4];// usado para guardar o ultimo vertice/no do caminho encontrado
 		int vlrTtlItens = 0;// usar para comparacao com o valor do ultimo vertic/no encontrado
 		Item verifItem;
 		int atualX, atualY, dirHoriz, dirVert;
+		//No prox;
 		
 //	for funcionando		
 		for(int i = 0; i < map.nLines(); i++){
 			for(int j = 0; j < map.nColumns(); j++){
 				verifItem = map.getItem(i, j);
-				if(verifItem != null) vlrTtlItens += verifItem.getValue();
+				if(verifItem != null){
+					vlrTtlItens += verifItem.getValue();
+				}
 //System.out.println("verifItem no for " + verifItem);
 			}
 		}
-System.out.println("vlrTtlItens " + vlrTtlItens);
+//System.out.println("linha 178 - vlrTtlItens " + vlrTtlItens);
 		LinkedList<No> filaItens = new LinkedList<No>();
 		No noIniItem;
 		verifItem = map.getItem(lin, col);
-//System.out.println("verifItem apos for " + verifItem);		
+//System.out.println("linha 182 - verifItem apos for " + verifItem);		
 		if(verifItem != null){
 			noIniItem = new No(new Posicao(lin, col), null, verifItem, verifItem.getValue()); //	criar construtor sem o campo posAnterior e com campo item
 		}else noIniItem = new No(new Posicao(lin, col));
-//System.out.println("noIniItem " + noIniItem.getPosAtualX() + " " + noIniItem.getPosAtualY() + " " + noIniItem.getPosAnterior() + " " + noIniItem.getItem() + " " + noIniItem.getValorItem());
+System.out.println("linha 186 - noIniItem: nx " + noIniItem.getPosAtualX() + " ny " + noIniItem.getPosAtualY() + " npA " + noIniItem.getPosAnterior() + " nI " + noIniItem.getItem() + " nIV " + noIniItem.getValorItem());
 		filaItens.add(noIniItem);
 				
 		while (filaItens.size() != 0) {
-                   
+System.out.print("filaItens ");
+	
+for(int i = 0; i<filaItens.size(); i++){
+	System.out.print("(" + filaItens.get(i).getPosAtualX() + " " + filaItens.get(i).getPosAtualY()+")");
+}	
+System.out.println();
+						
 			No atual = filaItens.remove(0);            			
 			atualX = atual.getPosAtualX();
 			atualY = atual.getPosAtualY();
 			
-			if(map.finished(atualX, atualY)){
+
+			
+System.out.println("linha 195 - atual: ax " + atual.getPosAtualX() + " ay " + atual.getPosAtualY()  + " aI " + atual.getItem() + " aVI " + atual.getValorItem());
+//System.out.println("cont " + cont);
+			/*
+			if(cont==3){
+				System.out.println("linha 197 - atual: ax " + atual.getPosAtualX() + " ay " + atual.getPosAtualY() + " apaX " + atual.getPosAnteriorX() + " apaY " + atual.getPosAnteriorY() + " aI " + atual.getItem() + " aVI " + atual.getValorItem());
+				map.limpaMap();
 				rota(map, atual, path, path_index);
 			}
+			*/
+			
+			if(map.finished(atualX, atualY)){
+
+System.out.println("FINISHED - linha 199 - 	atual: ax " + atual.getPosAtualX() + " ay " + atual.getPosAtualY() + " apAx " + atual.getPosAnteriorX() + " apAy " + atual.getPosAnteriorY() + " aI " + atual.getItem() + " aVI " + atual.getValorItem());
+
+				rota(map, atual, path, path_index);
+			}
+	
 			
 			/*
 			if(map.finished(atualX, atualY)){
@@ -234,123 +252,198 @@ System.out.println("	3-cont " + cont);
 				}	
 			}
 			*/
-//	USAR IF ABAIXO PARA CAMINHO MAIS CURTO COM MENOS ITERACOES DO FOR			
+			
+			
+//	USAR IF ABAIXO PARA CAMINHO MAIS CURTO COM MENOS ITERACOES DO FOR - pois ela está verificando a celula que estava na 1ª posicao da fila
 			if(map.celulaVisitada(atualX, atualY) || map.blocked(atualX, atualY)){
 				continue;
 			}
-						
+				
             for(int i = 0; i < sentidos.length; i++){
             	dirHoriz = atualX + sentidos[i][0];
 				dirVert = atualY + sentidos[i][1];
 //	USAR IF ABAIXO PARA CAMINHO MAIS CURTO COM MENOS ITERACOES DO FOR	
-System.out.println("i: " + i + " atual - " + " atualX " + atualX + " atualY " + atualY);
+System.out.println("	linha 255 - i: " + i + " atual: " + " x " + atualX + " x " + atualY + " - proxPosVer: x " + dirHoriz + " y " + dirVert);
 				if(map.verificaCelula(dirHoriz, dirVert) || map.celulaVisitada(dirHoriz, dirVert) || map.blocked(dirHoriz, dirVert)){
 					continue;
 				}
 				
-//	Com o cod abaixo, verificamos as posicoes posteriores a prox; talvez usar recursivamente e retornar algo para decidir o caminho				
-				verifItem = map.getItem(dirHoriz, dirVert);
-				if(verifItem == null){
-					
-					for(int j = 0; j < sentidos.length; j++){
-						int dirHoriz2 = dirHoriz + sentidos[j][0];
-						int dirVert2 = dirVert + sentidos[j][1];
-		//	USAR IF ABAIXO PARA CAMINHO MAIS CURTO COM MENOS ITERACOES DO FOR	
-//		System.out.println("		j: " + j + " jtual - " + " dirHoriz2 " + dirHoriz2 + " dirVert2 " + dirVert2);
-						if(map.verificaCelula(dirHoriz2, dirVert2) || map.celulaVisitada(dirHoriz2, dirVert2) || map.blocked(dirHoriz2, dirVert2)){
-							continue;
-						}
-						System.out.println("		j: " + j + " jtual - " + " dirHoriz2 " + dirHoriz2 + " dirVert2 " + dirVert2);
-					}
-				}
+				map.step(atualX, atualY);
 				
-				
-System.out.println("i: " + i + " Na fila=atual - " + " atualX " + atualX + " atualY " + atualY);
-				Item atualItem = map.getItem(dirHoriz, dirVert);
-				
-				No prox;
-				
-				if(atualItem != null){
-					prox = new No(new Posicao(dirHoriz, dirVert), atual, atualItem, atualItem.getValue());
-				}else prox = new No(new Posicao(dirHoriz, dirVert), atual, atualItem, 0);
-System.out.println("	i: " + i + " Entra na fila=prox - " + " proxX " + prox.getPosAtualX() + " proxY " + prox.getPosAtualY());				
+				No prox = procuraItem(map, dirHoriz, dirVert, path, path_index, atual);
 				filaItens.add(prox);
-				map.step(atualX, atualY);// marcando a celula para que nao passe novamente por ela e faca todo o processo
-			}
-        }		
-        
-        
-		
-		return true;
-	}
-	
-/*	
-	public static boolean caminho3(Map map, int lin, int col, int[] path, int path_index){
+				cont++;
 				
-		int contValor = -1;
-		No itemIni;
-		LinkedList<No> noItem = new LinkedList<No>();
-		Item item = map.getItem(lin, col);
+//				map.step(atualX, atualY);// marcando a celula para que nao passe novamente por ela e faca todo o processo
+			}
+				
+//System.out.println("linha 270 - 	i: " + i + " Entra na fila => prox: x " + prox.getPosAtualX() + " y " + prox.getPosAtualY() + " proxpAx " + prox.getPosAnteriorX() + " proxpAy " + prox.getPosAnteriorY() + " proxI " + atual.getItem() + " proxVI " + atual.getValorItem());				
+				
+		}
+		return true;			
+	}			
 		
-//System.out.println("item out-while: " + item);
+	
+
+	public static No procuraItem(Map map, int lin, int col, int[] path, int path_index, No antProcItem){
 		
-		if(item != null){
-			itemIni = new No(new Posicao(lin, col), null, item, item.getValue()); //	criar construtor sem o campo posAnterior e com campo item
-			contValor += item.getValue();
-		}else itemIni = new No(new Posicao(lin, col));
-					
-		noItem.add(itemIni);
+		int atualX, atualY, dirHoriz, dirVert;		
+		Item verifItem;
+		No atual, sentido;
 		
+		LinkedList<No> no = new LinkedList<No>();
+		No procItem = new No(new Posicao(lin, col), antProcItem);
+		no.add(procItem);
+		boolean flag = true;
+//System.out.println(procItem.getPosAnterior());
+//System.out.println("linha 291 - verifItem: x " + lin + " y " + col + " = " + verifItem);		
+		
+//		while(no.size() != 0){
+		while(flag==true){
 
-//		while(!map.finished(lin, col)){
-		while(noItem.size() != 0){ //	talvez precuse retirar nos.size != 0
-
-			No atual = noItem.remove(0);
-						
-			if(map.finished(atual.getPosAtualX(), atual.getPosAtualY())){
-//	Fazer uma nova verificacao sobre contValor (que e atualizado a cada item adquirido) e o valorFinal dos itens, se valorFinal >= contValor, finaliza, caso contrário, continua (retorn false)
-
-				if(atual.valorItem > contValor){
-					rota(map, atual, path, path_index);
-					return true;
-				}
-				else return false;
-//				return rota(map, atual, path, path_index);
+			atual = no.remove(0);            			
+			atualX = atual.getPosAtualX();
+			atualY = atual.getPosAtualY();
+			verifItem = map.getItem(atualX, atualY);
+			
+			System.out.println("297 atual(x: " + atual.getPosAtualX() + " y: " +  atual.getPosAtualY() + ")" + " ant(x: " + atual.getPosAnteriorX() + " y: " + atual.getPosAnteriorY() + ")");
+			
+			if(verifItem != null){
+				map.step(atualX, atualY);
+				System.out.println(atual.getPosAtualX() + " " + atual.getPosAtualY());
+				System.out.println(atual.getPosAnteriorX() + " " + atual.getPosAnteriorY());
+				flag = false;
+				return new No(new Posicao(atualX, atualY), atual.getPosAnterior(), verifItem, verifItem.getValue());
 			}
 			
-			for(int i = 0; i < sentidos.length; i++){
-				if((map.verificaCelula(atual.getPosAtualX() + sentidos[i][0], atual.getPosAtualY() + sentidos[i][1])) || (map.celulaVisitada(atual.getPosAtualX() + sentidos[i][0], atual.getPosAtualY() + sentidos[i][1])) || map.blocked(atual.getPosAtualX() + sentidos[i][0], atual.getPosAtualY() + sentidos[i][1])){
-System.out.println("Nao valido - i: " + i);
+			if(map.celulaVisitada(atualX, atualY) || map.blocked(atualX, atualY)){
+				continue;
+			}
+			
+	System.out.println("	linha 300 - 	atual: x " + atual.getPosAtualX() + " y " + atual.getPosAtualY() + " procI " + atual.getItem() + " procVI " + procItem.getValorItem());
+			
+			for(int i = 0; i < sentidos.length; i++){			
+				dirHoriz = atualX + sentidos[i][0];
+				dirVert = atualY	 + sentidos[i][1];
+
+	System.out.println("		linha 306 - procItemAtual: x " + (dirHoriz-sentidos[i][0]) + " y " + (dirVert-sentidos[i][1]) + " --- i: " + i + " ---> prox: x " + dirHoriz + " y " + dirVert);
+
+				if(map.verificaCelula(dirHoriz, dirVert) || map.blocked(dirHoriz, dirVert) || map.celulaVisitada(dirHoriz, dirVert)){
+
 					continue;
 				}
-				int dirHoriz = atual.getPosAtualX() + sentidos[i][0];
-				int dirVert = atual.getPosAtualY() + sentidos[i][1];
-
-System.out.println("dirHoriz: " + dirHoriz + " dirVert: " + dirVert);
-
-				Item itemAtual = map.getItem(dirHoriz, dirVert);
-System.out.println("itemAtual " + itemAtual);
-//System.out.println("itemAtual.getValue " + itemAtual.getValue()); resulta em NullPointerException por causa que o valor de um item não inicializado não aponta para nenhum espaço de memória
-
-
-				No itemNovo;
-				
-				if(itemAtual != null){
-					itemNovo = new No(new Posicao(dirHoriz, dirVert), atual, itemAtual, itemAtual.getValue());
-					contValor += itemAtual.getValue();
-				}else itemNovo = new No(new Posicao(dirHoriz, dirVert), atual, itemAtual, atual.valorItem);
-				
-				noItem.add(itemNovo);
-				
+	//System.out.println("i: " + i + " proxX " + dirHoriz + " proxY " + dirVert);
+				sentido = new No(new Posicao(dirHoriz, dirVert), atual);
+				System.out.println("sentido.anterior " + sentido.getPosAnteriorX());
+				no.add(sentido);
+				map.step(atualX, atualY);
 			}
 		}
-		return true;
-//		return noItem;
+		if(DEBUG){ 
+			map.print(); 
+			System.out.println("---------------------------------------------------------------");
+		}
+		return procItem;
+	}
+/*
+
+public static No procuraItem(Map map, int lin, int col, int[] path, int path_index, No antProcItem){
+		
+		int dirHoriz, dirVert;		
+		map.step(lin, col);
+		path[path_index] = lin;
+		path[path_index + 1] = col;
+		path_index += 2;
+		path[0] = path_index;
+		
+		Item verifItem = map.getItem(lin, col);
+		
+System.out.println("linha 291 - verifItem: x " + lin + " y " + col + " = " + verifItem);		
+		if(verifItem != null){
+//	Acho que precisa limpar o mapa
+//			map.limpaMap();
+			map.completaMap();			
+			return new No(new Posicao(lin, col), antProcItem, verifItem, verifItem.getValue());
+		}
+		
+		No procItem = new No(new Posicao(lin, col), antProcItem, verifItem);
+
+System.out.println("linha 300 - 	procItem: x " + procItem.getPosAtualX() + " y " + procItem.getPosAtualY() + " procpAx " + procItem.getPosAnteriorX() + " procpAy " + procItem.getPosAnteriorY() + " procI " + procItem.getItem() + " procVI " + procItem.getValorItem());
+
+		for(int i = 0; i < sentidos.length; i++){			
+			dirHoriz = lin + sentidos[i][0];
+			dirVert = col + sentidos[i][1];
+
+System.out.println("linha 306 - procItemAtual: x " + (dirHoriz-sentidos[i][0]) + " y " + (dirVert-sentidos[i][1]) + " --- i: " + i + " ---> prox: x " + dirHoriz + " y " + dirVert);
+
+			if(map.verificaCelula(dirHoriz, dirVert) || map.blocked(dirHoriz, dirVert) || map.celulaVisitada(dirHoriz, dirVert)){
+
+				continue;
+			}
+//System.out.println("i: " + i + " proxX " + dirHoriz + " proxY " + dirVert);
+			procuraItem(map, dirHoriz, dirVert, path, path_index, procItem);
+		}
+		
+		if(DEBUG){ 
+			map.print(); 
+			System.out.println("---------------------------------------------------------------");
+		}
+		return procItem;
+	}
+
+*/
+/*
+	public static boolean procuraItem(Map map, int lin, int col, int[] path, int path_index){
+		
+		int dirHoriz, dirVert;
+		
+		if(map.verificaCelula(lin, col) || map.blocked(lin, col) || map.celulaVisitada(lin, col)){
+			return false;
+		}
+				
+		map.step(lin, col);
+		path[path_index] = lin;
+		path[path_index + 1] = col;
+		path_index += 2;
+		path[0] = path_index;
+		
+		Item verifItem = map.getItem(lin, col);
+System.out.println("verifItemX " + lin + " verifItemY " + col + " = " + verifItem);		
+		if(verifItem != null){
+			
+			return true;
+		}
+		
+		for(int i = 0; i < sentidos.length; i++){			
+			dirHoriz = lin + sentidos[i][0];
+			dirVert = col + sentidos[i][1];
+System.out.println("atualX " + (dirHoriz-sentidos[i][0]) + " atualY " + (dirVert-sentidos[i][1]) + " --- i: " + i + " ---> proxX " + dirHoriz + " proxY " + dirVert);			
+			if(map.verificaCelula(dirHoriz, dirVert) || map.blocked(dirHoriz, dirVert) || map.celulaVisitada(dirHoriz, dirVert)){
+
+				continue;
+			}
+
+//System.out.println("i: " + i + " proxX " + dirHoriz + " proxY " + dirVert);
+			
+			if(procuraItem(map, dirHoriz, dirVert, path, path_index)){
+				
+				System.out.println(i + " dentro da chamada");
+				return true;
+			}
+		}
+		
+		if(DEBUG){ 
+			map.print(); 
+			System.out.println("---------------------------------------------------------------");
+		}
+		return false;
 	}
 */
-	
+/*	
 // Para caminhar no labirinto	
 	public static boolean caminho4(Map map, int lin, int col, int[] path, int path_index){
+		
+		int dirHoriz, dirVert;
 		
 		if(map.verificaCelula(lin, col) || map.blocked(lin, col) || map.celulaVisitada(lin, col)){
 //			System.out.println("saiu da recursao");
@@ -369,14 +462,17 @@ System.out.println("itemAtual " + itemAtual);
 		}
 //	public static int[][] sentidos = {{1, 0},{0,-1},{-1,0},{0, 1}};		
 		for(int i = 0; i < sentidos.length; i++){			
-			int direcaoHorizontal = lin + sentidos[i][0];
-			int direcaoVertical = col + sentidos[i][1];
-			/*
-//			System.out.println("i: " + i);
-//			System.out.println("dirHor " + direcaoHorizontal + " dirVer " + direcaoVertical);
-//			System.out.println("	senX " + sentidos[i][0] + " senY " + sentidos[i][1]);
-			*/
-			if(caminho4(map, direcaoHorizontal, direcaoVertical, path, path_index)){
+			dirHoriz = lin + sentidos[i][0];
+			dirVert = col + sentidos[i][1];
+System.out.println("atualX " + (dirHoriz-sentidos[i][0]) + " atualY " + (dirVert-sentidos[i][1]) + " --- i: " + i + " ---> proxX " + dirHoriz + " proxY " + dirVert);			
+			if(map.verificaCelula(dirHoriz, dirVert) || map.blocked(dirHoriz, dirVert) || map.celulaVisitada(dirHoriz, dirVert)){
+
+				continue;
+			}
+
+//System.out.println("i: " + i + " proxX " + dirHoriz + " proxY " + dirVert);
+			
+			if(caminho4(map, dirHoriz, dirVert, path, path_index)){
 				return true;
 			}
 		}
@@ -387,7 +483,7 @@ System.out.println("itemAtual " + itemAtual);
 		}
 		return false;
 	}
-	
+*/	
 	public static void printSolution(Map map, int [] path){
 
 		// A partir do mapa e do path contendo a solução, imprime a saída conforme especificações do EP.

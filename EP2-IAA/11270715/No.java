@@ -5,23 +5,38 @@ import java.util.*;
 public class No{
 	
 	private Posicao posAtual;
-	private No posAnterior = null;
-	private Item item = null;
-	private int valorItem = 0;
+	private No posAnterior;
+	private Item item;
+	private int valorItem;
 	
 	public No(Posicao posAtual){
-		this.posAtual = posAtual;	
+		this.posAtual = posAtual;
+		this.posAnterior = null;
+		this.item = null;
+		
+		if(posAnterior != null){
+			this.valorItem = getPosAnterior().valorItem + valorItem;
+		}else this.valorItem = valorItem;
 	}
 	
 	public No(Posicao posAtual, No posAnterior){
 		this.posAtual = posAtual;
 		this.posAnterior = posAnterior;
+		this.item = null;
+		
+		if(posAnterior != null){
+			this.valorItem = getPosAnterior().valorItem + valorItem;
+		}else this.valorItem = valorItem;
 	}
 	
 	public No(Posicao posAtual, No posAnterior, Item item){
 		this.posAtual = posAtual;
 		this.posAnterior = posAnterior;
 		this.item = item;
+
+		if(posAnterior != null){
+			this.valorItem = getPosAnterior().valorItem + valorItem;
+		}else this.valorItem = valorItem;
 	}
 	
 	public No(Posicao posAtual, No posAnterior, Item item, int valorItem){
