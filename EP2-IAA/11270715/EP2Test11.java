@@ -357,6 +357,25 @@ public class EP2Test11 {
 			rotasItens.add(dijMenor.getRota2());
 		}
 		
+		No transitivo = rotasItens.get(0);
+		LinkedList<No> temp = new LinkedList<No>();     		
+		while (transitivo != null) {
+			temp.add(transitivo);
+            transitivo = transitivo.getPosAnterior();
+        }
+        /*
+        System.out.println(temp.size());
+        
+        for(int i = 0; i < temp.size(); i++){
+							
+			System.out.println("i:" + i + " ("+ temp.get(i).getPosAtualX() + " "+ temp.get(i).getPosAtualY() + ")"+ " item " + temp.get(i).getItem() + " vlr " + temp.get(i).getValorItem());
+		} 
+		System.out.println(temp.getLast().getPosAtualX() + " , " + temp.getLast().getPosAtualY());*/
+		    /*
+//	Colocando as posicoes corretas no path		
+		while (temp.size() != 0) {
+
+        }		*/
 		
 
 		/*

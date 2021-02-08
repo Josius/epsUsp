@@ -27,7 +27,7 @@ public class DijkstraMenor{
 		
 		dijkstra(matAdj, vertInicial, anteriores);			
 		caminho = maiorCaminho(vertInicial, vertFinal, anteriores);
-		determCam(mapaVert, caminho);
+		determCam(mapaVert, caminho, map);
 	}
 			
 	public void verifica(){
@@ -165,7 +165,7 @@ public class DijkstraMenor{
 		
 		dist[vertInicial] = 0;
 		for(int i = 0; i < dist.length; i++){
-			int u = distMax(dist, vertVisitado);
+			int u = distMin(dist, vertVisitado);
 			vertVisitado[u] = true;
 //			System.out.println("u " + u);
 			for(int v = 0; v < dist.length; v++){
@@ -177,7 +177,7 @@ public class DijkstraMenor{
 		}
 	}
 	
-	private static int distMax(int[] dist, boolean[] vertVisitado){
+	private static int distMin(int[] dist, boolean[] vertVisitado){
 		int minDist = Integer.MAX_VALUE;
 		int distVert = -1;
 		
@@ -208,11 +208,13 @@ public class DijkstraMenor{
 		return tempAnt;
 	}
 	
-	private static void determCam(int[][] mapaVert, LinkedList<Integer> caminho){
+	private static void determCam(int[][] mapaVert, LinkedList<Integer> caminho, Map map){
 		
 //		System.out.println("caminho " + caminho);
 		No temp = null;
 		No temp2 = temp;
+		int u;
+		Item verifItem;
 /*
 		for(int i = 0; i < caminho.size(); i++){
 			System.out.println("i: " + i + " caminho " + caminho.get(i));
@@ -220,10 +222,15 @@ public class DijkstraMenor{
 */		
 		while(caminho.size() != 0){
 			
-			int u = caminho.remove();
+			u = caminho.remove();
 			for(int x = 0; x < mapaVert.length; x++){
 				for(int y = 0; y < mapaVert[x].length; y++){
-					if(u == mapaVert[x][y]){					
+					verifItem = map.getItem(x, y);
+					
+					if(verifItem != null && u == mapaVert[x][y]){
+						System.out.println(x + " " + y + " getValue " + verifItem.getValue());
+						temp = new No(new Posicao(x, y), temp2, verifItem, verifItem.getValue());
+					}else if(u == mapaVert[x][y]){					
 						temp = new No(new Posicao(x, y), temp2);
 					}
 				}
