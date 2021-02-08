@@ -363,14 +363,15 @@ public class EP2Test11 {
 			temp.add(transitivo);
             transitivo = transitivo.getPosAnterior();
         }
-        /*
-        System.out.println(temp.size());
         
+//        System.out.println(temp.size());
+        /*
         for(int i = 0; i < temp.size(); i++){
 							
-			System.out.println("i:" + i + " ("+ temp.get(i).getPosAtualX() + " "+ temp.get(i).getPosAtualY() + ")"+ " item " + temp.get(i).getItem() + " vlr " + temp.get(i).getValorItem());
+			System.out.println("i:" + i + " ("+ temp.get(i).getPosAtualX() + " "+ temp.get(i).getPosAtualY() + ")"+ " posAntX " + temp.get(i).getPosAnteriorX() + " posAntY " + temp.get(i).getPosAnteriorY() +" item " + temp.get(i).getItem() + " vlr " + temp.get(i).getValorItem());
 		} 
-		System.out.println(temp.getLast().getPosAtualX() + " , " + temp.getLast().getPosAtualY());*/
+		System.out.println(temp.getLast().getPosAtualX() + " , " + temp.getLast().getPosAtualY());
+		*/
 		    /*
 //	Colocando as posicoes corretas no path		
 		while (temp.size() != 0) {

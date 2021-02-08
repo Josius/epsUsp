@@ -194,17 +194,23 @@ public class DijkstraMenor{
 		
 		int i = vertFinal;
 		int temp;
-		int j = 0;
+//		int j = 0;
 		LinkedList <Integer> tempAnt = new LinkedList<Integer>();
 		tempAnt.add(i);
+		
 		while (anteriores[i] != vertInicial){
 			
-			j++;
+//			j++;
 			temp=anteriores[i];
 			tempAnt.add(temp);
 			i=temp;
 		}
+		
 		tempAnt.add(vertInicial);
+		/*
+		for(int k=0; k < tempAnt.size(); k++){
+			System.out.println("tempAnt " + tempAnt.get(k)); 
+		}*/
 		return tempAnt;
 	}
 	
@@ -221,14 +227,14 @@ public class DijkstraMenor{
 		}
 */		
 		while(caminho.size() != 0){
-			
+//	Qlqr coisa, se der errado, é só trocar remove por uma função para remover o ultimo da lista, assim criamos uma lista de anteriores correta, pois abaixo esta criando uma lista de posteriores. NOTA: se fizer isso, precisa alterar no EP2 o metodo rota2 para rota para preencher o mapa
 			u = caminho.remove();
 			for(int x = 0; x < mapaVert.length; x++){
 				for(int y = 0; y < mapaVert[x].length; y++){
 					verifItem = map.getItem(x, y);
-					
+//					System.out.println("i"+x+"j"+y);
 					if(verifItem != null && u == mapaVert[x][y]){
-						System.out.println(x + " " + y + " getValue " + verifItem.getValue());
+//						System.out.println(x + " " + y + " getValue " + verifItem.getValue());
 						temp = new No(new Posicao(x, y), temp2, verifItem, verifItem.getValue());
 					}else if(u == mapaVert[x][y]){					
 						temp = new No(new Posicao(x, y), temp2);
