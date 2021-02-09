@@ -6,47 +6,51 @@ public class No{
 	
 	private Posicao posAtual;
 	private No posAnterior;
-	private Item item;
-	private int valorItem;
+	private Item item = null;
+	private int valorItem = 0;
+	private int vertice;
 	
 	public No(Posicao posAtual){
 		this.posAtual = posAtual;
 		this.posAnterior = null;
-		this.item = null;
-		
-		if(posAnterior != null){
-			this.valorItem = getPosAnterior().valorItem + valorItem;
-		}else this.valorItem = valorItem;
 	}
-	
+	public No(Posicao posAtual, int vertice){
+		this.posAtual = posAtual;
+		this.posAnterior = null;
+		this.vertice = vertice;
+	}
 	public No(Posicao posAtual, No posAnterior){
 		this.posAtual = posAtual;
 		this.posAnterior = posAnterior;
-		this.item = null;
-		
-		if(posAnterior != null){
-			this.valorItem = getPosAnterior().valorItem + valorItem;
-		}else this.valorItem = valorItem;
 	}
 	
 	public No(Posicao posAtual, No posAnterior, Item item){
 		this.posAtual = posAtual;
 		this.posAnterior = posAnterior;
 		this.item = item;
-
-		if(posAnterior != null){
-			this.valorItem = getPosAnterior().valorItem + valorItem;
-		}else this.valorItem = valorItem;
+		this.valorItem = item.getValue();
 	}
 	
 	public No(Posicao posAtual, No posAnterior, Item item, int valorItem){
 		this.posAtual = posAtual;
 		this.posAnterior = posAnterior;
 		this.item = item;
-		
-		if(posAnterior != null){
-			this.valorItem = getPosAnterior().valorItem + valorItem;
-		}else this.valorItem = valorItem;
+		this.valorItem = valorItem;	
+	}
+	
+	public No(Posicao posAtual, No posAnterior, int vertice){
+		this.posAtual = posAtual;
+		this.posAnterior = posAnterior;
+		this.vertice = vertice;
+
+	}
+	
+	public No(Posicao posAtual, No posAnterior, int vertice, Item item, int valorItem){
+		this.posAtual = posAtual;
+		this.posAnterior = posAnterior;
+		this.item = item;
+		this.valorItem = item.getValue();	
+		this.vertice = vertice;
 		
 	}
 	
@@ -62,6 +66,10 @@ public class No{
 	public int getValorItem(){
 		
 		return this.valorItem;
+	}
+	public int getVertice(){
+		
+		return this.vertice;
 	}
 
 //	Acessando 'lin' e 'col' do objeto do tipo Posicao
@@ -82,7 +90,12 @@ public class No{
 		
 		return this.posAnterior.posAtual.getY();
 	}
-	
+	public void setValorItem(int valor){
+		this.valorItem = valor;
+	}
+	public void setPosAnterior(No posAnterior){
+		this.posAnterior = posAnterior;
+	}
 	/*
 	public String toString(){
 		

@@ -5,12 +5,13 @@ import java.util.*;
 public class DijkstraMenor{
 	
 	private int[][] matAdj;
-	private int[][] mapaVert;
+	private static int[][] mapaVert;
 	private int vertInicial;
 	private int vertFinal;
 	private int[] anteriores;
 	private LinkedList<Integer> caminho;
 	private static No rota2;
+	private static No rotAnt;
 				
 	public DijkstraMenor(int size, int nLines, int nColumns, int lin, int col, int linFinal, int colFinal, Map map){
 		
@@ -29,7 +30,25 @@ public class DijkstraMenor{
 		caminho = maiorCaminho(vertInicial, vertFinal, anteriores);
 		determCam(mapaVert, caminho, map);
 	}
-			
+	
+	public DijkstraMenor(int size, int nLines, int nColumns, int lin, int col, int linFinal, int colFinal, Map map, No rotAnt){
+		
+		this.matAdj = new int[size][size];
+		this.mapaVert = new int[nLines][nColumns];
+		
+		constroiMapaVert(mapaVert); // todas as posicoes da matriz = -1
+		constroiCaminhoMatAdj(map, matAdj, mapaVert);	
+		espelhaMatrizAdj(matAdj);
+		
+		this.vertInicial = mapaVert[lin][col];
+		this.vertFinal = mapaVert[linFinal][colFinal];
+		this.anteriores = new int[matAdj.length];
+		this.rotAnt = rotAnt;
+		
+		dijkstra(matAdj, vertInicial, anteriores);			
+		caminho = maiorCaminho(vertInicial, vertFinal, anteriores);
+		determCam(mapaVert, caminho, map, rotAnt);
+	}	
 	public void verifica(){
 		System.out.println("mapaVert");
 		for(int i = 0; i < mapaVert.length; i++){
@@ -214,6 +233,18 @@ public class DijkstraMenor{
 		return tempAnt;
 	}
 	
+	public static int devolveVertice(Map map, int lin, int col){
+	
+		for(int x = 0; x < mapaVert.length; x++){
+			for(int y = 0; y < mapaVert[x].length; y++){
+				if(x==lin && y==col) return mapaVert[x][y];
+			}
+		}
+
+		return -1;	
+	
+	}
+	
 	private static void determCam(int[][] mapaVert, LinkedList<Integer> caminho, Map map){
 		
 //		System.out.println("caminho " + caminho);
@@ -227,17 +258,52 @@ public class DijkstraMenor{
 		}
 */		
 		while(caminho.size() != 0){
-//	Qlqr coisa, se der errado, é só trocar remove por uma função para remover o ultimo da lista, assim criamos uma lista de anteriores correta, pois abaixo esta criando uma lista de posteriores. NOTA: se fizer isso, precisa alterar no EP2 o metodo rota2 para rota para preencher o mapa
-			u = caminho.remove();
+//	Qlqr coisa, se der errado, é só trocar remove por uma função para remover o ultimo da lista, assim criamos uma lista de anteriores correta, pois abaixo esta criando uma lista de posteriores. NOTA: se fizer isso, precisa alterar no EP2 o metodo rota2 para rota para preencher o mapa 
+//NOTA2: Nao precisou alterar a chamada do metodo rota2 para rota, estranho...
+//			u = caminho.remove();
+			u = caminho.removeLast();
 			for(int x = 0; x < mapaVert.length; x++){
 				for(int y = 0; y < mapaVert[x].length; y++){
 					verifItem = map.getItem(x, y);
 //					System.out.println("i"+x+"j"+y);
 					if(verifItem != null && u == mapaVert[x][y]){
 //						System.out.println(x + " " + y + " getValue " + verifItem.getValue());
-						temp = new No(new Posicao(x, y), temp2, verifItem, verifItem.getValue());
+						temp = new No(new Posicao(x, y), temp2, u, verifItem, verifItem.getValue());
 					}else if(u == mapaVert[x][y]){					
-						temp = new No(new Posicao(x, y), temp2);
+						temp = new No(new Posicao(x, y), temp2, u);
+					}
+				}
+			}
+			temp2 = temp;
+		}
+		rota2 = temp;
+	}
+	private static void determCam(int[][] mapaVert, LinkedList<Integer> caminho, Map map, No rotAnt){
+		
+//		System.out.println("caminho " + caminho);
+		No temp = rotAnt;
+		No temp2 = temp;
+		int u;
+		Item verifItem;
+/*
+		for(int i = 0; i < caminho.size(); i++){
+			System.out.println("i: " + i + " caminho " + caminho.get(i));
+		}
+*/		
+		while(caminho.size() != 0){
+//	Qlqr coisa, se der errado, é só trocar remove por uma função para remover o ultimo da lista, assim criamos uma lista de anteriores correta, pois abaixo esta criando uma lista de posteriores. NOTA: se fizer isso, precisa alterar no EP2 o metodo rota2 para rota para preencher o mapa 
+//NOTA2: Nao precisou alterar a chamada do metodo rota2 para rota, estranho...
+//			u = caminho.remove();
+			u = caminho.removeLast();
+			for(int x = 0; x < mapaVert.length; x++){
+				for(int y = 0; y < mapaVert[x].length; y++){
+					verifItem = map.getItem(x, y);
+//					System.out.println("i"+x+"j"+y);
+					if(verifItem != null && u == mapaVert[x][y]){
+//						System.out.println(x + " " + y + " getValue " + verifItem.getValue());
+						temp = new No(new Posicao(x, y), temp2, u, verifItem, verifItem.getValue());
+					}else if(u == mapaVert[x][y]){					
+						temp = new No(new Posicao(x, y), temp2, u);
 					}
 				}
 			}
