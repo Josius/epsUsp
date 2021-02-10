@@ -199,17 +199,24 @@ public class EP2 {
 		LinkedList<No> no = new LinkedList<No>();
 		No procItem = new No(new Posicao(lin, col), antProcItem);
 		no.add(procItem);
-		boolean flag = true;	
+		boolean flag = true;
+//System.out.println(procItem.getPosAnterior());
+//System.out.println("linha 291 - verifItem: x " + lin + " y " + col + " = " + verifItem);		
 		
+//		while(no.size() != 0){
 		while(flag==true){
 
 			atual = no.remove(0);            			
 			atualX = atual.getPosAtualX();
 			atualY = atual.getPosAtualY();
 			verifItem = map.getItem(atualX, atualY);
-						
+			
+//			System.out.println("297 atual(x: " + atual.getPosAtualX() + " y: " +  atual.getPosAtualY() + ")" + " ant(x: " + atual.getPosAnteriorX() + " y: " + atual.getPosAnteriorY() + ")");
+			
 			if(verifItem != null){
 				map.step(atualX, atualY);
+//				System.out.println(atual.getPosAtualX() + " " + atual.getPosAtualY());
+//				System.out.println(atual.getPosAnteriorX() + " " + atual.getPosAnteriorY());
 				flag = false;
 				return new No(new Posicao(atualX, atualY), atual.getPosAnterior(), verifItem, verifItem.getValue());
 			}
@@ -218,14 +225,21 @@ public class EP2 {
 				continue;
 			}
 			
+//	System.out.println("	linha 300 - 	atual: x " + atual.getPosAtualX() + " y " + atual.getPosAtualY() + " procI " + atual.getItem() + " procVI " + procItem.getValorItem());
+			
 			for(int i = 0; i < sentidos.length; i++){			
 				dirHoriz = atualX + sentidos[i][0];
 				dirVert = atualY	 + sentidos[i][1];
 
+//	System.out.println("		linha 306 - procItemAtual: x " + (dirHoriz-sentidos[i][0]) + " y " + (dirVert-sentidos[i][1]) + " --- i: " + i + " ---> prox: x " + dirHoriz + " y " + dirVert);
+
 				if(map.verificaCelula(dirHoriz, dirVert) || map.blocked(dirHoriz, dirVert) || map.celulaVisitada(dirHoriz, dirVert)){
+
 					continue;
 				}
+	//System.out.println("i: " + i + " proxX " + dirHoriz + " proxY " + dirVert);
 				sentido = new No(new Posicao(dirHoriz, dirVert), atual);
+//				System.out.println("sentido.anterior " + sentido.getPosAnteriorX());
 				no.add(sentido);
 				map.step(atualX, atualY);
 			}
@@ -236,6 +250,24 @@ public class EP2 {
 		}
 		return procItem;
 	}
+
+/*
+		for(int i = 0; i<copiaItens.size(); i++){
+			System.out.print("caminho3 (" + copiaItens.get(i).getPosAtualX() + " " + copiaItens.get(i).getPosAtualY()+")" + " posAnterior "+copiaItens.get(i).getPosAnterior() + "antx (" +copiaItens.get(i).getPosAnteriorX() + " "+copiaItens.get(i).getPosAnteriorY() +") "+ copiaItens.get(i).getItem() + " vlr item "+copiaItens.get(i).getValorItem() + "\n");
+		}
+		
+		for(int i = 0; i<itens.size(); i++){
+			System.out.print("itens (" + itens.get(i).getPosAtualX() + " " + itens.get(i).getPosAtualY()+")" + " posAnterior "+itens.get(i).getPosAnterior() + "antx (" +itens.get(i).getPosAnteriorX() + " "+itens.get(i).getPosAnteriorY() +") "+ itens.get(i).getItem() + " vlr item "+itens.get(i).getValorItem() + "\n");
+		}
+		
+		for(int i = 0; i<copiaItens.length;  i++){
+			System.out.print("i: " +i + " 2 - caminho3 (" + copiaItens[i].getPosAtualX() + " " + copiaItens[i].getPosAtualY()+")" + " posAnterior "+copiaItens[i].getPosAnterior() + "antx (" +copiaItens[i].getPosAnteriorX() + " "+copiaItens[i].getPosAnteriorY() +") "+ copiaItens[i].getItem() + " vlr item "+copiaItens[i].getValorItem() + "\n");
+		}
+		
+		for(int i = 0; i<copiaItens.length;  i++){
+			System.out.print("i: " +i + " 1 - caminho3 (" + copiaItens[i].getPosAtualX() + " " + copiaItens[i].getPosAtualY()+")" + " posAnterior "+copiaItens[i].getPosAnterior() + "antx (" +copiaItens[i].getPosAnteriorX() + " "+copiaItens[i].getPosAnteriorY() +") "+ copiaItens[i].getItem() + " vlr item "+copiaItens[i].getValorItem() + "\n");
+		}
+*/
 	
 	public static void caminho3(Map map, int sizeMap, int nLines, int nColumns, int lin, int col, int linFinal, int colFinal, int[] path, int path_index, LinkedList<No> itens){
 
@@ -247,14 +279,17 @@ public class EP2 {
 			dijMenor = new DijkstraMenor(sizeMap, nLines, nColumns, lin, col, itens.get(i).getPosAtualX(), itens.get(i).getPosAtualY(), map);
 			rotasItens.add(dijMenor.getRota2());
 		}
+//		rotasItens.add(new No(new Posicao(3, 1), rotasItens.get(0)));
+//		rotasItens.get(3).setValorItem(33);
 		
 		No finaly = new No(new Posicao(linFinal, colFinal), DijkstraMenor.devolveVertice(map, linFinal, colFinal));
 		rotasItens.addLast(finaly);
-
+//		System.out.println("AQUIIIII " + DijkstraMenor.devolveVertice(map, linFinal, colFinal));
 		for(int i = 0; i < rotasItens.size(); i++){
 			
 			System.out.println("i:" + i + " ("+ rotasItens.get(i).getPosAtualX() + " "+ rotasItens.get(i).getPosAtualY() + ")" + " vertice " + rotasItens.get(i).getVertice());
 							
+//			System.out.println("i:" + i + " ("+ rotasItens.get(i).getPosAtualX() + " "+ rotasItens.get(i).getPosAtualY() + ")"+ " posAntX " + rotasItens.get(i).getPosAnteriorX() + " posAntY " + rotasItens.get(i).getPosAnteriorY() +" item " + rotasItens.get(i).getItem() + " vlr " + rotasItens.get(i).getValorItem() + " vert " + rotasItens.get(i).getVertice());
 		} 
 		
 		System.out.println("rotasItens.size " + rotasItens.size());
@@ -274,9 +309,10 @@ public class EP2 {
 		No atual, prox, fim;
 		DijkstraMenor dijFinal;
 
-
+//System.out.println("size " + rotasItens.size());
 	
 //	      while(rotasItens.size() > 2){
+//System.out.println("W size " + rotasItens.size());        
 			atual = rotasItens.get(a);
 			atualX = atual.getPosAtualX();
 			atualY = atual.getPosAtualY();
@@ -339,10 +375,12 @@ System.out.println("FIM ("+ fim.getPosAtualX() + " "+ fim.getPosAtualY() + ")"+ 
 			fim = dijFinal.getRota2();
 System.out.println("FIM 222  ("+ fim.getPosAtualX() + " "+ fim.getPosAtualY() + ")"+ " posAntX " + fim.getPosAnteriorX() + " posAntY " + fim.getPosAnteriorY() +" item " + fim.getItem() + " vlr " + fim.getValorItem() + " vert " + fim.getVertice());
 			rota(map, fim, path, path_index);
-//		}	
+			
 	}
 	
 	public static void printSolution(Map map, int [] path){
+
+		// A partir do mapa e do path contendo a solução, imprime a saída conforme especificações do EP.
 
 		int totalItems = 0;
 		int totalValue = 0;
@@ -381,6 +419,8 @@ System.out.println("FIM 222  ("+ fim.getPosAtualX() + " "+ fim.getPosAtualY() + 
 			System.out.println(lin + " " + col);
 		}
 
+		// Estamos ignorando os itens que são coletados no caminho. Isso precisa ser modificado para a versão final.
+//		System.out.println("0 0 0");
 		System.out.println(totalItems + " " + totalValue + " " + totalWeight);
 		
 		for(int i = 1; i < path_size; i+=2){

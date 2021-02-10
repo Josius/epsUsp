@@ -11,10 +11,8 @@ y = um valor inteiro para identificar o criterio para percorrer o mapa
 SOBRE A CLASSE EP2
 Foram criados diversas variáveis e métodos. Sobre as variáveis não irei me estender.
 Para o critério 1 usei uma busca em largura, mas também deixei funcional a busca por dijkstra, precisa somente descomentar.
-
-Para o critério 2 usei dijkstra alterado para encontrar o maior caminho, há bugs relatados abaixo. Há 
-
-Para o critério 3, primeiramente, usei dois métodos para encontrar as posições de todos os itens no labirinto e armazenei seus em uma lista ligada (usei busca em profundidade com métodos da classe map/item). Depois usei dijkstra para encontrar o caminho para cada item, e assim sucessivamente, pulando de um item até outro e até o final. Iria armazenar todas as possíveis rotas para alcançar cada item até o final; por fim compararia todas essas rotas e usaria a que correspondesse com o critério. 
+Para o critério 2 usei dijkstra alterado para encontrar o maior caminho, há bugs relatados abaixo.
+Para o critério 3, primeiramente, usei dois métodos para encontrar as posições de todos os itens no labirinto e armazenei seus dados. Depois usei dijkstra para encontrar o caminho para cada item, e assim sucessivamente, pulando de um item até outro e até o final. Iria armazenar todas as possíveis rotas para alcançar cada item até o final; por fim compararia todas essas rotas e usaria a que correspondesse com o critério. 
 Infelizmente não consegui terminar esse critério.
 Não apaguei o código no arquivo do EP2, mas pelos testes que fiz, ele só funcionou nos mapas 1, 5, 6, 11 que estou enviando em anexo. 
 NOTA: quando digo que funcionou, quer dizer que ele procurou alguns itens, mas não houve comparação com as várias rotas, ou seja, ele usa somente a primeira e chega no final do labirinto.
@@ -97,9 +95,12 @@ Não foi alterada nada.
 NOTA: Bem, como usei dijkstra e busca em largura, não sei se é preciso mas acho relevante ressaltar que além de pesquisar extensivamente sobre o assunto, executar vários testes e absorver várias fontes sobre o assunto, além de debugar vários códigos, a base usada é muito semelhante ao que é encontrado em estudos, vídeos-aulas e sites sobre programação.
 
 BUGS
-BUG 1 DIJKSTRA: Aparentemente, usar dijkstra para caminho mais longo funcionou, porém, tomemos com exemplo o map1, sua entrada é 6-2 e alteremos sua saida para 6-4. Neste caso ele dá o menor caminho (6-2 - 6-3 - 6-4). O porquê disso acontecer não sei.
+BUG 1 DIJKSTRA: Aparentemente, usar dijkstra para caminho mais longo funcionou, porém, tomemos com exemplo o map1, sua entrada é 6-2 e  
+alteremos sua saida para 6-4. Neste caso ele dá o menor caminho (6-2 - 6-3 - 6-4). O porquê disso acontecer não sei.
 
-BUG 2 DIJKSTRA: O caminho percorrido no map1.txt esta diferente do que e apresentado no pdf. O tamanho do caminho encontrado é o mesmo valor (15), porém ele inicia o maior caminho pela direita, ao invés da esquerda, o que faz ele pegar somente um item ao invés de dois, alterando  
-assim o tempo para percorrer. Como no enunciado do ep estava que era passar pelo maior número de casas, e não há uma sinalização para coincidir em pegar a maior qtde de itens, eu deixei não alterei o código.
+BUG 2 DIJKSTRA: O caminho percorrido no map1.txt esta diferente do que e apresentado no pdf. O tamanho do caminho encontrado é o mesmo valor  
+(15), porém ele inicia o maior caminho pela direita, ao invés da esquerda, o que faz ele pegar somente um item ao invés de dois, alterando  
+assim o tempo para percorrer. Como no enunciado do ep estava que era passar pelo maior número de casas, e não há uma sinalização para coincidir  
+em pegar a maior qtde de itens, eu deixei não alterei o código.
 
 BUG 3 DIJKSTRA: Não funciona em um labirinto sem saída. Caí num loop infinito.
